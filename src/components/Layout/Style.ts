@@ -6,6 +6,7 @@ const boxShadowFooterFinal = "0px -7px 17px 0px rgba(0, 0, 0, 0.3)";
 
 export const HeaderComponent = styled.header`
   height: 50px;
+  padding: 0 40px;
 
   display: flex;
 
@@ -45,24 +46,6 @@ export const FooterComponent = styled.footer`
 
   :hover {
     animation: ${boxShadowAnimation} 1s linear infinite;
-  }
-`;
-
-export const SiteNavigation = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style-type: none;
-`;
-
-export const LinkItem = styled.li<{ isActive: boolean }>`
-  cursor: pointer;
-  color: ${({ isActive }) => isActive && "#f26500"};
-
-  padding: 0 10px;
-
-  &:hover {
-    color: #f26500;
   }
 `;
 

@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import Layout from "../src/components/Layout";
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => (
-  <Layout>
+  <Layout cookie={pageProps}>
     <Component {...pageProps} />
   </Layout>
 );

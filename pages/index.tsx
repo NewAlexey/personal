@@ -1,7 +1,12 @@
-import type { NextPage } from "next";
+import type {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from "next";
 import Head from "next/head";
 
-import Container from "../src/containers/Container";
+import { HomeContainer } from "../src/containers/HomeContainer";
+import { IGetServerSideDefaultProps } from "../utils/interfaces";
 
 const Home: NextPage = () => (
   <>
@@ -9,10 +14,16 @@ const Home: NextPage = () => (
       <title>Alexey Krupenia</title>
       <meta name="description" content="Alexey Krupenia" />
     </Head>
-    <Container>
-      <span>Home page</span>
-    </Container>
+    <HomeContainer />
   </>
 );
 
 export default Home;
+
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<IGetServerSideDefaultProps>> {
+  const { cookies } = context.req;
+
+  return { props: { cookie: cookies } };
+}

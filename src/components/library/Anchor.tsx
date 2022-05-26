@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import styled from "styled-components";
 
-import { AnchorTypes } from "../../../helpers/types";
+import { AnchorTypes } from "../../../utils/types";
 
 const AnchorComponent = styled.a`
   color: inherit;

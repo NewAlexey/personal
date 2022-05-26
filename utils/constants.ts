@@ -14,3 +14,7 @@ export const headerRouteList: Array<IHeaderRoute> = [
     title: "Something",
   },
 ];
+
+export const COLOURS = {
+  primary: "#f26500",
+};

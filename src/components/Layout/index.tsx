@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import { Footer } from './Footer';
-import { Content } from './Content';
-import { Header } from './Header';
+import { Footer } from "./Footer";
+import { Content } from "./Content";
+import { Header } from "./Header";
 
 interface ILayout {
   children: React.ReactElement;

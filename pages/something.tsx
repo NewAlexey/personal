@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import Head from 'next/head';
-import Container from '../src/containers/Container';
+import Head from "next/head";
+import Container from "../src/containers/Container";
 
 const Something = (): JSX.Element => (
   <>

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import * as Style from './Style';
+import * as Style from "./Style";
 
 interface IContent {
   children: React.ReactElement;

@@ -1,13 +1,14 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
-const boxShadowHeader = '0px 5px 17px 0px rgba(0, 0, 0, 0.2)';
-const boxShadowFooterInitial = '0px -5px 17px 0px rgba(0, 0, 0, 0.2)';
-const boxShadowFooterFinal = '0px -7px 17px 0px rgba(0, 0, 0, 0.3)';
+const boxShadowHeader = "0px 5px 17px 0px rgba(0, 0, 0, 0.2)";
+const boxShadowFooterInitial = "0px -5px 17px 0px rgba(0, 0, 0, 0.2)";
+const boxShadowFooterFinal = "0px -7px 17px 0px rgba(0, 0, 0, 0.3)";
 
 export const HeaderComponent = styled.header`
   height: 50px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -56,7 +57,7 @@ export const SiteNavigation = styled.ul`
 
 export const LinkItem = styled.li<{ isActive: boolean }>`
   cursor: pointer;
-  color: ${({ isActive }) => isActive && '#f26500'};
+  color: ${({ isActive }) => isActive && "#f26500"};
 
   padding: 0 10px;
 

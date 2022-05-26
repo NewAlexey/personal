@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import React from 'react';
+import { useRouter } from "next/router";
+import Link from "next/link";
+import React from "react";
 
-import * as Style from './Style';
+import * as Style from "./Style";
 
 interface IHeaderLinkItem {
   url: string;

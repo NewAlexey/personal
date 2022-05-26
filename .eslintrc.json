@@ -42,6 +42,10 @@
         ]
       }
     ],
+    "quotes": [
+      1,
+      "double"
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",

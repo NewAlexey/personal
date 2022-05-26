@@ -1,11 +1,12 @@
-import { ReactElement } from 'react';
-import styled from 'styled-components';
+import { ReactElement } from "react";
+import styled from "styled-components";
 
-import { AnchorTypes } from '../../../helpers/types';
+import { AnchorTypes } from "../../../helpers/types";
 
 const AnchorComponent = styled.a`
   color: inherit;
   height: fit-content;
+
   text-decoration: none;
   width: fit-content;
 

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import * as Styled from './Style';
-import { Anchor } from '../library';
+import * as Styled from "./Style";
+import { Anchor } from "../library";
 
 export const Footer = (): JSX.Element => (
   <Styled.FooterComponent>

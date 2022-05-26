@@ -1,7 +1,7 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
+import type { NextPage } from "next";
+import Head from "next/head";
 
-import Container from '../src/containers/Container';
+import Container from "../src/containers/Container";
 
 const Home: NextPage = () => (
   <>

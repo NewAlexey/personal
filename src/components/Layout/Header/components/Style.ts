@@ -18,22 +18,6 @@ export const LinkItem = styled.li<{ isActive: boolean }>`
   }
 `;
 
-export const ContentContainer = styled.div`
-  width: 300px;
-  height: 180px;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
-
-  background-color: white;
-  margin: 0 auto;
-
-  transform: translateY(calc(50vh - 50%));
-`;
-
 export const ButtonContainer = styled.div`
   display: flex;
   padding-top: 20px;

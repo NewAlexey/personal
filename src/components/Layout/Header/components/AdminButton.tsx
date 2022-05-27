@@ -23,17 +23,21 @@ export const AdminButton = ({ cookie }: IAdminButton): JSX.Element | null => {
   const [isOpen, setIsOpen] = useState(false);
   const isActive = isActiveAdminCookie(cookie);
 
-  const handleClickOpenModal = (): void => setIsOpen(true);
+  const handleOpenModal = (): void => setIsOpen(true);
   const handleCloseModal = (): void => setIsOpen(false);
 
   return isActive ? (
     <>
-      <AdminButtonComponent onClick={handleClickOpenModal}>
+      <AdminButtonComponent onClick={handleOpenModal}>
         <Text>Hidden button</Text>
       </AdminButtonComponent>
-      <Modal isOpen={isOpen} closeModal={handleCloseModal}>
-        <AdminLoginModal closeModal={handleCloseModal} />
-      </Modal>
+      <Modal
+        isOpen={isOpen}
+        closeModal={handleCloseModal}
+        render={({ handleSmoothlyClose }) => (
+          <AdminLoginModal closeModal={handleSmoothlyClose} />
+        )}
+      />
     </>
   ) : null;
 };

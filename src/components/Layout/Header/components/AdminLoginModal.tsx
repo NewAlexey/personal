@@ -50,11 +50,7 @@ export const AdminLoginModal = ({
   };
 
   return (
-    <Style.ContentContainer
-      onClick={(event: React.MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-      }}
-    >
+    <>
       <Input
         label="Login"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -77,6 +73,6 @@ export const AdminLoginModal = ({
         </Button>
       </Style.ButtonContainer>
       {error ? <Text value={error} /> : null}
-    </Style.ContentContainer>
+    </>
   );
 };

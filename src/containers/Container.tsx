@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const ContainerComponent = styled.div`
-  width: 1400px;
-  padding: 15px 20px;
+  width: min(100% - 2rem, 1000px);
+  margin-inline: auto;
 
-  margin: 0 auto;
+  padding: 20px 0;
 `;
 
 interface IContainer {
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 const Container = ({ children }: IContainer): JSX.Element => (

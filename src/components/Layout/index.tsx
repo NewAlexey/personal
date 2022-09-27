@@ -7,12 +7,12 @@ import { Header } from "./Header";
 
 interface ILayout {
   children: React.ReactElement;
-  cookie: NextApiRequestCookies;
+  cookies: NextApiRequestCookies;
 }
 
-const Layout = ({ children, cookie }: ILayout): JSX.Element => (
+const Layout = ({ children, cookies }: ILayout): JSX.Element => (
   <>
-    <Header cookie={cookie} />
+    <Header cookie={cookies} />
     <Content>{children}</Content>
     <Footer />
   </>

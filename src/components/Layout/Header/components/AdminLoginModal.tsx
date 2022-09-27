@@ -26,38 +26,44 @@ export const AdminLoginModal = ({
 
   const handleSubmit = async (): Promise<void> => {
     setError("");
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}api/super-login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}api/super-login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        }
+      );
+
+      const data = (await response.json()) as ISuperData;
+
+      if (response.status !== 200) {
+        setError(data.message);
+      } else {
+        setError("");
+        closeModal();
       }
-    );
 
-    const data = (await response.json()) as ISuperData;
-
-    if (response.status !== 200) {
-      setError(data.message);
-    } else {
-      setError("");
-      closeModal();
+      console.log("data is back!!!!!!", data);
+    } catch (err) {
+      console.log(`Error: ${err}`);
     }
-
-    console.log("data is back!!!!!!", data);
   };
 
   return (
     <>
       <Input
+        value={loginData.login}
         label="Login"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           handleChangeInput(event, "login")
         }
       />
       <Input
+        value={loginData.password}
         label="Password"
         type="password"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { COLOURS } from "../../../utils/constants";
 
-export const Button = styled.button`
+export const Button = styled.button<{ disabled?: boolean }>`
   cursor: pointer;
 
   width: fit-content;
-  height: 25px;
+  height: fit-content;
   padding: 0 15px;
 
   border: 1px solid ${COLOURS.primary};
@@ -21,4 +21,11 @@ export const Button = styled.button`
   &:active {
     background: ${COLOURS.primary};
   }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      pointer-events: none;
+      border: 1px solid ${COLOURS.disabledPrimary};
+    `}
 `;

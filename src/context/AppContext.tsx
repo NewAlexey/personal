@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 
-import { ContextDelayValue } from "utils/types";
+import { ContextDelayValue } from "src/shared/types";
 
 interface IAppContext {
     appContextValue: IInitialValue;

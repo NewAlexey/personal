@@ -1,13 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import CryptoJS from "crypto-js";
 
-import { ILoginData, ISuperData } from "utils/interfaces";
-
 export default function checkSuperLogin(
     req: NextApiRequest,
-    res: NextApiResponse<ISuperData>,
+    res: NextApiResponse,
 ): void {
-    const data = req.body as ILoginData;
+    const data = req.body as { login: string; password: string; };
 
     const decipher = CryptoJS.AES.decrypt(
         process.env.HEHESH as string,

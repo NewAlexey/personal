@@ -13,5 +13,10 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<INextPageDefaultProps>> {
     const { cookies } = context.req;
 
-    return { props: { cookies } };
+    return {
+        props: {
+            cookies,
+            layoutType: "default",
+        },
+    };
 }

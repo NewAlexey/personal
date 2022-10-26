@@ -1,9 +1,13 @@
 import React, { useRef, useState } from "react";
 
 import { useAppContextProvider } from "src/context/AppContext";
-import { Button, Input, Text } from "src/components/library";
-import { radioList, textSizes, textWeight } from "utils/constants";
-import { useAnimationFrame } from "utils/hooks";
+import { Button, Text, TextField } from "src/components/library";
+import { radioList } from "src/shared/constants";
+import { useAnimationFrame } from "src/shared/hooks";
+import {
+    TextSizeEnum,
+    TextWeightEnum,
+} from "src/components/library/Text/interfaces";
 import * as Styled from "./Style";
 import Container from "../Container";
 
@@ -45,7 +49,7 @@ export const ContextContainer = (): JSX.Element => {
             <Styled.InnerWrapper>
                 <h2>Example Page</h2>
                 <Styled.ContentContainer>
-                    <Input
+                    <TextField
                         value={newValue}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -57,8 +61,8 @@ export const ContextContainer = (): JSX.Element => {
                             <Text value="Value 1 -" />
                             <Styled.ValueWrapper>
                                 <Text
-                                    size={textSizes.regular}
-                                    weight={textWeight.bold}
+                                    size={TextSizeEnum.regular}
+                                    weight={TextWeightEnum.bold}
                                     value={appContextValue.value1}
                                 />
                             </Styled.ValueWrapper>
@@ -69,9 +73,8 @@ export const ContextContainer = (): JSX.Element => {
                                 updateContextValue1(newValue);
                                 setNewValue("");
                             }}
-                        >
-                            <Text value="Update Value 1" />
-                        </Button>
+                            text="Update Value 1"
+                        />
                     </Styled.BlockWrapper>
 
                     <Styled.BlockWrapper>
@@ -79,8 +82,8 @@ export const ContextContainer = (): JSX.Element => {
                             <Text value="Value 2 -" />
                             <Styled.ValueWrapper>
                                 <Text
-                                    size={textSizes.regular}
-                                    weight={textWeight.bold}
+                                    size={TextSizeEnum.regular}
+                                    weight={TextWeightEnum.bold}
                                     value={appContextValue.value2}
                                 />
                             </Styled.ValueWrapper>
@@ -91,9 +94,8 @@ export const ContextContainer = (): JSX.Element => {
                                 updateContextValue2(newValue);
                                 setNewValue("");
                             }}
-                        >
-                            <Text value="Update Value 2" />
-                        </Button>
+                            text="Update Value 2"
+                        />
                     </Styled.BlockWrapper>
 
                     <Styled.BlockWrapper>
@@ -101,8 +103,8 @@ export const ContextContainer = (): JSX.Element => {
                             <Text value="Async value -" />
                             <Styled.ValueWrapper>
                                 <Text
-                                    size={textSizes.regular}
-                                    weight={textWeight.bold}
+                                    size={TextSizeEnum.regular}
+                                    weight={TextWeightEnum.bold}
                                     value={appContextValue.asyncValue}
                                 />
                             </Styled.ValueWrapper>
@@ -110,8 +112,8 @@ export const ContextContainer = (): JSX.Element => {
                         <Styled.ProgressBar>
                             <Styled.FakeProgressBar ref={progressRef} />
                             <Styled.CustomText
-                                size={textSizes.regular}
-                                weight={textWeight.bold}
+                                size={TextSizeEnum.regular}
+                                weight={TextWeightEnum.bold}
                                 value="Slow by"
                             />
                         </Styled.ProgressBar>
@@ -121,7 +123,7 @@ export const ContextContainer = (): JSX.Element => {
                             text,
                         }) => (
                             <Styled.RadioInputGroup key={id}>
-                                <Input
+                                <TextField
                                     type="radio"
                                     name="timeout"
                                     id={id}
@@ -133,24 +135,23 @@ export const ContextContainer = (): JSX.Element => {
                             </Styled.RadioInputGroup>
                         ))}
                         <Button
+                            text="Update Async"
                             disabled={Boolean(!newValue.length)}
                             onClick={() => {
                                 asyncUpdateContextValue(
                                     newValue,
                                     Number(appContextValue.selectedDelayValue),
                                 );
-                                setNewValue("");
                                 setIsAnimate(true);
                                 setTimeout(async () => {
-                                    await setIsAnimate(false);
                                     if (progressRef.current) {
                                         progressRef.current.style.width = "0";
                                     }
+                                    setIsAnimate(false);
+                                    setNewValue("");
                                 }, Number(appContextValue.selectedDelayValue));
                             }}
-                        >
-                            <Text value="Update Async" />
-                        </Button>
+                        />
                     </Styled.BlockWrapper>
                 </Styled.ContentContainer>
             </Styled.InnerWrapper>

@@ -2,9 +2,11 @@ import React from "react";
 import Image from "next/image";
 
 import { Text } from "src/components/library";
+import { COLOURS, MY_STACK } from "src/shared/constants";
 import {
-    COLOURS, MY_STACK, textDisplay, textSizes
-} from "utils/constants";
+    TextDisplayEnum,
+    TextSizeEnum,
+} from "src/components/library/Text/interfaces";
 import Container from "../Container";
 import * as Styled from "./Styled";
 
@@ -12,43 +14,45 @@ export const HomeContainer = (): JSX.Element => (
     <Container>
         <Styled.ImageContainer>
             <Image
+                alt="avatar"
                 src="/avatar.jpg"
-                layout="fill"
+                width="275"
+                height="257"
             />
         </Styled.ImageContainer>
         <Styled.TextContainer>
             <Text
                 value="Hi, I'm "
-                size={textSizes.megaText}
-                display={textDisplay.inline}
+                size={TextSizeEnum.megaText}
+                display={TextDisplayEnum.inline}
             />
             <Text
                 value="Alexey"
-                size={textSizes.megaText}
-                display={textDisplay.inline}
+                size={TextSizeEnum.megaText}
+                display={TextDisplayEnum.inline}
                 color={COLOURS.primary}
             />
             <Text
                 value=", Front-End Developer with excellent soft-skills, good time management and "
-                size={textSizes.megaText}
-                display={textDisplay.inline}
+                size={TextSizeEnum.megaText}
+                display={TextDisplayEnum.inline}
             />
             <Text
                 value="1.6 year"
-                size={textSizes.megaText}
-                display={textDisplay.inline}
+                size={TextSizeEnum.megaText}
+                display={TextDisplayEnum.inline}
                 color={COLOURS.primary}
             />
             <Text
                 value=" develop experience"
-                size={textSizes.megaText}
-                display={textDisplay.inline}
+                size={TextSizeEnum.megaText}
+                display={TextDisplayEnum.inline}
             />
         </Styled.TextContainer>
         <Styled.TextContainer>
             <Text
                 value="Technology Stack"
-                size={textSizes.hyperText}
+                size={TextSizeEnum.hyperText}
                 color={COLOURS.primary}
             />
         </Styled.TextContainer>

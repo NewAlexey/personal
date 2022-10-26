@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Text } from "../../components/library";
+import { Text } from "src/components/library";
 
 export const TextContainer = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ export const FakeProgressBar = styled.div`
   width: 0;
   height: 100%;
 
-  background-color: rgba(0, 170, 238, 0.2); ;
+  background-color: rgba(0, 170, 238, 0.2);;
 `;
 
 export const CustomText = styled(Text)`

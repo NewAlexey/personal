@@ -5,19 +5,23 @@ import React from "react";
 import * as Style from "./Style";
 
 interface IHeaderLinkItem {
-  url: string;
-  title: string;
+    url: string;
+    title: string;
 }
 
 export const HeaderLinkItem = ({
-  url,
-  title,
+    url,
+    title,
 }: IHeaderLinkItem): JSX.Element => {
-  const router = useRouter();
+    const router = useRouter();
 
-  return (
-    <Link href={url}>
-      <Style.LinkItem isActive={router.asPath === url}>{title}</Style.LinkItem>
-    </Link>
-  );
+    return (
+        <Link href={url}>
+            <Style.LinkItem
+                isActive={router.asPath === url}
+            >
+                {title}
+            </Style.LinkItem>
+        </Link>
+    );
 };

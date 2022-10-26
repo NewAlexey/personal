@@ -6,16 +6,19 @@ import { Content } from "./Content";
 import { Header } from "./Header";
 
 interface ILayout {
-  children: React.ReactElement;
-  cookies: NextApiRequestCookies;
+    children: React.ReactElement;
+    cookies: NextApiRequestCookies;
 }
 
-const Layout = ({ children, cookies }: ILayout): JSX.Element => (
-  <>
-    <Header cookie={cookies} />
-    <Content>{children}</Content>
-    <Footer />
-  </>
+const Layout = ({
+    children,
+    cookies,
+}: ILayout): JSX.Element => (
+    <>
+        <Header cookie={cookies} />
+        <Content>{children}</Content>
+        <Footer />
+    </>
 );
 
 export default Layout;

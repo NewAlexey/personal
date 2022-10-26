@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 
-import { isActiveAdminCookie } from "../../../../../utils/helpers";
-import { Button, Modal } from "../../../library";
+import { isActiveAdminCookie } from "utils/helpers";
+import { Button, Modal } from "src/components/library";
 import { AdminLoginModal } from "./AdminLoginModal";
 
 const AdminButtonComponent = styled(Button)`
@@ -16,28 +16,28 @@ const Text = styled.span`
 `;
 
 interface IAdminButton {
-  cookie: NextApiRequestCookies;
+    cookie: NextApiRequestCookies;
 }
 
 export const AdminButton = ({ cookie }: IAdminButton): JSX.Element | null => {
-  const [isOpen, setIsOpen] = useState(false);
-  const isActive = isActiveAdminCookie(cookie);
+    const [isOpen, setIsOpen] = useState(false);
+    const isActive = isActiveAdminCookie(cookie);
 
-  const handleOpenModal = (): void => setIsOpen(true);
-  const handleCloseModal = (): void => setIsOpen(false);
+    const handleOpenModal = (): void => setIsOpen(true);
+    const handleCloseModal = (): void => setIsOpen(false);
 
-  return isActive ? (
-    <>
-      <AdminButtonComponent onClick={handleOpenModal}>
-        <Text>Hidden button</Text>
-      </AdminButtonComponent>
-      <Modal
-        isOpen={isOpen}
-        closeModal={handleCloseModal}
-        render={({ handleSmoothlyClose }) => (
-          <AdminLoginModal closeModal={handleSmoothlyClose} />
-        )}
-      />
-    </>
-  ) : null;
+    return isActive ? (
+        <>
+            <AdminButtonComponent onClick={handleOpenModal}>
+                <Text>Hidden button</Text>
+            </AdminButtonComponent>
+            <Modal
+                isOpen={isOpen}
+                closeModal={handleCloseModal}
+                render={({ handleSmoothlyClose }) => (
+                    <AdminLoginModal closeModal={handleSmoothlyClose} />
+                )}
+            />
+        </>
+    ) : null;
 };

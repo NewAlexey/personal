@@ -9,11 +9,11 @@ const ContainerComponent = styled.div`
 `;
 
 interface IContainer {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 const Container = ({ children }: IContainer): JSX.Element => (
-  <ContainerComponent>{children}</ContainerComponent>
+    <ContainerComponent>{children}</ContainerComponent>
 );
 
 export default Container;

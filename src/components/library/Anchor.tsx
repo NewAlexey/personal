@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import styled from "styled-components";
 
-import { AnchorTypes } from "../../../utils/types";
+import { AnchorTypes } from "utils/types";
 
 const AnchorComponent = styled.a`
   color: inherit;
@@ -16,19 +16,27 @@ const AnchorComponent = styled.a`
     color: inherit;
   }
 
+
   > * {
     color: inherit;
   }
 `;
 
 interface IAnchor {
-  href: string;
-  children: ReactElement;
-  target?: AnchorTypes;
+    href: string;
+    children: ReactElement;
+    target?: AnchorTypes;
 }
 
-export const Anchor = ({ href, target, children }: IAnchor): JSX.Element => (
-  <AnchorComponent href={href} target={target}>
-    {children}
-  </AnchorComponent>
+export const Anchor = ({
+    href,
+    target,
+    children,
+}: IAnchor): JSX.Element => (
+    <AnchorComponent
+        href={href}
+        target={target}
+    >
+        {children}
+    </AnchorComponent>
 );

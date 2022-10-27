@@ -19,3 +19,14 @@ a {
     margin: 0;
     padding: 0;
 }
+
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: white !important;
+    }
+
+    body {
+        color: black !important;
+        background: white !important;
+    }
+}

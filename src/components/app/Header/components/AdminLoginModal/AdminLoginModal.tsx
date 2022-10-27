@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 import { ILoginData, ISuperData } from "src/shared/interfaces";
 import { Button, Text, TextField } from "src/components/library";
@@ -7,6 +8,7 @@ import * as Style
 import {
     IAdminLoginModal,
 } from "src/components/app/Header/components/AdminLoginModal/interfaces";
+import { useAuthContext } from "src/context";
 
 export const AdminLoginModal = ({
     closeModal,
@@ -16,6 +18,11 @@ export const AdminLoginModal = ({
         login: "",
         password: "",
     });
+    const router = useRouter();
+    const {
+        setAuthCookie,
+        changeAuthState,
+    } = useAuthContext();
 
     const handleChangeInput = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -29,6 +36,8 @@ export const AdminLoginModal = ({
 
     const handleSubmit = async (): Promise<void> => {
         setErrorMessage("");
+
+        // eslint-disable-next-line no-useless-catch
         try {
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_HOST}api/super-login`,
@@ -43,16 +52,16 @@ export const AdminLoginModal = ({
 
             const data = (await response.json()) as ISuperData;
 
-            if (response.status !== 200) {
-                setErrorMessage(data.message);
-            } else {
+            if (response.status === 200) {
                 setErrorMessage("");
-                closeModal();
+                setAuthCookie();
+                changeAuthState(true);
+                router.push("personal");
+            } else {
+                setErrorMessage(data.message);
             }
-
-            console.log("data is back!!!!!!", data);
         } catch (error) {
-            console.log(`Error: ${error}`);
+            throw error;
         }
     };
 

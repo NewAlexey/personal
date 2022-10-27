@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import { AppContextProvider } from "src/context/AppContext";
 import { IAppProps } from "utils/interfaces";
 import MainLayout from "src/components/app/layouts/MainLayout/MainLayout";
+import { AuthContextProvider } from "src/context";
 
 const App = ({
     Component,
@@ -14,15 +15,17 @@ const App = ({
         : "default";
 
     return (
-        <AppContextProvider>
-            {pageProps.layoutType === "default"
-                ? (
-                    <MainLayout cookies={pageProps.cookies}>
-                        <Component {...pageProps} />
-                    </MainLayout>
-                )
-                : null}
-        </AppContextProvider>
+        <AuthContextProvider>
+            <AppContextProvider>
+                {pageProps.layoutType === "default"
+                    ? (
+                        <MainLayout cookies={pageProps.cookies}>
+                            <Component {...pageProps} />
+                        </MainLayout>
+                    )
+                    : null}
+            </AppContextProvider>
+        </AuthContextProvider>
     );
 };
 

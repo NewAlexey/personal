@@ -8,9 +8,10 @@ import * as Style from "src/components/library/Text/style";
 
 export const Text = ({
     value,
+    style,
+    className,
     size = TextSizeEnum.regular,
     weight = TextWeightEnum.regular,
-    className,
     display = TextDisplayEnum.block,
     color = "black",
 }: IText): JSX.Element => (
@@ -20,6 +21,7 @@ export const Text = ({
         className={className}
         display={display}
         color={color}
+        style={style}
     >
         {value}
     </Style.SpanComponent>

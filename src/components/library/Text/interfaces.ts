@@ -1,3 +1,5 @@
+import { CSSProperties } from "react";
+
 export enum TextSizeEnum {
     small = "12px",
     regular = "14px",
@@ -27,5 +29,6 @@ export interface ISpan {
 
 export interface IText extends ISpan {
     value: string;
+    style?: CSSProperties;
     className?: string;
 }

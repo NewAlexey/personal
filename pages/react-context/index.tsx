@@ -2,9 +2,9 @@ import React from "react";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
 import { INextPageDefaultProps } from "utils/interfaces";
-import { ContextContainer } from "src/containers";
+import { ContextModule } from "src/modules";
 
-const ReactContext = (): JSX.Element => <ContextContainer />;
+const ReactContext = (): JSX.Element => <ContextModule />;
 
 export default ReactContext;
 

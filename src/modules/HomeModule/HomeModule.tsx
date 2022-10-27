@@ -7,11 +7,10 @@ import {
     TextDisplayEnum,
     TextSizeEnum,
 } from "src/components/library/Text/interfaces";
-import Container from "../Container";
-import * as Styled from "./Styled";
+import * as Styled from "src/modules/HomeModule/style";
 
-export const HomeContainer = (): JSX.Element => (
-    <Container>
+export const HomeModule = (): JSX.Element => (
+    <>
         <Styled.ImageContainer>
             <Image
                 alt="avatar"
@@ -65,5 +64,5 @@ export const HomeContainer = (): JSX.Element => (
                 ))}
             </Styled.List>
         </Styled.TextContainer>
-    </Container>
+    </>
 );

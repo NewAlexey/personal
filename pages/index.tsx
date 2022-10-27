@@ -5,7 +5,7 @@ import type {
 } from "next";
 import Head from "next/head";
 
-import { HomeContainer } from "src/containers";
+import { HomeModule } from "src/modules";
 import { INextPageDefaultProps } from "utils/interfaces";
 
 const Home: NextPage = () => (
@@ -17,7 +17,7 @@ const Home: NextPage = () => (
                 content="Alexey Krupenia Frontend Developer"
             />
         </Head>
-        <HomeContainer />
+        <HomeModule />
     </>
 );
 

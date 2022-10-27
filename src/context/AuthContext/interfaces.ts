@@ -6,8 +6,8 @@ export interface IAuthContext {
     setAuthCookie: () => void;
 }
 
-export interface IAppContextProvider {
+export interface IAuthContextProvider {
     children: React.ReactNode;
 }
 
-export type IMemoizedAuthValue = IAuthContext
+export type IMemoizedAuthContextValue = IAuthContext

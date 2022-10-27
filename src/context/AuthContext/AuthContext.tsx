@@ -4,14 +4,14 @@ import React, {
 import { useCookies } from "react-cookie";
 
 import {
-    IAppContextProvider,
     IAuthContext,
-    IMemoizedAuthValue,
-} from "src/context/AuthContextProvider/interfaces";
+    IAuthContextProvider,
+    IMemoizedAuthContextValue,
+} from "src/context/AuthContext/interfaces";
 
 const AuthContext = React.createContext({ isAuth: false } as IAuthContext);
 
-export const AuthContextProvider = ({ children }: IAppContextProvider) => {
+export const AuthContextProvider = ({ children }: IAuthContextProvider) => {
     const [isAuth, setIsAuth] = useState(false);
     const [cookies, setCookies] = useCookies([
         process.env.NEXT_PUBLIC_SUPER_LESHA ?? "heh",
@@ -34,7 +34,7 @@ export const AuthContextProvider = ({ children }: IAppContextProvider) => {
         setCookies("ac", "1", { maxAge: 3600 });
     }, [setCookies]);
 
-    const memoizedAuthValue = useMemo((): IMemoizedAuthValue => ({
+    const memoizedAuthValue = useMemo((): IMemoizedAuthContextValue => ({
         isAuth,
         changeAuthState,
         setAuthCookie,

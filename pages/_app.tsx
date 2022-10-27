@@ -1,10 +1,12 @@
 import "../styles/font.css";
 import "../styles/globals.css";
 
-import { AppContextProvider } from "src/context/AppContext";
 import { IAppProps } from "utils/interfaces";
 import MainLayout from "src/components/app/layouts/MainLayout/MainLayout";
 import { AuthContextProvider } from "src/context";
+import {
+    ExperimentalContextProvider,
+} from "src/context/ExperimentalContext/ExperimentalContext";
 
 const App = ({
     Component,
@@ -16,7 +18,7 @@ const App = ({
 
     return (
         <AuthContextProvider>
-            <AppContextProvider>
+            <ExperimentalContextProvider>
                 {pageProps.layoutType === "default"
                     ? (
                         <MainLayout cookies={pageProps.cookies}>
@@ -24,7 +26,7 @@ const App = ({
                         </MainLayout>
                     )
                     : null}
-            </AppContextProvider>
+            </ExperimentalContextProvider>
         </AuthContextProvider>
     );
 };

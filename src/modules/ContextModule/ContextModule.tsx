@@ -1,6 +1,4 @@
-import React, { useRef, useState } from "react";
-
-import { useAppContextProvider } from "src/context/AppContext";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Text, TextField } from "src/components/library";
 import { radioList } from "src/shared/constants";
 import { useAnimationFrame } from "src/shared/hooks";
@@ -9,15 +7,16 @@ import {
     TextWeightEnum,
 } from "src/components/library/Text/interfaces";
 import * as Styled from "src/modules/ContextModule/style";
+import { useExperimentalContextProvider } from "src/context";
 
 export const ContextModule = (): JSX.Element => {
     const {
-        appContextValue,
+        experimentalContextValue,
         setDelayValue,
         updateContextValue1,
         updateContextValue2,
         asyncUpdateContextValue,
-    } = useAppContextProvider();
+    } = useExperimentalContextProvider();
     const [newValue, setNewValue] = useState<string>("");
     const [isAnimate, setIsAnimate] = useState(false);
 
@@ -32,7 +31,7 @@ export const ContextModule = (): JSX.Element => {
 
         const progress = timestamp - progressStart.current;
         const animationProgress = Math.min(
-            progress / (Number(appContextValue.selectedDelayValue) / 100),
+            progress / (Number(experimentalContextValue.selectedDelayValue) / 100),
             MAX_PROGRESS_WIDTH,
         );
 
@@ -42,6 +41,12 @@ export const ContextModule = (): JSX.Element => {
     };
 
     useAnimationFrame(step, isAnimate, progressStart);
+
+    useEffect(() => {
+        if (!isAnimate && progressRef.current) {
+            progressRef.current.style.width = "0";
+        }
+    }, [isAnimate]);
 
     return (
         <Styled.InnerWrapper>
@@ -61,7 +66,7 @@ export const ContextModule = (): JSX.Element => {
                             <Text
                                 size={TextSizeEnum.regular}
                                 weight={TextWeightEnum.bold}
-                                value={appContextValue.value1}
+                                value={experimentalContextValue.value1}
                             />
                         </Styled.ValueWrapper>
                     </Styled.TextContainer>
@@ -82,7 +87,7 @@ export const ContextModule = (): JSX.Element => {
                             <Text
                                 size={TextSizeEnum.regular}
                                 weight={TextWeightEnum.bold}
-                                value={appContextValue.value2}
+                                value={experimentalContextValue.value2}
                             />
                         </Styled.ValueWrapper>
                     </Styled.TextContainer>
@@ -103,7 +108,7 @@ export const ContextModule = (): JSX.Element => {
                             <Text
                                 size={TextSizeEnum.regular}
                                 weight={TextWeightEnum.bold}
-                                value={appContextValue.asyncValue}
+                                value={experimentalContextValue.asyncValue}
                             />
                         </Styled.ValueWrapper>
                     </Styled.TextContainer>
@@ -126,7 +131,7 @@ export const ContextModule = (): JSX.Element => {
                                 name="timeout"
                                 id={id}
                                 value={delayValue}
-                                checked={appContextValue.selectedDelayValue === delayValue}
+                                checked={experimentalContextValue.selectedDelayValue === delayValue}
                                 onChange={() => setDelayValue(delayValue)}
                             />
                             <label htmlFor={id}>{text}</label>
@@ -135,19 +140,14 @@ export const ContextModule = (): JSX.Element => {
                     <Button
                         text="Update Async"
                         disabled={Boolean(!newValue.length)}
-                        onClick={() => {
-                            asyncUpdateContextValue(
-                                newValue,
-                                Number(appContextValue.selectedDelayValue),
-                            );
+                        onClick={async () => {
                             setIsAnimate(true);
-                            setTimeout(async () => {
-                                if (progressRef.current) {
-                                    progressRef.current.style.width = "0";
-                                }
-                                setIsAnimate(false);
-                                setNewValue("");
-                            }, Number(appContextValue.selectedDelayValue));
+                            await asyncUpdateContextValue(
+                                newValue,
+                                Number(experimentalContextValue.selectedDelayValue),
+                            );
+                            setNewValue("");
+                            setIsAnimate(false);
                         }}
                     />
                 </Styled.BlockWrapper>

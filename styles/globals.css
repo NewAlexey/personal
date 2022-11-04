@@ -30,3 +30,28 @@ a {
         background: white !important;
     }
 }
+
+@keyframes backdropHide {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.initial-loader {
+    z-index: 1000;
+    opacity: 0;
+
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: whitesmoke;
+
+    animation: backdropHide 0.8s ease-in;
+}
+

@@ -11,3 +11,11 @@ export interface INextPageDefaultProps {
     cookies: NextApiRequestCookies;
     layoutType?: LayoutType;
 }
+
+export interface IHomePageProps extends INextPageDefaultProps {
+    homePageData: IHomePageInfo;
+}
+
+export interface IHomePageInfo {
+    info: string;
+}

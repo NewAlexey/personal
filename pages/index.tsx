@@ -6,9 +6,10 @@ import type {
 import Head from "next/head";
 
 import { HomeModule } from "src/modules";
-import { INextPageDefaultProps } from "utils/interfaces";
+import { IHomePageProps } from "utils/interfaces";
+import MainPageService from "service/HomePageService";
 
-const Home: NextPage = () => (
+const Home: NextPage<IHomePageProps> = ({ homePageData }) => (
     <>
         <Head>
             <title>Alexey Krupenia Frontend Developer</title>
@@ -17,7 +18,7 @@ const Home: NextPage = () => (
                 content="Alexey Krupenia Frontend Developer"
             />
         </Head>
-        <HomeModule />
+        <HomeModule homePageInfo={homePageData.info} />
     </>
 );
 
@@ -25,8 +26,15 @@ export default Home;
 
 export async function getServerSideProps(
     context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<INextPageDefaultProps>> {
+): Promise<GetServerSidePropsResult<IHomePageProps>> {
     const { cookies } = context.req;
 
-    return { props: { cookies } };
+    const data = await MainPageService.getHomePageData();
+
+    return {
+        props: {
+            cookies,
+            homePageData: data.homePageData,
+        },
+    };
 }

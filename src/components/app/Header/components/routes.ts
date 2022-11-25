@@ -1,4 +1,7 @@
-import { IHeaderRoute } from "src/shared/interfaces";
+interface IHeaderRoute {
+    url: string;
+    title: string;
+}
 
 export const HEADER_ROUTES: Array<IHeaderRoute> = [
     {

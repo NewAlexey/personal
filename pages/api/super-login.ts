@@ -5,7 +5,10 @@ export default function checkSuperLogin(
     req: NextApiRequest,
     res: NextApiResponse,
 ): void {
-    const data = req.body as { login: string; password: string; };
+    const {
+        password,
+        login,
+    } = req.body as { login: string; password: string; };
 
     const decipher = CryptoJS.AES.decrypt(
         process.env.HEHESH as string,
@@ -13,8 +16,8 @@ export default function checkSuperLogin(
     );
 
     if (
-        data.login === process.env.SUPER_LOGIN &&
-        data.password === decipher.toString(CryptoJS.enc.Utf8)
+        login === process.env.SUPER_LOGIN &&
+        password === decipher.toString(CryptoJS.enc.Utf8)
     ) {
         res.status(200)
             .json({ message: "All good!" });

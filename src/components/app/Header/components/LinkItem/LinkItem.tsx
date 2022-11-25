@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-import * as Style
-    from "src/components/app/Header/components/Navigation/LinkItem/style";
-import {
-    ILinkItem,
-} from "src/components/app/Header/components/Navigation/LinkItem/interfaces";
+import * as Style from "src/components/app/Header/components/LinkItem/style";
+
+interface ILinkItem {
+    url: string;
+    title: string;
+}
 
 export const LinkItem = ({
     url,

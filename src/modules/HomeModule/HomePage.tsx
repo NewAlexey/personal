@@ -14,7 +14,7 @@ interface IHomeModule {
     homePageInfo: string;
 }
 
-export const HomeModule = ({ homePageInfo }: IHomeModule): JSX.Element => {
+export const HomePage = ({ homePageInfo }: IHomeModule): JSX.Element => {
     const sanitizedData = DOMPurify.sanitize(homePageInfo);
 
     return (

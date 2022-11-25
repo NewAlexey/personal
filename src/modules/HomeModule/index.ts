@@ -1,1 +1,1 @@
-export * from "./HomeModule";
+export * from "src/modules/HomeModule/HomePage";

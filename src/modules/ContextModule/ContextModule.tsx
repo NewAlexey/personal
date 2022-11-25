@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import { Button, Text, TextField } from "src/components/library";
-import { radioList } from "src/shared/constants";
 import { useAnimationFrame } from "src/shared/hooks";
 import {
     TextSizeEnum,
@@ -8,6 +8,7 @@ import {
 } from "src/components/library/Text/interfaces";
 import * as Styled from "src/modules/ContextModule/style";
 import { useExperimentalContextProvider } from "src/context";
+import { radioList } from "src/context/ExperimentalContext/constants";
 
 export const ContextModule = (): JSX.Element => {
     const {

@@ -1,31 +1,21 @@
 import FireBaseApi from "api/FireBaseApi";
-import { IHomePageInfo } from "utils/interfaces";
-import { MOCK_HOME_INFO_PAGE_DATA } from "utils/constants";
+import { OperationStatusEnum } from "service/service.interfaces";
+import { IHomePageData } from "utils/data.interfaces";
 
 interface IHomePageService {
-    getHomePageData: () => Promise<{ homePageData: IHomePageInfo }>;
+    getHomePageData: () => Promise<{ homePageData: IHomePageData }>;
+    updateHomePageInfoData: (info: string) => Promise<{ status: OperationStatusEnum; message: string; }>;
 }
 
 class HomePageService implements IHomePageService {
     private api = new FireBaseApi();
 
     public async getHomePageData() {
-        const {
-            message,
-            homePageData,
-        } = await this.api.getHomePageData();
+        return this.api.getHomePageData();
+    }
 
-        if (!homePageData.info) {
-            return {
-                message,
-                homePageData: { info: MOCK_HOME_INFO_PAGE_DATA },
-            };
-        }
-
-        return {
-            message,
-            homePageData: { info: homePageData.info as string },
-        };
+    public async updateHomePageInfoData(info: string) {
+        return this.api.updateHomePageInfoData(info);
     }
 }
 

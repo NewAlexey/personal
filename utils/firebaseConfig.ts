@@ -13,6 +13,4 @@ const firebaseConfig = {
     databaseURL: process.env.NEXT_PUBLIC_FB_DB_URL,
 };
 
-initializeApp(firebaseConfig);
-
-export const dbRef = ref(getDatabase());
+export const dbRef = ref(getDatabase(initializeApp(firebaseConfig)));

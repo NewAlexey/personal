@@ -1,2 +1,3 @@
-export * from "src/shared/hooks/useMount";
-export * from "src/shared/hooks/useAnimationFrame";
+export * from "./useMount";
+export * from "./useAnimationFrame";
+export * from "./useError";

@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect } from "react";
+import {
+    MutableRefObject, useCallback, useEffect, useRef
+} from "react";
 
 export const useAnimationFrame = (
     callback: (timestamp: number) => void,
     isAnimationStart: boolean,
-    progressStartRef: React.MutableRefObject<number>,
+    progressStartRef: MutableRefObject<number>,
 ): void => {
-    const callbackRef = React.useRef(callback);
-    const frameRef = React.useRef(0);
+    const callbackRef = useRef(callback);
+    const frameRef = useRef(0);
 
     useEffect(() => {
         callbackRef.current = callback;

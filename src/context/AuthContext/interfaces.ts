@@ -2,8 +2,8 @@ import React from "react";
 
 export interface IAuthContext {
     isAuth: boolean;
-    changeAuthState: (state: boolean) => void;
-    setAuthCookie: () => void;
+    authLogIn: () => void;
+    authLogOut: () => void;
 }
 
 export interface IAuthContextProvider {

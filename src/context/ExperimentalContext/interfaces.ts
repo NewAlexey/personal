@@ -1,6 +1,12 @@
 import React from "react";
 
-import { ContextDelayValue } from "src/shared/types";
+export type ContextDelayValue = "500" | "1000" | "2000";
+
+export interface IContextRadioList {
+    id: string;
+    delayValue: ContextDelayValue;
+    text: string;
+}
 
 export interface IExperimentalContext {
     experimentalContextValue: IExperimentalContextValue;

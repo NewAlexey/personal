@@ -9,11 +9,11 @@ import {
     IMemoizedAuthContextValue,
 } from "src/context/AuthContext/interfaces";
 
-const AuthContext = React.createContext({ isAuth: false } as IAuthContext);
+const AuthContext = React.createContext<undefined | IAuthContext>(undefined);
 
 export const AuthContextProvider = ({ children }: IAuthContextProvider) => {
     const [isAuth, setIsAuth] = useState(false);
-    const [cookies, setCookies] = useCookies([
+    const [cookies, setCookies, removeCookie] = useCookies([
         process.env.NEXT_PUBLIC_SUPER_LESHA ?? "heh",
         "ac",
     ]);
@@ -24,26 +24,39 @@ export const AuthContextProvider = ({ children }: IAuthContextProvider) => {
         if (acCookie) {
             setIsAuth(true);
         }
-    });
+    }, [cookies.ac]);
 
-    const changeAuthState = useCallback((state: boolean) => {
-        setIsAuth(state);
-    }, []);
-
-    const setAuthCookie = useCallback(() => {
-        setCookies("ac", "1", { maxAge: 3600 });
+    const authLogIn = useCallback(() => {
+        setCookies("ac", "1", {
+            maxAge: 3600,
+            sameSite: "none",
+            secure: true,
+        });
+        setIsAuth(true);
     }, [setCookies]);
+
+    const authLogOut = useCallback(() => {
+        removeCookie("ac");
+        setIsAuth(false);
+    }, [removeCookie]);
 
     const memoizedAuthValue = useMemo((): IMemoizedAuthContextValue => ({
         isAuth,
-        changeAuthState,
-        setAuthCookie,
-    }), [changeAuthState, isAuth, setAuthCookie]);
+        authLogIn,
+        authLogOut,
+    }), [authLogIn, authLogOut, isAuth]);
 
     return (
         <AuthContext.Provider value={memoizedAuthValue}>{children}</AuthContext.Provider>
     );
 };
 
-export const useAuthContext = (): IAuthContext =>
-    React.useContext(AuthContext);
+export const useAuthContext = (): IAuthContext => {
+    const context = React.useContext(AuthContext);
+
+    if (!context) {
+        throw Error("useAuthContext must be used inside AuthContextProvider");
+    }
+
+    return context;
+};

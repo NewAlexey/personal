@@ -1,22 +1,19 @@
 import React from "react";
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
-import { INextPageDefaultProps } from "utils/interfaces";
 import { ContextModule } from "src/modules";
+import Head from "next/head";
 
-const ReactContext = (): JSX.Element => <ContextModule />;
+const ReactContext = (): JSX.Element => (
+    <>
+        <Head>
+            <title>Alexey Krupenia Frontend Developer</title>
+            <meta
+                name="description"
+                content="Alexey Krupenia Frontend Developer"
+            />
+        </Head>
+        <ContextModule />
+    </>
+);
 
 export default ReactContext;
-
-export async function getServerSideProps(
-    context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<INextPageDefaultProps>> {
-    const { cookies } = context.req;
-
-    return {
-        props: {
-            cookies,
-            layoutType: "default",
-        },
-    };
-}

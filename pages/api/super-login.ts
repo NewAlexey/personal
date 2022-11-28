@@ -20,9 +20,9 @@ export default function checkSuperLogin(
         password === decipher.toString(CryptoJS.enc.Utf8)
     ) {
         res.status(200)
-            .json({ message: "All good!" });
+            .json({ message: "Authentication success!!" });
     } else {
         res.status(403)
-            .json({ message: "All very bad..." });
+            .json({ message: "Authentication failed..." });
     }
 }

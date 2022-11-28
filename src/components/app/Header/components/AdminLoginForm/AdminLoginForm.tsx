@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Text, TextField } from "src/components/library";
+import { Button, TextField } from "src/components/library";
 import * as Style
     from "src/components/app/Header/components/AdminLoginModal/style";
 
@@ -10,7 +10,6 @@ export interface IAuthLoginFormData {
 }
 
 interface IAdminLoginForm {
-    errorMessage: string;
     closeModal: () => void;
     submit: ({
         login,
@@ -19,7 +18,6 @@ interface IAdminLoginForm {
 }
 
 export const AdminLoginForm = ({
-    errorMessage,
     closeModal,
     submit,
 }: IAdminLoginForm) => {
@@ -67,7 +65,6 @@ export const AdminLoginForm = ({
                     text="Close"
                 />
             </Style.ButtonContainer>
-            {errorMessage ? <Text value={errorMessage} /> : null}
         </>
     );
 };

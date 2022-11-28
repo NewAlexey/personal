@@ -10,8 +10,7 @@ import {
 } from "src/components/app/Header/components";
 import { isActiveAdminCookie } from "src/shared/helpers";
 import { useAuthContext } from "src/context";
-import { colours } from "utils/constants";
-import { Text } from "src/components/library";
+import { THEME_COLOURS } from "utils/constants";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 
 interface IHeader {
@@ -56,9 +55,9 @@ export const Header = ({ cookie }: IHeader): JSX.Element => {
                     <>
                         <Style.HeaderAuthContainer>
                             <Link href="/personal">
-                                <Text
+                                <Style.LinkText
                                     color={router.asPath === "/personal"
-                                        ? colours.light.active
+                                        ? THEME_COLOURS.light.active
                                         : "black"}
                                     value="Admin Page"
                                 />

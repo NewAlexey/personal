@@ -12,7 +12,9 @@ import HomePageService from "service/HomePageService";
 import * as Style from "src/modules/AdminModule/style";
 import { ColourService } from "service/ColourService";
 import { SeparatorLine } from "src/components/library/SeparatorLine";
-import { useError } from "src/shared/hooks";
+import { usePopupContext } from "lib/PopupContext";
+import { Popup } from "src/components/library/Popup";
+import { OperationStatusEnum } from "service/service.interfaces";
 
 interface IConfigurationAdminPanel {
     homePageInfo: string;
@@ -25,10 +27,7 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
     const [prevColour, setPrevColour] = useState(hexColour);
     const [infoData, setInfoData] = useState(homePageInfo);
 
-    const {
-        error,
-        setSmoothClearErrorMessage,
-    } = useError();
+    const { createPopup } = usePopupContext();
 
     useEffect(() => {
         setInfoData((prevInfoData) => ColourServiceRef.current.changeAllColoursInString(
@@ -43,8 +42,17 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
     }, [hexColour]);
 
     const onUpdateHomepageInfo = async () => {
-        const { message } = await HomePageService.updateHomePageInfoData(infoData);
-        setSmoothClearErrorMessage(message);
+        const {
+            message,
+            status,
+        } = await HomePageService.updateHomePageInfoData(infoData);
+
+        createPopup(
+            <Popup
+                message={message}
+                type={status === OperationStatusEnum.OK ? "success" : "error"}
+            />,
+        );
     };
 
     return (
@@ -80,10 +88,6 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
                     text="Update Homepage Info"
                     onClick={onUpdateHomepageInfo}
                 />
-
-                {error ? (
-                    <Style.ErrorMessage value={error} />
-                ) : null}
             </Style.ButtonContainer>
         </Style.AdminPanelContainer>
     );

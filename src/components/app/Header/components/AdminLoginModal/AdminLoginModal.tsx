@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useRouter } from "next/router";
 
 import { useAuthContext } from "src/context";
@@ -9,6 +9,8 @@ import {
     AdminLoginForm,
     IAuthLoginFormData,
 } from "src/components/app/Header/components";
+import { usePopupContext } from "lib/PopupContext";
+import { Popup } from "src/components/library/Popup";
 
 interface IAdminLoginModal {
     closeModal: () => void;
@@ -24,13 +26,12 @@ export const AdminLoginModal = ({
         authLogIn,
     } = useAuthContext();
 
-    const [errorMessage, setErrorMessage] = useState("");
+    const { createPopup } = usePopupContext();
 
     const onSubmit = async ({
         login,
         password,
     }: IAuthLoginFormData): Promise<void> => {
-        setErrorMessage("");
         const authData = new AuthModel({
             login,
             password,
@@ -42,10 +43,22 @@ export const AdminLoginModal = ({
         } = await AuthServiceRef.current.authRequest(authData.authDataToString());
 
         if (status !== OperationStatusEnum.OK) {
-            setErrorMessage(message);
+            createPopup(
+                <Popup
+                    message={message}
+                    type="error"
+                />,
+            );
 
             return;
         }
+
+        createPopup(
+            <Popup
+                message={message}
+                type="success"
+            />,
+        );
 
         authLogIn();
         closeModal();
@@ -54,7 +67,6 @@ export const AdminLoginModal = ({
 
     return (
         <AdminLoginForm
-            errorMessage={errorMessage}
             closeModal={closeModal}
             submit={onSubmit}
         />

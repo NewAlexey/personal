@@ -46,11 +46,11 @@ class FireBaseApi implements IFireBaseApi {
 
             return {
                 status: OperationStatusEnum.OK,
-                message: "Vse ok!!!",
+                message: "All good, cool!",
             };
         } catch (error) {
             // eslint-disable-next-line no-console
-            console.log(`Set custom info error - ${error}`);
+            console.log(`updateHomePageInfo error - ${error}`);
 
             return {
                 status: OperationStatusEnum.ERROR,

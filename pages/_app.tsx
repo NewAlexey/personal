@@ -10,6 +10,7 @@ import {
 } from "src/context/ExperimentalContext/ExperimentalContext";
 import { InitialLoader } from "src/components/library";
 import { IAppProps } from "utils/pages.interfaces";
+import { PopupContextProvider } from "lib/PopupContext";
 
 const App = ({
     Component,
@@ -22,21 +23,24 @@ const App = ({
     const [showLoader, setShowLoader] = useState(true);
 
     return (
-        <AuthContextProvider>
-            <ExperimentalContextProvider>
-                {showLoader
-                    ? <InitialLoader setShowLoader={setShowLoader} />
-                    : null}
+        <PopupContextProvider>
+            <AuthContextProvider>
+                <ExperimentalContextProvider>
 
-                {pageProps.layoutType === "default"
-                    ? (
-                        <MainLayout cookies={pageProps.cookies}>
-                            <Component {...pageProps} />
-                        </MainLayout>
-                    )
-                    : null}
-            </ExperimentalContextProvider>
-        </AuthContextProvider>
+                    {showLoader
+                        ? <InitialLoader setShowLoader={setShowLoader} />
+                        : null}
+
+                    {pageProps.layoutType === "default"
+                        ? (
+                            <MainLayout cookies={pageProps.cookies}>
+                                <Component {...pageProps} />
+                            </MainLayout>
+                        )
+                        : null}
+                </ExperimentalContextProvider>
+            </AuthContextProvider>
+        </PopupContextProvider>
     );
 };
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Button } from "src/components/library";
+import { Button, Text } from "src/components/library";
 
 const boxShadowHeader = "0px 5px 17px 0px rgba(0, 0, 0, 0.2)";
 
@@ -31,4 +31,10 @@ export const LoginButton = styled(Button)`
 export const HeaderAuthContainer = styled.div`
   position: absolute;
   right: 140px;
+`;
+
+export const LinkText = styled(Text)`
+  &:hover {
+    color: #f26500;
+  }
 `;

@@ -61,14 +61,14 @@ export const ToastComponentHOC = ({
     };
 
     return (
-        <ToastContainer
+        <ToastContainerHOC
             ref={ref}
             isMount={isMount}
             isOpen={isOpen}
             onTransitionEnd={onDestroyToast}
         >
             {component}
-        </ToastContainer>
+        </ToastContainerHOC>
     );
 };
 
@@ -77,7 +77,7 @@ interface IToastContainer {
     isOpen: boolean;
 }
 
-const ToastContainer = styled.div<IToastContainer>`
+const ToastContainerHOC = styled.div<IToastContainer>`
   bottom: 0;
   right: 0;
 

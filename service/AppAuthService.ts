@@ -3,7 +3,7 @@ import {
     OperationStatusEnum,
 } from "service/service.interfaces";
 
-export class AuthService {
+export class AppAuthService {
     private readonly baseUrl = `${process.env.NEXT_PUBLIC_HOST}api/super-login`;
 
     public async authRequest(authData: string): Promise<IRequestServiceResponse> {

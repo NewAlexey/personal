@@ -2,24 +2,21 @@ import React, { useRef } from "react";
 import { useRouter } from "next/router";
 
 import { useAuthContext } from "src/context";
-import { AuthService } from "service/AuthService";
-import { AuthModel } from "models/AuthModel";
+import { AppAuthService } from "service/AppAuthService";
+import { AppAuthModel, IAppAuthModel } from "models/AppAuthModel";
 import { OperationStatusEnum } from "service/service.interfaces";
-import {
-    AdminLoginForm,
-    IAuthLoginFormData,
-} from "src/components/app/Header/components";
 import { useToastContext } from "lib/ToastContext";
 import { Toast } from "src/components/library/Toast";
+import { AppAuthForm } from "src/components/library/Form/AppAuthForm";
 
 interface IAdminLoginModal {
     closeModal: () => void;
 }
 
-export const AdminLoginModal = ({
+export const AdminAuthModal = ({
     closeModal,
 }: IAdminLoginModal): JSX.Element => {
-    const AuthServiceRef = useRef(new AuthService());
+    const AuthServiceRef = useRef(new AppAuthService());
 
     const router = useRouter();
     const {
@@ -31,8 +28,8 @@ export const AdminLoginModal = ({
     const onSubmit = async ({
         login,
         password,
-    }: IAuthLoginFormData): Promise<void> => {
-        const authData = new AuthModel({
+    }: IAppAuthModel): Promise<void> => {
+        const authData = new AppAuthModel({
             login,
             password,
         });
@@ -66,7 +63,7 @@ export const AdminLoginModal = ({
     };
 
     return (
-        <AdminLoginForm
+        <AppAuthForm
             closeModal={closeModal}
             submit={onSubmit}
         />

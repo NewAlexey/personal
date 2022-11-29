@@ -9,10 +9,6 @@ export const AdminPanelContainer = styled.div`
   align-items: center;
 `;
 
-export const InformationDataContainer = styled.div`
-  padding: 25px 0;
-`;
-
 export const ConfigurationToolsContainer = styled.div`
   display: flex;
   justify-content: space-around;

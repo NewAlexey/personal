@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+
 import { Modal } from "src/components/library";
-import { AdminLoginModal } from "src/components/app/Header/components";
+import { AdminAuthModal } from "src/components/app/Header/components";
 import * as Style from "src/components/app/Header/style";
 
-export const AdminLoginButton = (): JSX.Element | null => {
+export const AdminAuthButton = (): JSX.Element | null => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpenModal = (): void => setIsOpen(true);
@@ -19,7 +20,7 @@ export const AdminLoginButton = (): JSX.Element | null => {
                 isOpen={isOpen}
                 closeModal={handleCloseModal}
                 render={({ handleSmoothlyClose }) => (
-                    <AdminLoginModal closeModal={handleSmoothlyClose} />
+                    <AdminAuthModal closeModal={handleSmoothlyClose} />
                 )}
             />
         </>

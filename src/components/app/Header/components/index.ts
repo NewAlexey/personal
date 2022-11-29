@@ -1,5 +1,4 @@
-export * from "./AdminLoginButton";
+export * from "./AdminAuthButton";
 export * from "./LinkItem";
-export * from "./AdminLoginForm";
-export * from "./AdminLoginModal";
+export * from "./AdminAuthModal";
 export * from "./routes";

@@ -7,8 +7,9 @@ export const ToastContainer = styled.div`
   overflow: hidden;
   position: relative;
 
-  width: 200px;
+  width: fit-content;
   height: 70px;
+  padding: 20px;
   border-radius: 10px;
 
   display: flex;

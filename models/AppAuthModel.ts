@@ -1,7 +1,12 @@
-export class AuthModel {
-    private readonly login: string;
+export interface IAppAuthModel {
+    login: string;
+    password: string;
+}
 
-    private readonly password: string;
+export class AppAuthModel {
+    private readonly login: IAppAuthModel["login"];
+
+    private readonly password: IAppAuthModel["password"];
 
     constructor({
         login,

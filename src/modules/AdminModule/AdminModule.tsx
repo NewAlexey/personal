@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
     Button,
@@ -15,6 +15,12 @@ import { SeparatorLine } from "src/components/library/SeparatorLine";
 import { useToastContext } from "lib/ToastContext";
 import { Toast } from "src/components/library/Toast";
 import { OperationStatusEnum } from "service/service.interfaces";
+import { FBAuthService } from "service/FBAuthService";
+import {
+    FireBaseAuthModel,
+    IFireBaseAuthModel,
+} from "models/FireBaseAuthModel";
+import { FireBaseAuthForm } from "src/components/library/Form/FireBaseAuthForm";
 
 interface IConfigurationAdminPanel {
     homePageInfo: string;
@@ -22,6 +28,7 @@ interface IConfigurationAdminPanel {
 
 const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => {
     const ColourServiceRef = useRef(new ColourService());
+    const FBAuthServiceRef = useRef(new FBAuthService());
 
     const [hexColour, setHexColour] = useState(ColourServiceRef.current.getHexColourFromStringBySymbol(homePageInfo));
     const [prevColour, setPrevColour] = useState(hexColour);
@@ -55,14 +62,41 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
         );
     };
 
+    const submitFBAuth = async (formData: IFireBaseAuthModel) => {
+        const {
+            status,
+            message,
+        } = await FBAuthServiceRef.current.fbAuthRequest(new FireBaseAuthModel({
+            email: formData.email,
+            password: formData.password,
+        }));
+
+        createToast(
+            <Toast
+                message={message}
+                type={status === OperationStatusEnum.OK ? "success" : "error"}
+            />,
+        );
+    };
+
     return (
         <Style.AdminPanelContainer>
-            <Style.InformationDataContainer>
+            <Heading
+                value="FireBase Authentication Form"
+                size={HeadingSizeEnum.h1}
+                as="h2"
+            />
+
+            <FireBaseAuthForm submit={submitFBAuth} />
+
+            <SeparatorLine />
+
+            <div>
                 <DangerText
                     value={infoData}
                     size={TextSizeEnum.megaText}
                 />
-            </Style.InformationDataContainer>
+            </div>
 
             <SeparatorLine />
 

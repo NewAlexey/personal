@@ -9,8 +9,8 @@ import {
     AdminLoginForm,
     IAuthLoginFormData,
 } from "src/components/app/Header/components";
-import { usePopupContext } from "lib/PopupContext";
-import { Popup } from "src/components/library/Popup";
+import { useToastContext } from "lib/ToastContext";
+import { Toast } from "src/components/library/Toast";
 
 interface IAdminLoginModal {
     closeModal: () => void;
@@ -26,7 +26,7 @@ export const AdminLoginModal = ({
         authLogIn,
     } = useAuthContext();
 
-    const { createPopup } = usePopupContext();
+    const { createToast } = useToastContext();
 
     const onSubmit = async ({
         login,
@@ -43,8 +43,8 @@ export const AdminLoginModal = ({
         } = await AuthServiceRef.current.authRequest(authData.authDataToString());
 
         if (status !== OperationStatusEnum.OK) {
-            createPopup(
-                <Popup
+            createToast(
+                <Toast
                     message={message}
                     type="error"
                 />,
@@ -53,8 +53,8 @@ export const AdminLoginModal = ({
             return;
         }
 
-        createPopup(
-            <Popup
+        createToast(
+            <Toast
                 message={message}
                 type="success"
             />,

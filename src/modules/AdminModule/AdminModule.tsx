@@ -12,8 +12,8 @@ import HomePageService from "service/HomePageService";
 import * as Style from "src/modules/AdminModule/style";
 import { ColourService } from "service/ColourService";
 import { SeparatorLine } from "src/components/library/SeparatorLine";
-import { usePopupContext } from "lib/PopupContext";
-import { Popup } from "src/components/library/Popup";
+import { useToastContext } from "lib/ToastContext";
+import { Toast } from "src/components/library/Toast";
 import { OperationStatusEnum } from "service/service.interfaces";
 
 interface IConfigurationAdminPanel {
@@ -27,7 +27,7 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
     const [prevColour, setPrevColour] = useState(hexColour);
     const [infoData, setInfoData] = useState(homePageInfo);
 
-    const { createPopup } = usePopupContext();
+    const { createToast } = useToastContext();
 
     useEffect(() => {
         setInfoData((prevInfoData) => ColourServiceRef.current.changeAllColoursInString(
@@ -47,8 +47,8 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
             status,
         } = await HomePageService.updateHomePageInfoData(infoData);
 
-        createPopup(
-            <Popup
+        createToast(
+            <Toast
                 message={message}
                 type={status === OperationStatusEnum.OK ? "success" : "error"}
             />,

@@ -4,17 +4,17 @@ import styled, { css } from "styled-components";
 import { useMount } from "src/shared/hooks";
 import { Timer } from "utils/Timer";
 
-interface IPopupComponentHOC {
+interface IToastComponentHOC {
     component: JSX.Element;
-    destroyPopup: () => void;
+    destroyToast: () => void;
     showTime: number;
 }
 
-export const PopupComponentHOC = ({
+export const ToastComponentHOC = ({
     component,
-    destroyPopup,
+    destroyToast,
     showTime,
-}: IPopupComponentHOC): JSX.Element => {
+}: IToastComponentHOC): JSX.Element => {
     const ref = useRef<HTMLDivElement>(null);
     const isMount = useMount();
     const [isOpen, setIsOpen] = useState(false);
@@ -41,43 +41,43 @@ export const PopupComponentHOC = ({
             timerRef.current.run();
         }
 
-        const popupContainer = ref.current;
+        const toastContainer = ref.current;
 
-        popupContainer?.addEventListener("mouseenter", onMouseEnter);
-        popupContainer?.addEventListener("mouseleave", onMouseLeave);
+        toastContainer?.addEventListener("mouseenter", onMouseEnter);
+        toastContainer?.addEventListener("mouseleave", onMouseLeave);
 
         return () => {
-            popupContainer?.removeEventListener("mouseenter", onMouseEnter);
-            popupContainer?.removeEventListener("mouseleave", onMouseLeave);
+            toastContainer?.removeEventListener("mouseenter", onMouseEnter);
+            toastContainer?.removeEventListener("mouseleave", onMouseLeave);
         };
-    }, [showTime, destroyPopup, isOpen]);
+    }, [showTime, destroyToast, isOpen]);
 
-    const onDestroyPopup = () => {
+    const onDestroyToast = () => {
         if (isOpen) {
             return;
         }
 
-        destroyPopup();
+        destroyToast();
     };
 
     return (
-        <PopupContainer
+        <ToastContainer
             ref={ref}
             isMount={isMount}
             isOpen={isOpen}
-            onTransitionEnd={onDestroyPopup}
+            onTransitionEnd={onDestroyToast}
         >
             {component}
-        </PopupContainer>
+        </ToastContainer>
     );
 };
 
-interface IPopupContainer {
+interface IToastContainer {
     isMount: boolean;
     isOpen: boolean;
 }
 
-const PopupContainer = styled.div<IPopupContainer>`
+const ToastContainer = styled.div<IToastContainer>`
   bottom: 0;
   right: 0;
 

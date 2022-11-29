@@ -10,7 +10,7 @@ import {
 } from "src/context/ExperimentalContext/ExperimentalContext";
 import { InitialLoader } from "src/components/library";
 import { IAppProps } from "utils/pages.interfaces";
-import { PopupContextProvider } from "lib/PopupContext";
+import { ToastContextProvider } from "lib/ToastContext";
 
 const App = ({
     Component,
@@ -23,7 +23,7 @@ const App = ({
     const [showLoader, setShowLoader] = useState(true);
 
     return (
-        <PopupContextProvider>
+        <ToastContextProvider>
             <AuthContextProvider>
                 <ExperimentalContextProvider>
 
@@ -40,7 +40,7 @@ const App = ({
                         : null}
                 </ExperimentalContextProvider>
             </AuthContextProvider>
-        </PopupContextProvider>
+        </ToastContextProvider>
     );
 };
 

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 import { COLOURS } from "utils/constants";
-import { PopupType } from "src/components/library/Popup/Popup";
+import { ToastType } from "src/components/library/Toast";
 
-export const PopupContainer = styled.div`
+export const ToastContainer = styled.div`
   overflow: hidden;
   position: relative;
 
@@ -19,7 +19,7 @@ export const PopupContainer = styled.div`
   background-color: white;
 `;
 
-export const PopupTypeIndicator = styled.div<{ type: PopupType }>`
+export const ToastTypeIndicator = styled.div<{ type: ToastType }>`
   position: absolute;
   width: 7px;
 

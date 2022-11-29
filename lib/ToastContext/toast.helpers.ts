@@ -1,11 +1,11 @@
 import React from "react";
 
 import {
-    IPopupContainerConfiguration,
-} from "lib/PopupContext/popup.interfaces";
+    IToastContainerConfiguration,
+} from "lib/ToastContext/toast.interfaces";
 
-export function createStyleForPopupContainer(
-    styles: IPopupContainerConfiguration,
+export function createStyleForToastContainer(
+    styles: IToastContainerConfiguration,
 ): React.CSSProperties {
     const entries = Object.entries(styles);
 

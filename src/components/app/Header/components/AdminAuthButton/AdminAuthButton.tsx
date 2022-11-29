@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { Modal } from "src/components/library";
 import { AdminAuthModal } from "src/components/app/Header/components";
 import * as Style from "src/components/app/Header/style";
+import { useModal } from "src/components/library/Modal/useModal";
 
 export const AdminAuthButton = (): JSX.Element | null => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleOpenModal = (): void => setIsOpen(true);
-    const handleCloseModal = (): void => setIsOpen(false);
+    const {
+        Modal,
+        openModal,
+        closeModal,
+    } = useModal();
 
     return (
         <>
             <Style.LoginButton
-                onClick={handleOpenModal}
+                onClick={openModal}
                 text="Hidden button"
             />
             <Modal
-                isOpen={isOpen}
-                closeModal={handleCloseModal}
+                closeModal={closeModal}
                 render={({ handleSmoothlyClose }) => (
                     <AdminAuthModal closeModal={handleSmoothlyClose} />
                 )}

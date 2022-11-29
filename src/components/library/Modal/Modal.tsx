@@ -1,31 +1,14 @@
-import ReactDOM from "react-dom";
 import React, { useEffect, useState } from "react";
 
 import { useMount } from "src/shared/hooks";
-import {
-    IModal,
-    IModalComponent,
-} from "src/components/library/Modal/interfaces";
+import { IModal } from "src/components/library/Modal/interfaces";
 import * as Style from "src/components/library/Modal/style";
+import { Backdrop } from "src/components/library/Backdrop";
 
 export const Modal = ({
-    isOpen,
     closeModal,
     render,
-}: IModal): JSX.Element | null => (isOpen
-    ? ReactDOM.createPortal(
-        <ModalComponent
-            closeModal={closeModal}
-            render={render}
-        />,
-        document.body,
-    )
-    : null);
-
-const ModalComponent = ({
-    closeModal,
-    render,
-}: IModalComponent): JSX.Element => {
+}: IModal): JSX.Element => {
     const [isOpen, setIsOpen] = useState(false);
     const isMount = useMount();
     const handleSmoothlyClose = () => {
@@ -47,7 +30,7 @@ const ModalComponent = ({
     useEffect(() => setIsOpen(true), []);
 
     return (
-        <Style.ModalBackdrop onClick={handleSmoothlyClose}>
+        <Backdrop close={handleSmoothlyClose}>
             <Style.ModalContainer
                 onClick={(event: React.MouseEvent<HTMLDivElement>) => {
                     event.stopPropagation();
@@ -58,6 +41,6 @@ const ModalComponent = ({
             >
                 {render({ handleSmoothlyClose })}
             </Style.ModalContainer>
-        </Style.ModalBackdrop>
+        </Backdrop>
     );
 };

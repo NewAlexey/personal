@@ -1,16 +1,21 @@
 import React from "react";
-import { TextField } from "src/components/library";
+
+import { Button, TextField } from "src/components/library";
 import { IFireBaseAuthModel } from "models/FireBaseAuthModel";
 import {
     useFireBaseAuthFormData,
 } from "src/components/library/Form/FireBaseAuthForm";
 import * as Style from "./style";
 
-interface IFBAuthContainer {
+interface IFireBaseAuthContainer {
     submit: (formData: IFireBaseAuthModel) => void;
+    onClose?: () => void;
 }
 
-export const FireBaseAuthForm = ({ submit }: IFBAuthContainer) => {
+export const FireBaseAuthForm = ({
+    submit,
+    onClose,
+}: IFireBaseAuthContainer) => {
     const {
         fireBaseAuthFormData,
         setFireBaseAuthFormData,
@@ -18,7 +23,7 @@ export const FireBaseAuthForm = ({ submit }: IFBAuthContainer) => {
     } = useFireBaseAuthFormData(submit);
 
     return (
-        <Style.FBAuthContainer>
+        <Style.AuthContainer>
             <TextField
                 label="email"
                 placeholder="email"
@@ -38,11 +43,20 @@ export const FireBaseAuthForm = ({ submit }: IFBAuthContainer) => {
                 }
             />
 
-            <Style.FBAuthButton
-                text="Try Auth"
-                onClick={onSubmit}
-            />
+            <Style.ButtonContainer>
+                {onClose ? (
+                    <Button
+                        onClick={onClose}
+                        text="Close"
+                    />
+                ) : null}
 
-        </Style.FBAuthContainer>
+                <Button
+                    text="Try Auth"
+                    onClick={onSubmit}
+                />
+            </Style.ButtonContainer>
+
+        </Style.AuthContainer>
     );
 };

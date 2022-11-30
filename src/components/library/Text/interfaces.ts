@@ -21,10 +21,10 @@ export enum TextDisplayEnum {
 }
 
 export interface ISpan {
+    isActive?: boolean;
     size?: TextSizeEnum;
     weight?: TextWeightEnum;
     display?: TextDisplayEnum;
-    color?: string;
 }
 
 export interface IText extends ISpan {

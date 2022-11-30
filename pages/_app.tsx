@@ -11,6 +11,7 @@ import {
 import { InitialLoader } from "src/components/library";
 import { IAppProps } from "utils/pages.interfaces";
 import { ToastContextProvider } from "lib/ToastContext";
+import { ThemeContextProvider } from "src/context/ThemeContext";
 
 const App = ({
     Component,
@@ -23,24 +24,30 @@ const App = ({
     const [showLoader, setShowLoader] = useState(true);
 
     return (
-        <ToastContextProvider>
-            <AuthContextProvider>
-                <ExperimentalContextProvider>
+        <ThemeContextProvider
+            appTheme={pageProps.theme
+                ? pageProps.theme
+                : "light"}
+        >
+            <ToastContextProvider>
+                <AuthContextProvider>
+                    <ExperimentalContextProvider>
 
-                    {showLoader
-                        ? <InitialLoader setShowLoader={setShowLoader} />
-                        : null}
+                        {showLoader
+                            ? <InitialLoader setShowLoader={setShowLoader} />
+                            : null}
 
-                    {pageProps.layoutType === "default"
-                        ? (
-                            <MainLayout cookies={pageProps.cookies}>
-                                <Component {...pageProps} />
-                            </MainLayout>
-                        )
-                        : null}
-                </ExperimentalContextProvider>
-            </AuthContextProvider>
-        </ToastContextProvider>
+                        {pageProps.layoutType === "default"
+                            ? (
+                                <MainLayout cookies={pageProps.cookies}>
+                                    <Component {...pageProps} />
+                                </MainLayout>
+                            )
+                            : null}
+                    </ExperimentalContextProvider>
+                </AuthContextProvider>
+            </ToastContextProvider>
+        </ThemeContextProvider>
     );
 };
 

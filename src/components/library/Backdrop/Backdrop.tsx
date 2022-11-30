@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Z_INDEX_LEVELS } from "utils/constants";
 
 interface IBackdrop {
     close?: () => void;
@@ -16,6 +17,8 @@ export const Backdrop = ({
 );
 
 export const BackdropComponent = styled.div`
+  z-index: ${Z_INDEX_LEVELS.modal};
+
   position: fixed;
   min-height: 100vh;
   min-width: 100vw;

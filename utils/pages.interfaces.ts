@@ -6,6 +6,7 @@ type LayoutType = "default";
 
 export interface INextPageDefaultProps {
     cookies?: NextApiRequestCookies;
+    theme?: string;
     layoutType?: LayoutType;
 }
 

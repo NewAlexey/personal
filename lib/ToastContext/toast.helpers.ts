@@ -9,8 +9,8 @@ export function createStyleForToastContainer(
 ): React.CSSProperties {
     const entries = Object.entries(styles);
 
-    return entries.reduce((acc, pair) => ({
+    return entries.reduce<React.CSSProperties>((acc, pair) => ({
         ...acc,
         [pair[0]]: pair[1],
-    }), { position: "fixed" } as React.CSSProperties);
+    }), { position: "fixed" });
 }

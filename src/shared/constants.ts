@@ -1,8 +1,3 @@
-export const COLOURS = {
-    primary: "#f26500",
-    disabledPrimary: "#ffe4d1",
-};
-
 export const MY_STACK = [
     "HTML",
     "CSS",

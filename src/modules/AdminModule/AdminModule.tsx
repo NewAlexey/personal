@@ -7,7 +7,6 @@ import {
     HeadingSizeEnum,
     TextSizeEnum,
 } from "src/components/library";
-
 import HomePageService from "service/HomePageService";
 import * as Style from "src/modules/AdminModule/style";
 import { ColourService } from "service/ColourService";
@@ -15,20 +14,20 @@ import { SeparatorLine } from "src/components/library/SeparatorLine";
 import { useToastContext } from "lib/ToastContext";
 import { Toast } from "src/components/library/Toast";
 import { OperationStatusEnum } from "service/service.interfaces";
-import { FBAuthService } from "service/FBAuthService";
+import { FireBaseAuthService } from "service/FireBaseAuthService";
 import {
     FireBaseAuthModel,
     IFireBaseAuthModel,
 } from "models/FireBaseAuthModel";
-import { FireBaseAuthForm } from "src/components/library/Form/FireBaseAuthForm";
+import { FireBaseAuthDrawer } from "src/modules/AdminModule/components";
 
-interface IConfigurationAdminPanel {
+interface IAdminConfigurationPanel {
     homePageInfo: string;
 }
 
-const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => {
+const AdminConfigurationPanel = ({ homePageInfo }: IAdminConfigurationPanel) => {
     const ColourServiceRef = useRef(new ColourService());
-    const FBAuthServiceRef = useRef(new FBAuthService());
+    const FireBaseAuthServiceRef = useRef(new FireBaseAuthService());
 
     const [hexColour, setHexColour] = useState(ColourServiceRef.current.getHexColourFromStringBySymbol(homePageInfo));
     const [prevColour, setPrevColour] = useState(hexColour);
@@ -44,7 +43,7 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
         ));
         setPrevColour(hexColour);
 
-        // No need to run useEffect, if prevColour is changed
+        // No need to run useEffect, if "prevColour" is changed
         // eslint-disable-next-line
     }, [hexColour]);
 
@@ -62,11 +61,11 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
         );
     };
 
-    const submitFBAuth = async (formData: IFireBaseAuthModel) => {
+    const submitFireBaseAuth = async (formData: IFireBaseAuthModel) => {
         const {
             status,
             message,
-        } = await FBAuthServiceRef.current.fbAuthRequest(new FireBaseAuthModel({
+        } = await FireBaseAuthServiceRef.current.fireBaseAuthRequest(new FireBaseAuthModel({
             email: formData.email,
             password: formData.password,
         }));
@@ -77,26 +76,18 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
                 type={status === OperationStatusEnum.OK ? "success" : "error"}
             />,
         );
+
+        return status === OperationStatusEnum.OK;
     };
 
     return (
         <Style.AdminPanelContainer>
-            <Heading
-                value="FireBase Authentication Form"
-                size={HeadingSizeEnum.h1}
-                as="h2"
+            <FireBaseAuthDrawer submit={submitFireBaseAuth} />
+
+            <DangerText
+                value={infoData}
+                size={TextSizeEnum.megaText}
             />
-
-            <FireBaseAuthForm submit={submitFBAuth} />
-
-            <SeparatorLine />
-
-            <div>
-                <DangerText
-                    value={infoData}
-                    size={TextSizeEnum.megaText}
-                />
-            </div>
 
             <SeparatorLine />
 
@@ -127,4 +118,4 @@ const ConfigurationAdminPanel = ({ homePageInfo }: IConfigurationAdminPanel) => 
     );
 };
 
-export default ConfigurationAdminPanel;
+export default AdminConfigurationPanel;

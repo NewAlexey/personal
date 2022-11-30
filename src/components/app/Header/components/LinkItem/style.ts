@@ -1,14 +1,22 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-import { THEME_COLOURS } from "utils/constants";
+import { COLOURS } from "utils/constants";
 
 export const LinkItem = styled.li<{ isActive: boolean }>`
   cursor: pointer;
-  color: ${({ isActive }) => isActive && THEME_COLOURS.light.active};
-
   padding: 0 10px;
+
+  ${({
+        isActive,
+        theme,
+    }) => (isActive
+        ? css`
+            color: ${COLOURS.active}`
+        : css`
+            color: ${theme.textColor}`)};
 
   &:hover {
     color: #f26500;
   }
+
 `;

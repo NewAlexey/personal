@@ -1,17 +1,9 @@
 import styled, { css } from "styled-components";
 
-import { IModalContainer } from "src/components/library/Modal/interfaces";
-
-export const ModalBackdrop = styled.div`
-  position: fixed;
-  min-height: 100vh;
-  min-width: 100vw;
-  background-color: rgba(97, 97, 97, 0.5);
-
-  top: 0;
-`;
-
-export const ModalContainer = styled.div<IModalContainer>`
+export const ModalContainer = styled.div<{
+    isMount: boolean;
+    isOpen: boolean;
+}>`
   width: 300px;
   padding: 25px;
 

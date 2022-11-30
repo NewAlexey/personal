@@ -10,18 +10,18 @@ export const Text = ({
     value,
     style,
     className,
+    isActive = false,
     size = TextSizeEnum.regular,
     weight = TextWeightEnum.regular,
     display = TextDisplayEnum.block,
-    color = "black",
 }: IText): JSX.Element => (
     <Style.SpanComponent
         size={size}
         weight={weight}
         className={className}
         display={display}
-        color={color}
         style={style}
+        isActive={isActive}
     >
         {value}
     </Style.SpanComponent>
@@ -31,17 +31,15 @@ export const DangerText = ({
     value,
     style,
     className,
+    display = TextDisplayEnum.block,
     size = TextSizeEnum.regular,
     weight = TextWeightEnum.regular,
-    display = TextDisplayEnum.block,
-    color = "black",
 }: IText) => (
     <Style.SpanComponent
         size={size}
         weight={weight}
         className={className}
         display={display}
-        color={color}
         style={style}
         dangerouslySetInnerHTML={{ __html: value }}
     />

@@ -27,6 +27,7 @@ const firebaseConfig = {
 interface IFireBaseApi {
     getHomePageData: () => Promise<{ homePageData: IHomePageData, message: string }>;
     updateHomePageInfoData: (info: string) => Promise<{ status: OperationStatusEnum, message: string }>;
+    authInFireBase: (fireBaseAuthModel: FireBaseAuthModel) => Promise<{ status: OperationStatusEnum, message: string }>;
 }
 
 class FireBaseApi implements IFireBaseApi {
@@ -34,7 +35,7 @@ class FireBaseApi implements IFireBaseApi {
 
     private readonly homePageDataPath = "home";
 
-    private readonly getHomePageError = "Home page data does not exist";
+    private readonly getHomePageError = "Home page data does not exist!";
 
     private readonly updateHomePageDataSuccessMessage = "Update successful!";
 
@@ -87,15 +88,15 @@ class FireBaseApi implements IFireBaseApi {
             return {
                 status: OperationStatusEnum.ERROR,
                 // @ts-ignore
-                message: `${error.message}`,
+                message: `${error?.message}`,
             };
         }
     }
 
-    public async authInFB(fbAuthModel: FireBaseAuthModel) {
+    public async authInFireBase(fireBaseAuthModel: FireBaseAuthModel) {
         try {
             const auth = getAuth();
-            await signInWithEmailAndPassword(auth, fbAuthModel.getEmail(), fbAuthModel.getPassword());
+            await signInWithEmailAndPassword(auth, fireBaseAuthModel.getEmail(), fireBaseAuthModel.getPassword());
 
             return {
                 status: OperationStatusEnum.OK,
@@ -105,7 +106,7 @@ class FireBaseApi implements IFireBaseApi {
             return {
                 status: OperationStatusEnum.ERROR,
                 // @ts-ignore
-                message: `${error.message}`,
+                message: `${error?.message}`,
             };
         }
     }

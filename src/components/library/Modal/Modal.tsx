@@ -1,45 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { useMount } from "src/shared/hooks";
-import { IModal } from "src/components/library/Modal/interfaces";
 import * as Style from "src/components/library/Modal/style";
 import { Backdrop } from "src/components/library/Backdrop";
+import { useTransitionHandler } from "src/shared/hooks/useTransitionHandler";
+
+export interface IModal {
+    closeModal: () => void;
+    render: (props: { handleSmoothlyClose: () => void }) => JSX.Element;
+}
 
 export const Modal = ({
     closeModal,
     render,
 }: IModal): JSX.Element => {
-    const [isOpen, setIsOpen] = useState(false);
-    const isMount = useMount();
-    const handleSmoothlyClose = () => {
-        if (!isMount) {
-            return;
-        }
-
-        setIsOpen(false);
-    };
-
-    const transitionEndCloseModal = () => {
-        if (isOpen) {
-            return;
-        }
-
-        closeModal();
-    };
-
-    useEffect(() => setIsOpen(true), []);
+    const {
+        setTriggerToFalse,
+        callHandler,
+        trigger,
+        isMount,
+    } = useTransitionHandler({ handler: closeModal });
 
     return (
-        <Backdrop close={handleSmoothlyClose}>
+        <Backdrop close={setTriggerToFalse}>
             <Style.ModalContainer
                 onClick={(event: React.MouseEvent<HTMLDivElement>) => {
                     event.stopPropagation();
                 }}
                 isMount={isMount}
-                isOpen={isOpen}
-                onTransitionEnd={transitionEndCloseModal}
+                isOpen={trigger}
+                onTransitionEnd={callHandler}
             >
-                {render({ handleSmoothlyClose })}
+                {render({ handleSmoothlyClose: setTriggerToFalse })}
             </Style.ModalContainer>
         </Backdrop>
     );

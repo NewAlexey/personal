@@ -3,7 +3,7 @@ import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 
 import { DangerText, Text } from "src/components/library";
-import { COLOURS, MY_STACK } from "src/shared/constants";
+import { MY_STACK } from "src/shared/constants";
 import {
     TextDisplayEnum,
     TextSizeEnum,
@@ -38,7 +38,6 @@ export const HomePage = ({ homePageInfo }: IHomeModule): JSX.Element => {
                 <Text
                     value="Technology Stack"
                     size={TextSizeEnum.hyperText}
-                    color={COLOURS.primary}
                 />
             </Styled.TextContainer>
             <Styled.TextContainer>

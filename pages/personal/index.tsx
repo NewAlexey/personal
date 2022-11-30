@@ -8,10 +8,10 @@ import { IPersonalPage } from "utils/pages.interfaces";
 import Head from "next/head";
 
 const DynamicAdminPage = dynamic<{ homePageInfo: string }>(
-    () => import("../../src/modules/AdminModule/AdminModule"),
+    () => import("src/modules/AdminModule/AdminModule"),
 );
 
-const PersonalPage = ({ homePageData }: IPersonalPage) => {
+const AdminPage = ({ homePageData }: IPersonalPage) => {
     const { isAuth } = useAuthContext();
 
     if (!isAuth) {
@@ -70,7 +70,7 @@ const PersonalPage = ({ homePageData }: IPersonalPage) => {
     );
 };
 
-export default PersonalPage;
+export default AdminPage;
 
 export async function getServerSideProps(
     context: GetServerSidePropsContext,

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 
 import { ToastComponentHOC } from "lib/ToastContext/ToastComponentHOC";
-import { getUniqueNumber } from "utils/helpers";
+import { getUniqueNumber } from "utils/utils";
 import {
     IToastContext,
     IToastContextProvider,

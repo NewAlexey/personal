@@ -35,6 +35,7 @@ export async function getServerSideProps(
     return {
         props: {
             cookies,
+            theme: cookies.theme ?? "light",
             homePageData: data.homePageData,
         },
     };

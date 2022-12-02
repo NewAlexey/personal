@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 
-import { IInput } from "src/components/library/TextField/interfaces";
+interface IInput {
+    type?: string;
+}
 
 export const Input = styled.input<IInput>`
   height: 25px;

@@ -134,8 +134,8 @@ export const ContextModule = (): JSX.Element => {
                                 value={delayValue}
                                 checked={experimentalContextValue.selectedDelayValue === delayValue}
                                 onChange={() => setDelayValue(delayValue)}
+                                labelAfter={text}
                             />
-                            <label htmlFor={id}>{text}</label>
                         </Styled.RadioInputGroup>
                     ))}
                     <Button

@@ -27,14 +27,14 @@ export const AppAuthForm = ({
         <>
             <TextField
                 value={appAuthData.login}
-                label="Login"
+                textAreaTitle="Login"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                     setAppAuthData(event.target.value, "login")
                 }
             />
             <TextField
                 value={appAuthData.password}
-                label="Password"
+                textAreaTitle="Password"
                 type="password"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                     setAppAuthData(event.target.value, "password")

@@ -25,7 +25,7 @@ export const FireBaseAuthForm = ({
     return (
         <Style.AuthContainer>
             <TextField
-                label="email"
+                textAreaTitle="email"
                 placeholder="email"
                 value={fireBaseAuthFormData.email}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -34,7 +34,7 @@ export const FireBaseAuthForm = ({
             />
 
             <TextField
-                label="password"
+                textAreaTitle="password"
                 placeholder="password"
                 value={fireBaseAuthFormData.password}
                 type="password"

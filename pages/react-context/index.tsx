@@ -2,6 +2,8 @@ import React from "react";
 
 import { ContextModule } from "src/modules";
 import Head from "next/head";
+import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import { INextPageDefaultProps } from "utils/pages.interfaces";
 
 const ReactContext = (): JSX.Element => (
     <>
@@ -17,3 +19,15 @@ const ReactContext = (): JSX.Element => (
 );
 
 export default ReactContext;
+
+export async function getServerSideProps(
+    context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<INextPageDefaultProps>> {
+    const { cookies } = context.req;
+
+    return {
+        props: {
+            theme: cookies.theme ?? "light",
+        },
+    };
+}

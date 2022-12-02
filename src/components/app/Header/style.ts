@@ -26,6 +26,7 @@ export const HeaderComponent = styled.header`
 
 export const SiteNavigation = styled.ul`
   display: flex;
+  flex-basis: 90%;
   align-items: center;
   justify-content: center;
   list-style-type: none;

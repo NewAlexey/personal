@@ -43,7 +43,8 @@ export const ThemeContextProvider = ({
 
     const ThemeProviderValue = useMemo(() => ({
         changeTheme,
-    }), [changeTheme]);
+        isLightTheme: theme.whatThemeNow === "light",
+    }), [changeTheme, theme.whatThemeNow]);
 
     return (
         <ThemeContext.Provider value={ThemeProviderValue}>

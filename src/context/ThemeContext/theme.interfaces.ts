@@ -14,4 +14,5 @@ export interface IAppTheme {
 
 export interface IThemeContext {
     changeTheme: () => void;
+    isLightTheme: boolean;
 }

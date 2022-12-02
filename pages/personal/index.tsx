@@ -81,6 +81,7 @@ export async function getServerSideProps(
     if (!acCookie) {
         return {
             props: {
+                theme: cookies.theme ?? "light",
                 homePageData: {
                     info: null,
                 },

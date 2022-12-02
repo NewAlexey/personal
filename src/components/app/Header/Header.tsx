@@ -11,6 +11,7 @@ import {
 import { isActiveAdminCookie } from "src/shared/helpers";
 import { useAuthContext } from "src/context";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
+import { ThemeSwitcher } from "src/components/library/ThemeSwitcher";
 
 interface IHeader {
     cookie?: NextApiRequestCookies;
@@ -48,6 +49,8 @@ export const Header = ({ cookie }: IHeader): JSX.Element => {
             {isActive && !isAuth
                 ? <AdminAuthButton />
                 : null}
+
+            <ThemeSwitcher />
 
             {isAuth
                 ? (

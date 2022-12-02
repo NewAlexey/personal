@@ -4,7 +4,8 @@ const DRAWER_WIDTH = "350px";
 
 export const DrawerContainer = styled.div<{ isOpen: boolean, isMount: boolean, position: "left" | "right" }>`
   width: ${DRAWER_WIDTH};
-  background-color: white;
+
+  background-color: ${({ theme }) => theme.backgroundPrimary};
   min-height: 100vh;
   padding: 55px 20px 20px;
   position: absolute;
@@ -26,10 +27,8 @@ export const DrawerContainer = styled.div<{ isOpen: boolean, isMount: boolean, p
     }) => isOpen
           && isMount
           && css`
-            transform: translateX(0);`
-};
-
-
+            transform: translateX(0);
+          `};
 `;
 
 export const CrossContainer = styled.div`

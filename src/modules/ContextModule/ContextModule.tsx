@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { Button, Text, TextField } from "src/components/library";
+import {
+    Button,
+    Heading,
+    HeadingSizeEnum,
+    Text,
+    TextField,
+} from "src/components/library";
 import { useAnimationFrame } from "src/shared/hooks";
 import {
     TextSizeEnum,
@@ -51,7 +57,11 @@ export const ContextModule = (): JSX.Element => {
 
     return (
         <Styled.InnerWrapper>
-            <h2>Example Page</h2>
+            <Heading
+                value="Example Page"
+                as="h2"
+                size={HeadingSizeEnum.h2}
+            />
             <Styled.ContentContainer>
                 <TextField
                     value={newValue}

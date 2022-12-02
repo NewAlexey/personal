@@ -1,6 +1,5 @@
 import React from "react";
 
-import { MoonSvg, SunSvg } from "src/components/library/Icons";
 import { useThemeContext } from "src/context/ThemeContext";
 import * as Style from "./style";
 
@@ -12,18 +11,23 @@ export const ThemeSwitcher = () => {
 
     return (
         <Style.ThemeSwitcherContainer
-            onClick={() => changeTheme()}
+            isLightThemeActive={isLightTheme}
+            onClick={changeTheme}
         >
+            <Style.ThemeCloudLeft />
+            <Style.ThemeCloudMiddle />
+            <Style.ThemeCloudRight />
+
             <Style.IconContainer
                 isActive={isLightTheme}
             >
-                <SunSvg />
+                <Style.ThemeSunIcon />
             </Style.IconContainer>
 
             <Style.IconContainer
                 isActive={!isLightTheme}
             >
-                <MoonSvg />
+                <Style.Moon />
             </Style.IconContainer>
         </Style.ThemeSwitcherContainer>
 

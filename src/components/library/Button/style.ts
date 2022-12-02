@@ -8,25 +8,35 @@ export const Button = styled.button<{ disabled?: boolean }>`
   height: fit-content;
   padding: 0 15px;
 
-  border: 1px solid ${COLOURS.active};
-  border-radius: 10px;
+  border: 2px solid ${COLOURS.active};
+  border-radius: 5px;
 
-  box-shadow: 0 0 20px -4px rgba(34, 60, 80, 0.2);
+  background-color: ${({ theme }) => theme.backgroundSecondary};
 
   &:hover {
-    background: #ffd9be;
-    box-shadow: 0 0 20px -4px rgba(34, 60, 80, 0.5);
+    -webkit-box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
+    -moz-box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
+    box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
+
+    background: #f2650024;
   }
 
   &:active {
+    -webkit-box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
+    -moz-box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
+    box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
+
     background: ${COLOURS.active};
   }
 
 
-  ${({ disabled }) =>
+  ${({
+        disabled,
+        theme,
+    }) =>
         disabled &&
           css`
             pointer-events: none;
-            border: 1px solid black;
+            border-color: ${theme.disablePrimary};
           `}
 `;

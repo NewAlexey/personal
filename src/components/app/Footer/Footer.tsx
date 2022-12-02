@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CustomLink } from "src/components/library";
+import { CustomLink, Text, TextSizeEnum } from "src/components/library";
 import * as Styled from "src/components/app/Footer/style";
 
 export const Footer = (): JSX.Element => (
@@ -9,7 +9,10 @@ export const Footer = (): JSX.Element => (
             href="https://www.linkedin.com/in/alexey-krupenia"
             target="_blank"
         >
-            <Styled.FooterText>Alexey Krupenia, 2022</Styled.FooterText>
+            <Text
+                value="Alexey Krupenia, 2022"
+                size={TextSizeEnum.large}
+            />
         </CustomLink>
     </Styled.FooterComponent>
 );

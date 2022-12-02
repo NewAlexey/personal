@@ -14,7 +14,7 @@ export const ModalContainer = styled.div<{
   flex-direction: column;
   justify-content: flex-start;
 
-  background-color: white;
+  background-color: ${({ theme }) => theme.backgroundPrimary};
   margin: 0 auto;
 
   transform: translateY(250px);

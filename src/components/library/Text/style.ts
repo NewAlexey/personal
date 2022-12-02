@@ -17,4 +17,11 @@ export const SpanComponent = styled.span<ISpan>`
             color: ${COLOURS.active}`
         : css`
             color: ${theme.textColor}`)};
+
+  ${({
+        disabled,
+        theme,
+    }) => (disabled && css`
+            color: ${theme.disableSecondary}`
+    )};
 `;

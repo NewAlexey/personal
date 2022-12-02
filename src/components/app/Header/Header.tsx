@@ -50,7 +50,7 @@ export const Header = ({ cookie }: IHeader): JSX.Element => {
                 ? <AdminAuthButton />
                 : null}
 
-            <ThemeSwitcher />
+            {!isAuth ? <ThemeSwitcher /> : null}
 
             {isAuth
                 ? (

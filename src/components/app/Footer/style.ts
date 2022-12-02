@@ -1,4 +1,5 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+import { Z_INDEX_LEVELS } from "utils/constants";
 
 const boxShadowFooterInitial = "0px -5px 17px 0px rgba(0, 0, 0, 0.2)";
 const boxShadowFooterFinal = "0px -7px 17px 0px rgba(0, 0, 0, 0.3)";
@@ -20,12 +21,19 @@ const boxShadowAnimation = keyframes`
 export const FooterComponent = styled.footer`
   height: 50px;
 
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   box-shadow: ${boxShadowFooterInitial};
 
+  z-index: ${Z_INDEX_LEVELS.third};
+
+  ${(props) => css`
+    background-color: ${props.theme.backgroundPrimary};
+  `}
   :hover {
     animation: ${boxShadowAnimation} 1s linear infinite;
   }

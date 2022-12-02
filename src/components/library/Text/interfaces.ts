@@ -25,6 +25,7 @@ export interface ISpan {
     size?: TextSizeEnum;
     weight?: TextWeightEnum;
     display?: TextDisplayEnum;
+    disabled?: boolean;
 }
 
 export interface IText extends ISpan {

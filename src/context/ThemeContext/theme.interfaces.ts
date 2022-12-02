@@ -1,8 +1,11 @@
 export interface IThemeColours {
     whatThemeNow: string;
-    background: string;
+    backgroundPrimary: string;
+    backgroundSecondary: string;
     boxShadow: string;
     textColor: string;
+    disablePrimary: string;
+    disableSecondary: string;
 }
 
 export type CookieThemeType = "theme";

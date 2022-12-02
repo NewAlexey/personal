@@ -15,7 +15,7 @@ export const HeaderComponent = styled.header`
   display: flex;
 
   ${(props) => css`
-    background-color: ${props.theme.background};
+    background-color: ${props.theme.backgroundPrimary};
   `}
 
   align-items: center;
@@ -26,7 +26,6 @@ export const HeaderComponent = styled.header`
 
 export const SiteNavigation = styled.ul`
   display: flex;
-  flex-basis: 90%;
   align-items: center;
   justify-content: center;
   list-style-type: none;
@@ -34,12 +33,12 @@ export const SiteNavigation = styled.ul`
 
 export const LoginButton = styled(Button)`
   position: absolute;
-  right: 50px;
+  right: 150px;
 `;
 
 export const HeaderAuthContainer = styled.div`
   position: absolute;
-  right: 140px;
+  right: 60px;
 `;
 
 export const LinkText = styled(Text)`

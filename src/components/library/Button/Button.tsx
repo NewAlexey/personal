@@ -4,9 +4,13 @@ import { Text } from "src/components/library/Text";
 
 export const Button = ({
     text,
+    disabled,
     ...props
 }: IButton) => (
-    <Style.Button {...props}>
-        <Text value={text} />
+    <Style.Button {...props} disabled={disabled}>
+        <Text
+            value={text}
+            disabled={disabled}
+        />
     </Style.Button>
 );

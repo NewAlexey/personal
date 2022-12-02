@@ -17,7 +17,8 @@ export const ToastContainer = styled.div`
   justify-content: center;
 
   box-shadow: 5px 0 15px 0 rgba(34, 60, 80, 0.7);
-  background-color: white;
+
+  background-color: ${({ theme }) => theme.backgroundPrimary};
 `;
 
 export const ToastTypeIndicator = styled.div<{ type: ToastType }>`

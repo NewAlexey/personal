@@ -1,17 +1,24 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import Head from "next/head";
 import dynamic from "next/dynamic";
+import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
-import MainPageService from "service/HomePageService";
 import { Text } from "src/components/library";
 import { useAuthContext } from "src/context";
-import { IPersonalPage } from "utils/pages.interfaces";
-import Head from "next/head";
+
+import { HomePageService } from "service/HomePageService";
+import { INextPageDefaultProps } from "utils/pages.interfaces";
 
 const DynamicAdminPage = dynamic<{ homePageInfo: string }>(
     () => import("src/modules/AdminModule/AdminModule"),
 );
 
-const AdminPage = ({ homePageData }: IPersonalPage) => {
+interface IPersonalPage2 extends INextPageDefaultProps {
+    homePageData: {
+        about: string | null;
+    };
+}
+
+const AdminPage = ({ homePageData }: IPersonalPage2) => {
     const { isAuth } = useAuthContext();
 
     if (!isAuth) {
@@ -35,7 +42,7 @@ const AdminPage = ({ homePageData }: IPersonalPage) => {
         );
     }
 
-    if (!homePageData.info) {
+    if (!homePageData.about) {
         return (
             <>
                 <Head>
@@ -65,7 +72,7 @@ const AdminPage = ({ homePageData }: IPersonalPage) => {
                     content="Admin Page"
                 />
             </Head>
-            <DynamicAdminPage homePageInfo={homePageData.info} />
+            <DynamicAdminPage homePageInfo={homePageData.about} />
         </>
     );
 };
@@ -74,7 +81,7 @@ export default AdminPage;
 
 export async function getServerSideProps(
     context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<IPersonalPage>> {
+): Promise<GetServerSidePropsResult<IPersonalPage2>> {
     const { cookies } = context.req;
     const acCookie = cookies.ac;
 
@@ -83,17 +90,30 @@ export async function getServerSideProps(
             props: {
                 theme: cookies.theme ?? "light",
                 homePageData: {
-                    info: null,
+                    about: null,
                 },
             },
         };
     }
 
-    const data = await MainPageService.getHomePageData();
+    try {
+        const HomePageServiceInstance = new HomePageService();
+        const { about } = await HomePageServiceInstance.getHomePageData();
 
-    return {
-        props: {
-            homePageData: data.homePageData,
-        },
-    };
+        return {
+            props: {
+                homePageData: {
+                    about,
+                },
+            },
+        };
+    } catch (error) {
+        return {
+            props: {
+                homePageData: {
+                    about: null,
+                },
+            },
+        };
+    }
 }

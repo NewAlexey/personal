@@ -7,7 +7,7 @@ import {
     HeadingSizeEnum,
     TextSizeEnum,
 } from "src/components/library";
-import HomePageService from "service/HomePageService";
+import { HomePageService } from "service/HomePageService";
 import * as Style from "src/modules/AdminModule/style";
 import { ColourService } from "service/ColourService";
 import { SeparatorLine } from "src/components/library/SeparatorLine";
@@ -28,6 +28,7 @@ interface IAdminConfigurationPanel {
 const AdminConfigurationPanel = ({ homePageInfo }: IAdminConfigurationPanel) => {
     const ColourServiceRef = useRef(new ColourService());
     const FireBaseAuthServiceRef = useRef(new FireBaseAuthService());
+    const HomePageServiceRef = useRef(new HomePageService());
 
     const [hexColour, setHexColour] = useState(ColourServiceRef.current.getHexColourFromStringBySymbol(homePageInfo));
     const [prevColour, setPrevColour] = useState(hexColour);
@@ -51,7 +52,7 @@ const AdminConfigurationPanel = ({ homePageInfo }: IAdminConfigurationPanel) => 
         const {
             message,
             status,
-        } = await HomePageService.updateHomePageInfoData(infoData);
+        } = await HomePageServiceRef.current.updateHomePageInfoData(infoData);
 
         createToast(
             <Toast

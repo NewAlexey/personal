@@ -30,7 +30,7 @@ interface IFireBaseApi {
     authInFireBase: (fireBaseAuthModel: FireBaseAuthModel) => Promise<{ status: OperationStatusEnum, message: string }>;
 }
 
-class FireBaseApi implements IFireBaseApi {
+export class FireBaseApi implements IFireBaseApi {
     private readonly fbDbRef: DatabaseReference;
 
     private readonly homePageDataPath = "home";
@@ -111,5 +111,3 @@ class FireBaseApi implements IFireBaseApi {
         }
     }
 }
-
-export default FireBaseApi;

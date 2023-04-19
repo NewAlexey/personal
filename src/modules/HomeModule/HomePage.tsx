@@ -11,11 +11,11 @@ import {
 import * as Styled from "src/modules/HomeModule/style";
 
 interface IHomeModule {
-    homePageInfo: string;
+    about: string;
 }
 
-export const HomePage = ({ homePageInfo }: IHomeModule): JSX.Element => {
-    const sanitizedData = DOMPurify.sanitize(homePageInfo);
+export const HomePage = ({ about }: IHomeModule): JSX.Element => {
+    const sanitizedData = DOMPurify.sanitize(about);
 
     return (
         <>

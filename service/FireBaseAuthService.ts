@@ -1,4 +1,4 @@
-import FireBaseApi from "api/FireBaseApi";
+import { FireBaseApi } from "api/FireBaseApi";
 import { FireBaseAuthModel } from "models/FireBaseAuthModel";
 
 export class FireBaseAuthService {

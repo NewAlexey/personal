@@ -14,10 +14,6 @@ export interface IAppProps extends AppProps<INextPageDefaultProps> {
     pageProps: INextPageDefaultProps;
 }
 
-export interface IHomePage extends INextPageDefaultProps {
-    homePageData: IHomePageData;
-}
-
 export interface IPersonalPage extends INextPageDefaultProps {
     homePageData: IHomePageData;
 }

@@ -6,7 +6,6 @@ import { AppAuthService } from "service/AppAuthService";
 import { AppAuthModel, IAppAuthModel } from "models/AppAuthModel";
 import { useToastContext } from "lib/ToastContext";
 import { AppAuthForm } from "src/components/library/Form/AppAuthForm";
-import { errorTypeGuard } from "utils/errorTypeGuard";
 
 interface IAdminLoginModal {
     closeModal: () => void;
@@ -22,7 +21,10 @@ export const AdminAuthModal = ({
         adminLogIn,
     } = useAuthContext();
 
-    const { createToast } = useToastContext();
+    const {
+        createToast,
+        createErrorToast,
+    } = useToastContext();
 
     const onSubmit = async ({
         login,
@@ -42,22 +44,9 @@ export const AdminAuthModal = ({
             });
 
             adminLogIn();
-            closeModal();
             await router.push("personal");
         } catch (error) {
-            if (errorTypeGuard(error)) {
-                createToast({
-                    message: error.message,
-                    type: "error",
-                });
-
-                return;
-            }
-
-            createToast({
-                message: "Unknown error...",
-                type: "error",
-            });
+            createErrorToast(error);
         }
     };
 

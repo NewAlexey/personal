@@ -17,7 +17,6 @@ import {
     IFireBaseAuthModel,
 } from "models/FireBaseAuthModel";
 import { FireBaseAuthDrawer } from "src/modules/AdminModule/components";
-import { errorTypeGuard } from "utils/errorTypeGuard";
 import { FireBaseApi } from "api/FireBaseApi";
 
 interface IAdminConfigurationPanel {
@@ -33,7 +32,10 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
     const [prevColour, setPrevColour] = useState(hexColour);
     const [infoData, setInfoData] = useState(aboutInfo);
 
-    const { createToast } = useToastContext();
+    const {
+        createToast,
+        createErrorToast,
+    } = useToastContext();
 
     useEffect(() => {
         setInfoData((prevInfoData) => ColourServiceRef.current.changeAllColoursInString(
@@ -58,19 +60,7 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
                 type: "success",
             });
         } catch (error) {
-            if (errorTypeGuard(error)) {
-                createToast({
-                    message: error.message,
-                    type: "error",
-                });
-
-                return;
-            }
-
-            createToast({
-                message: "Unknown error...",
-                type: "error",
-            });
+            createErrorToast(error);
         }
     };
 
@@ -92,19 +82,7 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
 
             closeDrawer();
         } catch (error) {
-            if (errorTypeGuard(error)) {
-                createToast({
-                    message: error.message,
-                    type: "error",
-                });
-
-                return;
-            }
-
-            createToast({
-                message: "Unknown error...",
-                type: "error",
-            });
+            createErrorToast(error);
         }
     };
 

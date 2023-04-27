@@ -1,2 +1,2 @@
 export *
-from "src/components/app/Header/components/AdminAuthButton/AdminAuthButton";
+from "src/components/app/Header/components/AdminAuthButton/AdminModalButton";

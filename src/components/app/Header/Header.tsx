@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import * as Style from "src/components/app/Header/style";
 import {
-    AdminAuthButton,
+    AdminModalButton,
     HEADER_ROUTES,
     LinkItem,
 } from "src/components/app/Header/components";
@@ -47,7 +47,7 @@ export const Header = ({ cookie }: IHeader): JSX.Element => {
             </Style.SiteNavigation>
 
             {isActive && !isAuth
-                ? <AdminAuthButton />
+                ? <AdminModalButton />
                 : null}
 
             {!isAuth ? <ThemeSwitcher /> : null}

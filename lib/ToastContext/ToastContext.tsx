@@ -8,6 +8,7 @@ import {
     ICreateToast,
     IToastContext,
     IToastContextProvider,
+    ToastErrorType,
 } from "lib/ToastContext/toast.interfaces";
 import {
     defaultToastConfiguration,
@@ -15,6 +16,7 @@ import {
 } from "lib/ToastContext/toast.configuration";
 import { createStyleForToastContainer } from "lib/ToastContext/toast.helpers";
 import { DefaultToast } from "lib/ToastContext/components/DefaultToast";
+import { errorTypeGuard } from "utils/errorTypeGuard";
 
 const ToastContext = React.createContext<undefined | IToastContext>(undefined);
 
@@ -45,17 +47,39 @@ export const ToastContextProvider = ({
                 destroyToast={destroyToast}
                 component={(
                     <DefaultToast
-                        message={message ?? "Toast message is not specified."}
-                        type={type ?? "error"}
+                        message={message}
+                        type={type}
                     />
                 )}
             />,
         ]);
     }, [showTime]);
 
+    const createErrorToast = useCallback(
+        (error: ToastErrorType) => {
+            const type = "error";
+
+            if (errorTypeGuard(error)) {
+                createToast({
+                    type,
+                    message: error.message,
+                });
+
+                return;
+            }
+
+            createErrorToast({
+                type,
+                message: "Unknown error message...",
+            });
+        },
+        [createToast],
+    );
+
     const memoizedToastValues = useMemo((): IToastContext => ({
         createToast,
-    }), [createToast]);
+        createErrorToast,
+    }), [createToast, createErrorToast]);
 
     const toastContainerStyle = useMemo(() => (
         createStyleForToastContainer(toastContainerConfiguration)

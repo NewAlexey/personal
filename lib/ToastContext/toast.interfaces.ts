@@ -7,8 +7,11 @@ export interface ICreateToast {
     type: ToastType;
 }
 
+export type ToastErrorType = unknown;
+
 export interface IToastContext {
     createToast: (toastProps: ICreateToast) => void;
+    createErrorToast: (error: ToastErrorType) => void;
 }
 
 export interface IToastConfiguration {

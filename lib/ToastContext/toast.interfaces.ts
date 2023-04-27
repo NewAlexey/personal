@@ -1,7 +1,14 @@
 import React from "react";
 
+import { ToastType } from "lib/ToastContext/components/DefaultToast";
+
+export interface ICreateToast {
+    message: string;
+    type: ToastType;
+}
+
 export interface IToastContext {
-    createToast: (toastComponent: JSX.Element) => void;
+    createToast: (toastProps: ICreateToast) => void;
 }
 
 export interface IToastConfiguration {

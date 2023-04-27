@@ -12,7 +12,6 @@ import * as Style from "src/modules/AdminModule/style";
 import { ColourService } from "service/ColourService";
 import { SeparatorLine } from "src/components/library/SeparatorLine";
 import { useToastContext } from "lib/ToastContext";
-import { Toast } from "src/components/library/Toast";
 import {
     FireBaseAuthModel,
     IFireBaseAuthModel,
@@ -54,30 +53,24 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
                 message,
             } = await HomePageServiceRef.current.updateHomePageInfoData(infoData);
 
-            createToast(
-                <Toast
-                    message={message}
-                    type="success"
-                />,
-            );
+            createToast({
+                message,
+                type: "success",
+            });
         } catch (error) {
             if (errorTypeGuard(error)) {
-                createToast(
-                    <Toast
-                        message={error.message}
-                        type="error"
-                    />,
-                );
+                createToast({
+                    message: error.message,
+                    type: "error",
+                });
 
                 return;
             }
 
-            createToast(
-                <Toast
-                    message="Unknown error..."
-                    type="error"
-                />,
-            );
+            createToast({
+                message: "Unknown error...",
+                type: "error",
+            });
         }
     };
 
@@ -92,31 +85,26 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
                 message,
             } = await FireBaseAuthServiceRef.current.authInFireBase(fireBaseAuthModel);
 
-            createToast(
-                <Toast
-                    message={message}
-                    type="success"
-                />,
-            );
+            createToast({
+                message,
+                type: "success",
+            });
+
             closeDrawer();
         } catch (error) {
             if (errorTypeGuard(error)) {
-                createToast(
-                    <Toast
-                        message={error.message}
-                        type="error"
-                    />,
-                );
+                createToast({
+                    message: error.message,
+                    type: "error",
+                });
 
                 return;
             }
 
-            createToast(
-                <Toast
-                    message="Unknown error..."
-                    type="error"
-                />,
-            );
+            createToast({
+                message: "Unknown error...",
+                type: "error",
+            });
         }
     };
 

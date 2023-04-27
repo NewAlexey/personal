@@ -21,13 +21,13 @@ export const Header = ({ cookie }: IHeader): JSX.Element => {
     const isActive = isActiveAdminCookie(cookie);
     const {
         isAuth,
-        authLogOut,
+        adminLogOut,
     } = useAuthContext();
 
     const router = useRouter();
 
     const onLogOut = () => {
-        authLogOut();
+        adminLogOut();
         router.push("/");
     };
 

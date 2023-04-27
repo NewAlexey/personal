@@ -1,8 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
 
-import { ToastComponentHOC } from "lib/ToastContext/ToastComponentHOC";
+import {
+    ToastComponentHOC,
+} from "lib/ToastContext/components/ToastComponentHOC";
 import { getUniqueNumber } from "utils/utils";
 import {
+    ICreateToast,
     IToastContext,
     IToastContextProvider,
 } from "lib/ToastContext/toast.interfaces";
@@ -11,6 +14,7 @@ import {
     defaultToastContainerConfiguration,
 } from "lib/ToastContext/toast.configuration";
 import { createStyleForToastContainer } from "lib/ToastContext/toast.helpers";
+import { DefaultToast } from "lib/ToastContext/components/DefaultToast";
 
 const ToastContext = React.createContext<undefined | IToastContext>(undefined);
 
@@ -22,8 +26,10 @@ export const ToastContextProvider = ({
     const { showTime } = configuration;
     const [toastList, setToastList] = useState<JSX.Element[]>([]);
 
-    // TODO implement toast component by default!
-    const createToast = useCallback((toastComponent: JSX.Element) => {
+    const createToast = useCallback(({
+        type,
+        message,
+    }: ICreateToast) => {
         const id = getUniqueNumber();
 
         const destroyToast = () => {
@@ -37,7 +43,12 @@ export const ToastContextProvider = ({
                 key={id}
                 showTime={showTime || 3000}
                 destroyToast={destroyToast}
-                component={toastComponent}
+                component={(
+                    <DefaultToast
+                        message={message ?? "Toast message is not specified."}
+                        type={type ?? "error"}
+                    />
+                )}
             />,
         ]);
     }, [showTime]);

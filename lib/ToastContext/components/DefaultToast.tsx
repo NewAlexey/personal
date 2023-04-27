@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Text } from "src/components/library/Text";
-import * as Style from "./style";
+import * as Style from "lib/ToastContext/components/style";
 
 export type ToastType = "info" | "error" | "success";
 
@@ -10,7 +10,7 @@ interface IToast {
     type: ToastType;
 }
 
-export const Toast = ({
+export const DefaultToast = ({
     message,
     type,
 }: IToast) => (

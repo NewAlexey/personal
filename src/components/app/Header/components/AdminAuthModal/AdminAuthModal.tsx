@@ -5,7 +5,6 @@ import { useAuthContext } from "src/context";
 import { AppAuthService } from "service/AppAuthService";
 import { AppAuthModel, IAppAuthModel } from "models/AppAuthModel";
 import { useToastContext } from "lib/ToastContext";
-import { Toast } from "src/components/library/Toast";
 import { AppAuthForm } from "src/components/library/Form/AppAuthForm";
 import { errorTypeGuard } from "utils/errorTypeGuard";
 
@@ -20,7 +19,7 @@ export const AdminAuthModal = ({
     const router = useRouter();
 
     const {
-        authLogIn,
+        adminLogIn,
     } = useAuthContext();
 
     const { createToast } = useToastContext();
@@ -35,34 +34,30 @@ export const AdminAuthModal = ({
         });
 
         try {
-            await AuthService.current.authLoginRequest(AuthModel);
+            const { message } = await AuthService.current.authLoginRequest(AuthModel);
 
-            createToast(
-                <Toast
-                    message="Authentication success!"
-                    type="success"
-                />,
-            );
+            createToast({
+                message,
+                type: "success",
+            });
 
-            authLogIn();
+            adminLogIn();
             closeModal();
             await router.push("personal");
         } catch (error) {
             if (errorTypeGuard(error)) {
-                createToast(
-                    <Toast
-                        message={error.message}
-                        type="error"
-                    />,
-                );
-            } else {
-                createToast(
-                    <Toast
-                        message="Unknown error"
-                        type="error"
-                    />,
-                );
+                createToast({
+                    message: error.message,
+                    type: "error",
+                });
+
+                return;
             }
+
+            createToast({
+                message: "Unknown error...",
+                type: "error",
+            });
         }
     };
 

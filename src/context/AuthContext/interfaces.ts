@@ -2,8 +2,8 @@ import React from "react";
 
 export interface IAuthContext {
     isAuth: boolean;
-    authLogIn: () => void;
-    authLogOut: () => void;
+    adminLogIn: () => void;
+    adminLogOut: () => void;
 }
 
 export interface IAuthContextProvider {

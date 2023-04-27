@@ -1,14 +1,29 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import CryptoJS from "crypto-js";
 
-export default function checkSuperLogin(
+const AUTH_SUCCESS_MESSAGE = "Authentication success!";
+
+const AUTH_ERROR_MESSAGE = "Authentication failed...";
+
+const AUTH_BAD_REQUEST_MESSAGE = "hello";
+
+export interface IVerifyAdminDataResponse {
+    message: string;
+}
+
+export default function verifyAdminData(
     req: NextApiRequest,
-    res: NextApiResponse,
-): void {
+    res: NextApiResponse<IVerifyAdminDataResponse>,
+): void | Response {
     const {
         password,
         login,
-    } = req.body as { login: string; password: string; };
+    } = req.body as { login?: string; password?: string; };
+
+    if (!password || !login) {
+        res.status(400)
+            .json({ message: AUTH_BAD_REQUEST_MESSAGE });
+    }
 
     const decipher = CryptoJS.AES.decrypt(
         process.env.HEHESH as string,
@@ -20,9 +35,9 @@ export default function checkSuperLogin(
         password === decipher.toString(CryptoJS.enc.Utf8)
     ) {
         res.status(200)
-            .json({ message: "Authentication success!" });
+            .json({ message: AUTH_SUCCESS_MESSAGE });
     } else {
         res.status(403)
-            .json({ message: "Authentication failed..." });
+            .json({ message: AUTH_ERROR_MESSAGE });
     }
 }

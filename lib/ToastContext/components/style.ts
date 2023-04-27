@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { COLOURS } from "utils/constants";
-import { ToastType } from "src/components/library/Toast";
+import { ToastType } from "lib/ToastContext/components/DefaultToast";
 
 export const ToastContainer = styled.div`
   overflow: hidden;

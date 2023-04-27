@@ -1,15 +1,11 @@
 import {
     child,
     DatabaseReference,
-    get,
     getDatabase,
     ref,
     update,
 } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
-import { IHomePageData } from "utils/data.interfaces";
-import { OperationStatusEnum } from "service/service.interfaces";
 import { initializeApp } from "firebase/app";
 import { FireBaseAuthModel } from "models/FireBaseAuthModel";
 
@@ -25,89 +21,47 @@ const firebaseConfig = {
 };
 
 interface IFireBaseApi {
-    getHomePageData: () => Promise<{ homePageData: IHomePageData, message: string }>;
-    updateHomePageInfoData: (info: string) => Promise<{ status: OperationStatusEnum, message: string }>;
-    authInFireBase: (fireBaseAuthModel: FireBaseAuthModel) => Promise<{ status: OperationStatusEnum, message: string }>;
+    updateHomePageAboutData: (info: string) => Promise<{ message: string }>;
+    authInFireBase: (fireBaseAuthModel: FireBaseAuthModel) => Promise<{ message: string }>;
 }
 
 export class FireBaseApi implements IFireBaseApi {
+    static instance: FireBaseApi;
+
     private readonly fbDbRef: DatabaseReference;
 
-    private readonly homePageDataPath = "home";
+    private readonly HOME_PAGE_DATA_PATH = "home";
 
-    private readonly getHomePageError = "Home page data does not exist!";
+    private readonly UPDATE_SUCCESSFUL_MESSAGE = "Update successful!";
 
-    private readonly updateHomePageDataSuccessMessage = "Update successful!";
+    private readonly AUTH_SUCCESSFUL_MESSAGE = "Authentication successful!";
 
-    private readonly authenticationSuccessMessage = "Authentication successful!";
-
-    constructor() {
+    private constructor() {
         this.fbDbRef = ref(getDatabase(initializeApp(firebaseConfig)));
     }
 
-    public async getHomePageData() {
-        try {
-            const snapshot = await get(child(this.fbDbRef, this.homePageDataPath));
-
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-
-                return {
-                    message: "",
-                    homePageData: { info: data.info },
-                };
-            }
-
-            return {
-                message: this.getHomePageError,
-                homePageData: { info: null },
-            };
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.log(`Home page error - ${error}`);
-
-            return {
-                message: "Network Error",
-                homePageData: { info: null },
-            };
+    static getInstance() {
+        if (!this.instance) {
+            this.instance = new FireBaseApi();
         }
+
+        return this.instance;
     }
 
-    public async updateHomePageInfoData(info: string) {
-        try {
-            await update(child(this.fbDbRef, this.homePageDataPath), { info });
+    public async updateHomePageAboutData(info: string) {
+        await update(child(this.fbDbRef, this.HOME_PAGE_DATA_PATH), { info });
 
-            return {
-                status: OperationStatusEnum.OK,
-                message: this.updateHomePageDataSuccessMessage,
-            };
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.log(`updateHomePageInfo error - ${error}`);
-
-            return {
-                status: OperationStatusEnum.ERROR,
-                // @ts-ignore
-                message: `${error?.message}`,
-            };
-        }
+        return {
+            message: this.UPDATE_SUCCESSFUL_MESSAGE,
+        };
     }
 
     public async authInFireBase(fireBaseAuthModel: FireBaseAuthModel) {
-        try {
-            const auth = getAuth();
-            await signInWithEmailAndPassword(auth, fireBaseAuthModel.getEmail(), fireBaseAuthModel.getPassword());
+        const auth = getAuth();
+        await signInWithEmailAndPassword(auth, fireBaseAuthModel.email, fireBaseAuthModel.password);
 
-            return {
-                status: OperationStatusEnum.OK,
-                message: this.authenticationSuccessMessage,
-            };
-        } catch (error) {
-            return {
-                status: OperationStatusEnum.ERROR,
-                // @ts-ignore
-                message: `${error?.message}`,
-            };
-        }
+        return {
+            message: this.AUTH_SUCCESSFUL_MESSAGE,
+        };
     }
 }

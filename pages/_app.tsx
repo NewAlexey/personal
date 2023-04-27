@@ -9,9 +9,12 @@ import {
     ExperimentalContextProvider,
 } from "src/context/ExperimentalContext/ExperimentalContext";
 import { InitialLoader } from "src/components/library";
-import { IAppProps } from "utils/pages.interfaces";
 import { ToastContextProvider } from "lib/ToastContext";
 import { ThemeContextProvider } from "src/context/ThemeContext";
+import { AppProps } from "next/dist/pages/_app";
+import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
+
+type IAppProps = AppProps<INextPageDefaultProps>
 
 const App = ({
     Component,

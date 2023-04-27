@@ -8,7 +8,7 @@ import Head from "next/head";
 import { HomePageService } from "service/HomePageService";
 import { HomePage } from "src/modules";
 import { MOCK_HOME_INFO_PAGE_DATA } from "utils/constants";
-import { INextPageDefaultProps } from "utils/pages.interfaces";
+import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
 
 interface IHomePage extends INextPageDefaultProps {
     homePageData: {

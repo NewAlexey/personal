@@ -4,23 +4,23 @@ export interface IFireBaseAuthModel {
 }
 
 export class FireBaseAuthModel {
-    private readonly email: IFireBaseAuthModel["email"];
+    private readonly _email: IFireBaseAuthModel["email"];
 
-    private readonly password: IFireBaseAuthModel["password"];
+    private readonly _password: IFireBaseAuthModel["password"];
 
     constructor({
         email,
         password,
     }: { email: string, password: string }) {
-        this.email = email;
-        this.password = password;
+        this._email = email;
+        this._password = password;
     }
 
-    public getEmail() {
-        return this.email;
+    public get email() {
+        return this._email;
     }
 
-    public getPassword() {
-        return this.password;
+    public get password() {
+        return this._password;
     }
 }

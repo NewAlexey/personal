@@ -13,26 +13,26 @@ import { ColourService } from "service/ColourService";
 import { SeparatorLine } from "src/components/library/SeparatorLine";
 import { useToastContext } from "lib/ToastContext";
 import { Toast } from "src/components/library/Toast";
-import { OperationStatusEnum } from "service/service.interfaces";
-import { FireBaseAuthService } from "service/FireBaseAuthService";
 import {
     FireBaseAuthModel,
     IFireBaseAuthModel,
 } from "models/FireBaseAuthModel";
 import { FireBaseAuthDrawer } from "src/modules/AdminModule/components";
+import { errorTypeGuard } from "utils/errorTypeGuard";
+import { FireBaseApi } from "api/FireBaseApi";
 
 interface IAdminConfigurationPanel {
-    homePageInfo: string;
+    aboutInfo: string;
 }
 
-const AdminConfigurationPanel = ({ homePageInfo }: IAdminConfigurationPanel) => {
+const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
     const ColourServiceRef = useRef(new ColourService());
-    const FireBaseAuthServiceRef = useRef(new FireBaseAuthService());
+    const FireBaseAuthServiceRef = useRef(FireBaseApi.getInstance());
     const HomePageServiceRef = useRef(new HomePageService());
 
-    const [hexColour, setHexColour] = useState(ColourServiceRef.current.getHexColourFromStringBySymbol(homePageInfo));
+    const [hexColour, setHexColour] = useState(ColourServiceRef.current.getHexColourFromStringBySymbol(aboutInfo));
     const [prevColour, setPrevColour] = useState(hexColour);
-    const [infoData, setInfoData] = useState(homePageInfo);
+    const [infoData, setInfoData] = useState(aboutInfo);
 
     const { createToast } = useToastContext();
 
@@ -49,36 +49,75 @@ const AdminConfigurationPanel = ({ homePageInfo }: IAdminConfigurationPanel) => 
     }, [hexColour]);
 
     const onUpdateHomepageInfo = async () => {
-        const {
-            message,
-            status,
-        } = await HomePageServiceRef.current.updateHomePageInfoData(infoData);
+        try {
+            const {
+                message,
+            } = await HomePageServiceRef.current.updateHomePageInfoData(infoData);
 
-        createToast(
-            <Toast
-                message={message}
-                type={status === OperationStatusEnum.OK ? "success" : "error"}
-            />,
-        );
+            createToast(
+                <Toast
+                    message={message}
+                    type="success"
+                />,
+            );
+        } catch (error) {
+            if (errorTypeGuard(error)) {
+                createToast(
+                    <Toast
+                        message={error.message}
+                        type="error"
+                    />,
+                );
+
+                return;
+            }
+
+            createToast(
+                <Toast
+                    message="Unknown error..."
+                    type="error"
+                />,
+            );
+        }
     };
 
-    const submitFireBaseAuth = async (formData: IFireBaseAuthModel) => {
-        const {
-            status,
-            message,
-        } = await FireBaseAuthServiceRef.current.fireBaseAuthRequest(new FireBaseAuthModel({
+    const submitFireBaseAuth = async (formData: IFireBaseAuthModel, closeDrawer: () => void) => {
+        const fireBaseAuthModel = new FireBaseAuthModel({
             email: formData.email,
             password: formData.password,
-        }));
+        });
 
-        createToast(
-            <Toast
-                message={message}
-                type={status === OperationStatusEnum.OK ? "success" : "error"}
-            />,
-        );
+        try {
+            const {
+                message,
+            } = await FireBaseAuthServiceRef.current.authInFireBase(fireBaseAuthModel);
 
-        return status === OperationStatusEnum.OK;
+            createToast(
+                <Toast
+                    message={message}
+                    type="success"
+                />,
+            );
+            closeDrawer();
+        } catch (error) {
+            if (errorTypeGuard(error)) {
+                createToast(
+                    <Toast
+                        message={error.message}
+                        type="error"
+                    />,
+                );
+
+                return;
+            }
+
+            createToast(
+                <Toast
+                    message="Unknown error..."
+                    type="error"
+                />,
+            );
+        }
     };
 
     return (

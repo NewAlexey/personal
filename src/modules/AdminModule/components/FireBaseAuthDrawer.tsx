@@ -7,7 +7,7 @@ import { ChevronLeft } from "src/components/library/Icons";
 import { FireBaseAuthForm } from "src/components/library/Form/FireBaseAuthForm";
 
 interface IFireBaseAuthDrawer {
-    submit: (formData: IFireBaseAuthModel) => Promise<boolean>;
+    submit: (formData: IFireBaseAuthModel, closeDrawer: () => void) => void;
 }
 
 export const FireBaseAuthDrawer = ({ submit }: IFireBaseAuthDrawer) => {
@@ -27,13 +27,9 @@ export const FireBaseAuthDrawer = ({ submit }: IFireBaseAuthDrawer) => {
                 position="right"
                 render={({ handleSmoothlyClose }) => (
                     <FireBaseAuthForm
-                        submit={async (formData: IFireBaseAuthModel) => {
-                            const result = await submit(formData);
-
-                            if (result) {
-                                handleSmoothlyClose();
-                            }
-                        }}
+                        submit={(formData: IFireBaseAuthModel) =>
+                            submit(formData, handleSmoothlyClose)
+                        }
                         onClose={handleSmoothlyClose}
                     />
                 )}

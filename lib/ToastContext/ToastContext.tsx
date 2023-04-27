@@ -22,6 +22,7 @@ export const ToastContextProvider = ({
     const { showTime } = configuration;
     const [toastList, setToastList] = useState<JSX.Element[]>([]);
 
+    // TODO implement toast component by default!
     const createToast = useCallback((toastComponent: JSX.Element) => {
         const id = getUniqueNumber();
 

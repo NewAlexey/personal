@@ -6,19 +6,19 @@ import { Text } from "src/components/library";
 import { useAuthContext } from "src/context";
 
 import { HomePageService } from "service/HomePageService";
-import { INextPageDefaultProps } from "utils/pages.interfaces";
+import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
 
-const DynamicAdminPage = dynamic<{ homePageInfo: string }>(
+const DynamicAdminPage = dynamic<{ aboutInfo: string }>(
     () => import("src/modules/AdminModule/AdminModule"),
 );
 
-interface IPersonalPage2 extends INextPageDefaultProps {
+interface IAdminPage extends INextPageDefaultProps {
     homePageData: {
         about: string | null;
     };
 }
 
-const AdminPage = ({ homePageData }: IPersonalPage2) => {
+const AdminPage = ({ homePageData }: IAdminPage) => {
     const { isAuth } = useAuthContext();
 
     if (!isAuth) {
@@ -72,7 +72,7 @@ const AdminPage = ({ homePageData }: IPersonalPage2) => {
                     content="Admin Page"
                 />
             </Head>
-            <DynamicAdminPage homePageInfo={homePageData.about} />
+            <DynamicAdminPage aboutInfo={homePageData.about} />
         </>
     );
 };
@@ -81,7 +81,7 @@ export default AdminPage;
 
 export async function getServerSideProps(
     context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<IPersonalPage2>> {
+): Promise<GetServerSidePropsResult<IAdminPage>> {
     const { cookies } = context.req;
     const acCookie = cookies.ac;
 

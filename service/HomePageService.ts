@@ -1,5 +1,4 @@
 import { FireBaseApi } from "api/FireBaseApi";
-import { OperationStatusEnum } from "service/service.interfaces";
 import { FetchApi } from "api/FetchApi";
 
 interface IGetHomePageData {
@@ -8,7 +7,7 @@ interface IGetHomePageData {
 
 interface IHomePageService {
     getHomePageData: () => Promise<IGetHomePageData>;
-    updateHomePageInfoData: (info: string) => Promise<{ status: OperationStatusEnum; message: string; }>;
+    updateHomePageInfoData: (info: string) => Promise<{ message: string; }>;
 }
 
 // TODO create static instance method (like fetchAPI);
@@ -16,18 +15,18 @@ interface IHomePageService {
 export class HomePageService implements IHomePageService {
     private requestService = FetchApi.getInstance();
 
-    private homeDataUrl = "https://portfolio-58d57-default-rtdb.europe-west1.firebasedatabase.app/home.json";
+    private HOME_DATA_URL_PATH = "https://portfolio-58d57-default-rtdb.europe-west1.firebasedatabase.app/home.json";
 
     public async getHomePageData(): Promise<IGetHomePageData> {
-        const response = await this.requestService.get(this.homeDataUrl);
+        const response = await this.requestService.get(this.HOME_DATA_URL_PATH);
 
         return { about: response.info };
     }
 
     // eslint-disable-next-line class-methods-use-this
     public async updateHomePageInfoData(info: string) {
-        const FireBaseApiInstance = new FireBaseApi();
+        const FireBaseApiInstance = FireBaseApi.getInstance();
 
-        return FireBaseApiInstance.updateHomePageInfoData(info);
+        return FireBaseApiInstance.updateHomePageAboutData(info);
     }
 }

@@ -1,8 +1,6 @@
 import React from "react";
 
-import {
-    IToastContainerConfiguration,
-} from "lib/ToastContext/toast.interfaces";
+import { IToastContainerConfiguration } from "lib/ToastContext/interfaces";
 
 export function createStyleForToastContainer(
     styles: IToastContainerConfiguration,

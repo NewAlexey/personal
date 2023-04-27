@@ -9,12 +9,12 @@ import {
     IToastContext,
     IToastContextProvider,
     ToastErrorType,
-} from "lib/ToastContext/toast.interfaces";
+} from "lib/ToastContext/interfaces";
 import {
     defaultToastConfiguration,
     defaultToastContainerConfiguration,
-} from "lib/ToastContext/toast.configuration";
-import { createStyleForToastContainer } from "lib/ToastContext/toast.helpers";
+} from "lib/ToastContext/configuration";
+import { createStyleForToastContainer } from "lib/ToastContext/utils";
 import { DefaultToast } from "lib/ToastContext/components/DefaultToast";
 import { errorTypeGuard } from "utils/errorTypeGuard";
 

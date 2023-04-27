@@ -1,7 +1,7 @@
 import {
     IToastConfiguration,
     IToastContainerConfiguration,
-} from "lib/ToastContext/toast.interfaces";
+} from "lib/ToastContext/interfaces";
 
 export const defaultToastConfiguration: IToastConfiguration = {
     showTime: 3000,

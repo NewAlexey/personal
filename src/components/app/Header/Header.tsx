@@ -12,23 +12,29 @@ import { isActiveAdminCookie } from "src/shared/helpers";
 import { useAuthContext } from "src/context";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import { ThemeSwitcher } from "src/components/library/ThemeSwitcher";
+import { useToastContext } from "lib/ToastContext";
 
 interface IHeader {
     cookie?: NextApiRequestCookies;
 }
 
 export const Header = ({ cookie }: IHeader): JSX.Element => {
-    const isActive = isActiveAdminCookie(cookie);
+    const router = useRouter();
     const {
         isAuth,
         adminLogOut,
     } = useAuthContext();
+    const { createToast } = useToastContext();
 
-    const router = useRouter();
+    const isActive = isActiveAdminCookie(cookie);
 
     const onLogOut = () => {
-        adminLogOut();
         router.push("/");
+        createToast({
+            type: "success",
+            message: "Successful logout!",
+        });
+        adminLogOut();
     };
 
     return (

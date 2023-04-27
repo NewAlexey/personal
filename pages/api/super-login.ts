@@ -1,5 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import CryptoJS from "crypto-js";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const AUTH_SUCCESS_MESSAGE = "Authentication success!";
 
@@ -34,6 +34,13 @@ export default function verifyAdminData(
         login === process.env.SUPER_LOGIN &&
         password === decipher.toString(CryptoJS.enc.Utf8)
     ) {
+        // const serializedCookie = serialize("test-27", "27", {
+        //     httpOnly: true,
+        //     maxAge: 60,
+        //     path: "/",
+        // });
+        // res.setHeader("set-cookie", serializedCookie);
+
         res.status(200)
             .json({ message: AUTH_SUCCESS_MESSAGE });
     } else {

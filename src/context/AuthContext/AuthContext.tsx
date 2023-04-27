@@ -16,14 +16,20 @@ const AUTH_COOKIE_NAME = "ac";
 
 const AUTH_COOKIE_VALID_VALUE = "1";
 
+const COOKIE_HIDDEN_BUTTON = process.env.NEXT_PUBLIC_SUPER_LESHA;
+
 const AuthContext = React.createContext<undefined | IAuthContext>(undefined);
 
-export const AuthContextProvider = ({ children }: IAuthContextProvider) => {
-    const [isAuth, setIsAuth] = useState(false);
+export const AuthContextProvider = ({
+    cookie,
+    children,
+}: IAuthContextProvider) => {
     const [cookies, setCookies, removeCookie] = useCookies([
-        process.env.NEXT_PUBLIC_SUPER_LESHA ?? "heh",
         AUTH_COOKIE_NAME,
     ]);
+
+    const [isAuth, setIsAuth] = useState(false);
+    const [isShowHiddenButton] = useState(cookie?.[COOKIE_HIDDEN_BUTTON] === "ETODA");
 
     useEffect(() => {
         const acCookie = cookies.ac;
@@ -51,7 +57,8 @@ export const AuthContextProvider = ({ children }: IAuthContextProvider) => {
         isAuth,
         adminLogIn,
         adminLogOut,
-    }), [adminLogIn, adminLogOut, isAuth]);
+        isShowHiddenButton,
+    }), [adminLogIn, adminLogOut, isAuth, isShowHiddenButton]);
 
     return (
         <AuthContext.Provider value={memoizedAuthValue}>{children}</AuthContext.Provider>

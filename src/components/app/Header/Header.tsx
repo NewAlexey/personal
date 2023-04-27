@@ -8,33 +8,26 @@ import {
     HEADER_ROUTES,
     LinkItem,
 } from "src/components/app/Header/components";
-import { isActiveAdminCookie } from "src/shared/helpers";
 import { useAuthContext } from "src/context";
-import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import { ThemeSwitcher } from "src/components/library/ThemeSwitcher";
 import { useToastContext } from "lib/ToastContext";
 
-interface IHeader {
-    cookie?: NextApiRequestCookies;
-}
-
-export const Header = ({ cookie }: IHeader): JSX.Element => {
+export const Header = (): JSX.Element => {
     const router = useRouter();
     const {
         isAuth,
         adminLogOut,
+        isShowHiddenButton,
     } = useAuthContext();
     const { createToast } = useToastContext();
 
-    const isActive = isActiveAdminCookie(cookie);
-
     const onLogOut = () => {
-        router.push("/");
         createToast({
             type: "success",
             message: "Successful logout!",
         });
         adminLogOut();
+        router.push("/");
     };
 
     return (
@@ -52,7 +45,7 @@ export const Header = ({ cookie }: IHeader): JSX.Element => {
                 ))}
             </Style.SiteNavigation>
 
-            {isActive && !isAuth
+            {isShowHiddenButton && !isAuth
                 ? <AdminModalButton />
                 : null}
 

@@ -33,7 +33,7 @@ const App = ({
                 : "light"}
         >
             <ToastContextProvider>
-                <AuthContextProvider>
+                <AuthContextProvider cookie={pageProps.cookies}>
                     <ExperimentalContextProvider>
 
                         {showLoader
@@ -42,7 +42,7 @@ const App = ({
 
                         {pageProps.layoutType === "default"
                             ? (
-                                <MainLayout cookies={pageProps.cookies}>
+                                <MainLayout>
                                     <Component {...pageProps} />
                                 </MainLayout>
                             )

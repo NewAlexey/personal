@@ -116,8 +116,9 @@ export class FetchApi {
             try {
                 const response = await fetch();
 
-                if (response.status !== 200) {
-                    reject(new Error(this.defaultErrorMessage));
+                if (!response.ok) {
+                    const result = await response.json();
+                    reject(new Error(result?.message ?? this.defaultErrorMessage));
 
                     return;
                 }
@@ -127,7 +128,7 @@ export class FetchApi {
 
                     return;
                 } catch (error) {
-                    resolve(error);
+                    reject(error);
 
                     return;
                 }

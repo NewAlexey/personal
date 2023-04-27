@@ -4,24 +4,23 @@ export interface IAppAuthModel {
 }
 
 export class AppAuthModel {
-    private readonly login: IAppAuthModel["login"];
+    private readonly _login: IAppAuthModel["login"];
 
-    private readonly password: IAppAuthModel["password"];
+    private readonly _password: IAppAuthModel["password"];
 
     constructor({
         login,
         password,
     }: { login: string, password: string }) {
-        this.login = login;
-        this.password = password;
+        this._login = login;
+        this._password = password;
     }
 
-    public authDataToString(): string {
-        const authData = {
-            login: this.login,
-            password: this.password,
-        };
+    get login(): string {
+        return this._login;
+    }
 
-        return JSON.stringify(authData);
+    get password(): string {
+        return this._password;
     }
 }

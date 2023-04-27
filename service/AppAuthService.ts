@@ -1,42 +1,15 @@
-import {
-    IRequestServiceResponse,
-    OperationStatusEnum,
-} from "service/service.interfaces";
+import { FetchApi } from "api/FetchApi";
+import { AppAuthModel } from "models/AppAuthModel";
 
 export class AppAuthService {
+    private requestService = FetchApi.getInstance();
+
     private readonly baseUrl = `${process.env.NEXT_PUBLIC_HOST}api/super-login`;
 
-    public async authRequest(authData: string): Promise<IRequestServiceResponse> {
-        try {
-            const response = await fetch(
-                this.baseUrl,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: authData,
-                },
-            );
-
-            const responseData = await response.json();
-
-            if (response.status !== 200) {
-                return {
-                    message: responseData.message,
-                    status: OperationStatusEnum.ERROR,
-                };
-            }
-
-            return {
-                message: responseData.message,
-                status: OperationStatusEnum.OK,
-            };
-        } catch (error) {
-            return {
-                message: "Network Error",
-                status: OperationStatusEnum.ERROR,
-            };
-        }
+    public async authLoginRequest(AuthModel: AppAuthModel): Promise<void> {
+        await this.requestService.post(this.baseUrl, {
+            login: AuthModel.login,
+            password: AuthModel.password,
+        });
     }
 }

@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { useAuthContext } from "src/context";
 import { AppAuthService } from "service/AppAuthService";
 import { AppAuthModel, IAppAuthModel } from "models/AppAuthModel";
-import { OperationStatusEnum } from "service/service.interfaces";
 import { useToastContext } from "lib/ToastContext";
 import { Toast } from "src/components/library/Toast";
 import { AppAuthForm } from "src/components/library/Form/AppAuthForm";
+import { errorTypeGuard } from "utils/errorTypeGuard";
 
 interface IAdminLoginModal {
     closeModal: () => void;
@@ -16,9 +16,9 @@ interface IAdminLoginModal {
 export const AdminAuthModal = ({
     closeModal,
 }: IAdminLoginModal): JSX.Element => {
-    const AuthServiceRef = useRef(new AppAuthService());
-
+    const AuthService = useRef(new AppAuthService());
     const router = useRouter();
+
     const {
         authLogIn,
     } = useAuthContext();
@@ -29,37 +29,41 @@ export const AdminAuthModal = ({
         login,
         password,
     }: IAppAuthModel): Promise<void> => {
-        const authData = new AppAuthModel({
+        const AuthModel = new AppAuthModel({
             login,
             password,
         });
 
-        const {
-            message,
-            status,
-        } = await AuthServiceRef.current.authRequest(authData.authDataToString());
+        try {
+            await AuthService.current.authLoginRequest(AuthModel);
 
-        if (status !== OperationStatusEnum.OK) {
             createToast(
                 <Toast
-                    message={message}
-                    type="error"
+                    message="Authentication success!"
+                    type="success"
                 />,
             );
 
-            return;
+            authLogIn();
+            closeModal();
+            await router.push("personal");
+        } catch (error) {
+            if (errorTypeGuard(error)) {
+                createToast(
+                    <Toast
+                        message={error.message}
+                        type="error"
+                    />,
+                );
+            } else {
+                createToast(
+                    <Toast
+                        message="Unknown error"
+                        type="error"
+                    />,
+                );
+            }
         }
-
-        createToast(
-            <Toast
-                message={message}
-                type="success"
-            />,
-        );
-
-        authLogIn();
-        closeModal();
-        await router.push("personal");
     };
 
     return (

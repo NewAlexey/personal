@@ -1,4 +1,4 @@
-import { FetchApi } from "api/FetchApi";
+import { FetchApi } from "integrations/FetchApi";
 import { AppAuthModel } from "models/AppAuthModel";
 import { IVerifyAdminDataResponse } from "pages/api/super-login";
 

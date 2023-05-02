@@ -17,7 +17,7 @@ import {
     IFireBaseAuthModel,
 } from "models/FireBaseAuthModel";
 import { FireBaseAuthDrawer } from "src/modules/AdminModule/components";
-import { FireBaseApi } from "api/FireBaseApi";
+import { FireBaseApi } from "integrations/FireBaseApi";
 
 interface IAdminConfigurationPanel {
     aboutInfo: string;

@@ -1,5 +1,5 @@
-import { FireBaseApi } from "api/FireBaseApi";
-import { FetchApi } from "api/FetchApi";
+import { FireBaseApi } from "integrations/FireBaseApi";
+import { FetchApi } from "integrations/FetchApi";
 
 interface IGetHomePageData {
     about: string;

@@ -4,7 +4,7 @@ import { Text } from "src/components/library/Text";
 import * as Style from "src/components/library/TextField/style";
 import { Label } from "src/components/library/Label";
 
-interface ITextField extends React.HTMLAttributes<HTMLInputElement> {
+interface ITextField extends Omit<React.ComponentProps<"input">, "ref"> {
     labelBefore?: string;
     labelAfter?: string;
     textAreaTitle?: string;

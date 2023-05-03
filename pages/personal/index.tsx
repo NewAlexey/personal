@@ -97,7 +97,7 @@ export async function getServerSideProps(
     }
 
     try {
-        const HomePageServiceInstance = new HomePageService();
+        const HomePageServiceInstance = HomePageService.getInstance();
         const { about } = await HomePageServiceInstance.getHomePageData();
 
         return {

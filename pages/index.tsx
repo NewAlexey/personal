@@ -43,8 +43,7 @@ export async function getServerSideProps(
     const isShowAuthButton = CookieService.isShowAuthButton(cookies);
 
     try {
-        const HomePageServiceInstance = new HomePageService();
-
+        const HomePageServiceInstance = HomePageService.getInstance();
         const { about } = await HomePageServiceInstance.getHomePageData();
 
         return {

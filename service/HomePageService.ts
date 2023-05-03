@@ -13,9 +13,19 @@ interface IHomePageService {
 // TODO create static instance method (like fetchAPI);
 
 export class HomePageService implements IHomePageService {
+    static instance: HomePageService;
+
     private requestService = FetchApi.getInstance();
 
     private HOME_DATA_URL_PATH = "https://portfolio-58d57-default-rtdb.europe-west1.firebasedatabase.app/home.json";
+
+    static getInstance(): HomePageService {
+        if (!this.instance) {
+            this.instance = new HomePageService();
+        }
+
+        return this.instance;
+    }
 
     public async getHomePageData(): Promise<IGetHomePageData> {
         const response = await this.requestService.get(this.HOME_DATA_URL_PATH);

@@ -50,9 +50,9 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
     }, [hexColour]);
 
     const onUpdateHomepageInfo = async () => {
-        const HomePageServiceInstance = new HomePageService();
-
         try {
+            const HomePageServiceInstance = HomePageService.getInstance();
+
             const {
                 message,
             } = await HomePageServiceInstance.updateHomePageInfoData(infoData);

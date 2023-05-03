@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "envPull": "yarn vercel env pull"
   },
   "dependencies": {
     "cookie": "^0.5.0",

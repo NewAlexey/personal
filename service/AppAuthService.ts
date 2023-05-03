@@ -5,18 +5,20 @@ import { IVerifyAdminDataResponse } from "pages/api/super-login";
 export class AppAuthService {
     private requestService = FetchApi.getInstance();
 
-    private readonly baseLoginUrl = `${process.env.NEXT_PUBLIC_HOST}api/super-login`;
+    private readonly PUBLIC_HOST = process.env.NEXT_PUBLIC_HOST;
 
-    private readonly baseLogoutUrl = `${process.env.NEXT_PUBLIC_HOST}api/super-logout`;
+    private readonly BASE_LOGIN_URL = `${this.PUBLIC_HOST}api/super-login`;
+
+    private readonly BASE_LOGOUT_URL = `${this.PUBLIC_HOST}api/super-logout`;
 
     public async authLoginRequest(AuthModel: AppAuthModel): Promise<IVerifyAdminDataResponse> {
-        return this.requestService.post(this.baseLoginUrl, {
+        return this.requestService.post(this.BASE_LOGIN_URL, {
             login: AuthModel.login,
             password: AuthModel.password,
         });
     }
 
     public async authLogoutRequest(): Promise<void> {
-        return this.requestService.post(this.baseLogoutUrl, {});
+        return this.requestService.post(this.BASE_LOGOUT_URL, {});
     }
 }

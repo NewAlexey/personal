@@ -1,19 +1,19 @@
 namespace NodeJS {
     interface ProcessEnv {
-        NEXT_PUBLIC_HOST: string;
         SECRETNY_TITLE: string;
         SECRETNYE_PECHENOSY: string;
         HEHESH: string;
         SECRET_KEY: string;
         SUPER_LOGIN: string;
         SUPER_LESHA: string;
-        FB_API_KEY: string;
-        FB_DOMAIN: string;
-        FB_PROJECT_ID: string;
-        STORAGE_BUCKET: string;
-        SENDER_ID: string;
-        APP_ID: string;
-        MEASURE_ID: string;
-        FB_DB_URL: string;
+        NEXT_FB_API_KEY: string;
+        NEXT_FB_DOMAIN: string;
+        NEXT_FB_PROJECT_ID: string;
+        NEXT_STORAGE_BUCKET: string;
+        NEXT_SENDER_ID: string;
+        NEXT_APP_ID: string;
+        NEXT_MEASURE_ID: string;
+        NEXT_FB_DB_URL: string;
+        NEXT_PUBLIC_HOST: string;
     }
 }

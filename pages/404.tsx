@@ -4,7 +4,7 @@ const CustomFourOhFour = () => (
     <div>
         <Text
             style={{ textAlign: "center" }}
-            value="Sorry..."
+            value="Sorry... Not found."
         />
     </div>
 );

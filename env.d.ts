@@ -1,5 +1,10 @@
 namespace NodeJS {
     interface ProcessEnv {
+        SECRETNY_TITLE: string;
+        SECRETNYE_PECHENOSY: string;
+        HEHESH: string;
+        SECRET_KEY: string;
+        SUPER_LOGIN: string;
         NEXT_PUBLIC_HOST: string;
         NEXT_PUBLIC_SUPER_LESHA: string;
         NEXT_PUBLIC_FB_API_KEY: string;

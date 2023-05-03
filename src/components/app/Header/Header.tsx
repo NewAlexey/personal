@@ -17,7 +17,7 @@ export const Header = (): JSX.Element => {
     const {
         isAuth,
         adminLogOut,
-        isShowHiddenButton,
+        isShowHiddenAuthButton,
     } = useAuthContext();
     const { createToast } = useToastContext();
 
@@ -45,7 +45,7 @@ export const Header = (): JSX.Element => {
                 ))}
             </Style.SiteNavigation>
 
-            {isShowHiddenButton && !isAuth
+            {isShowHiddenAuthButton && !isAuth
                 ? <AdminModalButton />
                 : null}
 

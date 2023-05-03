@@ -9,11 +9,13 @@ import { HomePageService } from "service/HomePageService";
 import { HomePage } from "src/modules";
 import { MOCK_HOME_INFO_PAGE_DATA } from "utils/constants";
 import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
+import { AuthCookieService } from "service/AuthCookieService";
 
 interface IHomePage extends INextPageDefaultProps {
     homePageData: {
         about: string;
     };
+    isAuthorized: boolean;
 }
 
 const Home: NextPage<IHomePage> = ({ homePageData }) => (
@@ -36,6 +38,10 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<IHomePage>> {
     const { cookies } = context.req;
 
+    const CookieService = new AuthCookieService();
+    const isAuthorized = CookieService.isAuthorizeByCookie(cookies);
+    const isShowAuthButton = CookieService.isShowAuthButton(cookies);
+
     try {
         const HomePageServiceInstance = new HomePageService();
 
@@ -43,18 +49,17 @@ export async function getServerSideProps(
 
         return {
             props: {
-                cookies,
+                isAuthorized,
+                isShowAuthButton,
                 theme: cookies.theme ?? "light",
                 homePageData: { about },
             },
         };
     } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-
         return {
             props: {
-                cookies,
+                isAuthorized,
+                isShowAuthButton,
                 theme: cookies.theme ?? "light",
                 homePageData: { about: MOCK_HOME_INFO_PAGE_DATA },
             },

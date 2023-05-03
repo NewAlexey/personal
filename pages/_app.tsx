@@ -14,12 +14,12 @@ import { ThemeContextProvider } from "src/context/ThemeContext";
 import { AppProps } from "next/dist/pages/_app";
 import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
 
-type IAppProps = AppProps<INextPageDefaultProps>
+type AppPropsType = AppProps<INextPageDefaultProps>
 
 const App = ({
     Component,
     pageProps,
-}: IAppProps): JSX.Element => {
+}: AppPropsType): JSX.Element => {
     pageProps.layoutType = pageProps.layoutType
         ? pageProps.layoutType
         : "default";
@@ -33,9 +33,11 @@ const App = ({
                 : "light"}
         >
             <ToastContextProvider>
-                <AuthContextProvider cookie={pageProps.cookies}>
+                <AuthContextProvider
+                    isAuthorized={pageProps.isAuthorized ?? false}
+                    isShowAuthButton={pageProps.isShowAuthButton ?? false}
+                >
                     <ExperimentalContextProvider>
-
                         {showLoader
                             ? <InitialLoader setShowLoader={setShowLoader} />
                             : null}

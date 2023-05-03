@@ -1,69 +1,14 @@
-import React, {
-    useCallback, useEffect, useMemo, useState
-} from "react";
-import { useCookies } from "react-cookie";
+import React, { useCallback, useMemo, useState } from "react";
 
 import {
     IAuthContext,
     IAuthContextProvider,
     IMemoizedAuthContextValue,
 } from "src/context/AuthContext/interfaces";
-
-// Cookie age in seconds.
-const COOKIE_MAX_AGE = 3600;
-
-const AUTH_COOKIE_NAME = "ac";
-
-const AUTH_COOKIE_VALID_VALUE = "1";
-
-const COOKIE_HIDDEN_BUTTON = process.env.NEXT_PUBLIC_SUPER_LESHA;
+import { AppAuthService } from "service/AppAuthService";
+import { AppAuthModel } from "models/AppAuthModel";
 
 const AuthContext = React.createContext<undefined | IAuthContext>(undefined);
-
-export const AuthContextProvider = ({
-    cookie,
-    children,
-}: IAuthContextProvider) => {
-    const [cookies, setCookies, removeCookie] = useCookies([
-        AUTH_COOKIE_NAME,
-    ]);
-
-    const [isAuth, setIsAuth] = useState(false);
-    const [isShowHiddenButton] = useState(cookie?.[COOKIE_HIDDEN_BUTTON] === "ETODA");
-
-    useEffect(() => {
-        const acCookie = cookies.ac;
-
-        if (acCookie === AUTH_COOKIE_VALID_VALUE) {
-            setIsAuth(true);
-        }
-    }, [cookies.ac]);
-
-    const adminLogIn = useCallback(() => {
-        setCookies(AUTH_COOKIE_NAME, AUTH_COOKIE_VALID_VALUE, {
-            maxAge: COOKIE_MAX_AGE,
-            sameSite: "none",
-            secure: true,
-        });
-        setIsAuth(true);
-    }, [setCookies]);
-
-    const adminLogOut = useCallback(() => {
-        removeCookie(AUTH_COOKIE_NAME);
-        setIsAuth(false);
-    }, [removeCookie]);
-
-    const memoizedAuthValue = useMemo((): IMemoizedAuthContextValue => ({
-        isAuth,
-        adminLogIn,
-        adminLogOut,
-        isShowHiddenButton,
-    }), [adminLogIn, adminLogOut, isAuth, isShowHiddenButton]);
-
-    return (
-        <AuthContext.Provider value={memoizedAuthValue}>{children}</AuthContext.Provider>
-    );
-};
 
 export const useAuthContext = (): IAuthContext => {
     const context = React.useContext(AuthContext);
@@ -73,4 +18,42 @@ export const useAuthContext = (): IAuthContext => {
     }
 
     return context;
+};
+
+export const AuthContextProvider = ({
+    children,
+    isAuthorized,
+    isShowAuthButton,
+}: IAuthContextProvider) => {
+    const [isAuth, setIsAuth] = useState(isAuthorized);
+    const [isShowHiddenAuthButton] = useState(isShowAuthButton);
+
+    const adminLogIn = useCallback(async (model: AppAuthModel) => {
+        const AuthService = new AppAuthService();
+        const result = await AuthService.authLoginRequest(model);
+
+        setIsAuth(true);
+
+        return result;
+    }, []);
+
+    const adminLogOut = useCallback(async () => {
+        const AuthService = new AppAuthService();
+        const result = await AuthService.authLogoutRequest();
+
+        setIsAuth(false);
+
+        return result;
+    }, []);
+
+    const memoizedAuthValue = useMemo((): IMemoizedAuthContextValue => ({
+        isAuth,
+        adminLogIn,
+        adminLogOut,
+        isShowHiddenAuthButton,
+    }), [adminLogIn, adminLogOut, isAuth, isShowHiddenAuthButton]);
+
+    return (
+        <AuthContext.Provider value={memoizedAuthValue}>{children}</AuthContext.Provider>
+    );
 };

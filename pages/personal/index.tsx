@@ -3,10 +3,10 @@ import dynamic from "next/dynamic";
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
 import { Text } from "src/components/library";
-import { useAuthContext } from "src/context";
 
 import { HomePageService } from "service/HomePageService";
 import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
+import { AuthCookieService } from "service/AuthCookieService";
 
 const DynamicAdminPage = dynamic<{ aboutInfo: string }>(
     () => import("src/modules/AdminModule/AdminModule"),
@@ -16,12 +16,14 @@ interface IAdminPage extends INextPageDefaultProps {
     homePageData: {
         about: string | null;
     };
+    isAuthorized: boolean;
 }
 
-const AdminPage = ({ homePageData }: IAdminPage) => {
-    const { isAuth } = useAuthContext();
-
-    if (!isAuth) {
+const AdminPage = ({
+    homePageData,
+    isAuthorized,
+}: IAdminPage) => {
+    if (!isAuthorized) {
         return (
             <>
                 <Head>
@@ -83,16 +85,14 @@ export async function getServerSideProps(
     context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<IAdminPage>> {
     const { cookies } = context.req;
-    const acCookie = cookies.ac;
 
-    if (!acCookie) {
+    const CookieService = new AuthCookieService();
+    const isAuthorized = CookieService.isAuthorizeByCookie(cookies);
+    const isShowAuthButton = CookieService.isShowAuthButton(cookies);
+
+    if (!isAuthorized) {
         return {
-            props: {
-                theme: cookies.theme ?? "light",
-                homePageData: {
-                    about: null,
-                },
-            },
+            notFound: true,
         };
     }
 
@@ -102,6 +102,8 @@ export async function getServerSideProps(
 
         return {
             props: {
+                isAuthorized,
+                isShowAuthButton,
                 homePageData: {
                     about,
                 },
@@ -110,6 +112,8 @@ export async function getServerSideProps(
     } catch (error) {
         return {
             props: {
+                isAuthorized,
+                isShowAuthButton,
                 homePageData: {
                     about: null,
                 },

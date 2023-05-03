@@ -5,4 +5,6 @@ export interface INextPageDefaultProps {
     cookies?: NextApiRequestCookies;
     theme?: string;
     layoutType?: LayoutType;
+    isAuthorized?: boolean;
+    isShowAuthButton?: boolean;
 }

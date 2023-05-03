@@ -1,15 +1,19 @@
 import React from "react";
 
+import { AppAuthModel } from "models/AppAuthModel";
+import { IVerifyAdminDataResponse } from "pages/api/super-login";
+
 export interface IAuthContext {
     isAuth: boolean;
-    adminLogIn: () => void;
+    adminLogIn: (model: AppAuthModel) => Promise<IVerifyAdminDataResponse>;
     adminLogOut: () => void;
-    isShowHiddenButton: boolean;
+    isShowHiddenAuthButton: boolean;
 }
 
 export interface IAuthContextProvider {
     children: React.ReactNode;
-    cookie: Partial<{ [key: string]: string; }> | undefined;
+    isShowAuthButton: boolean;
+    isAuthorized: boolean;
 }
 
 export type IMemoizedAuthContextValue = IAuthContext

@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 
 import { useAuthContext } from "src/context";
-import { AppAuthService } from "service/AppAuthService";
 import { AppAuthModel, IAppAuthModel } from "models/AppAuthModel";
 import { useToastContext } from "lib/ToastContext";
 import { AppAuthForm } from "src/components/library/Form/AppAuthForm";
@@ -14,7 +13,6 @@ interface IAdminLoginModal {
 export const AdminAuthModal = ({
     closeModal,
 }: IAdminLoginModal): JSX.Element => {
-    const AuthService = useRef(new AppAuthService());
     const router = useRouter();
 
     const {
@@ -36,14 +34,12 @@ export const AdminAuthModal = ({
         });
 
         try {
-            const { message } = await AuthService.current.authLoginRequest(AuthModel);
+            const { message } = await adminLogIn(AuthModel);
 
             createToast({
                 message,
                 type: "success",
             });
-
-            adminLogIn();
             await router.push("personal");
         } catch (error) {
             createErrorToast(error);

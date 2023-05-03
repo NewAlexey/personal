@@ -7,7 +7,7 @@ export class AuthCookieService {
 
     private readonly HIDDEN_BUTTON_COOKIE_VALUE = "ETODA";
 
-    private readonly HIDDEN_BUTTON_COOKIE_TITLE = process.env.NEXT_PUBLIC_SUPER_LESHA;
+    private readonly HIDDEN_BUTTON_COOKIE_TITLE = process.env.SUPER_LESHA;
 
     private readonly COOKIE_MAX_AGE_MINUTES = 5;
 

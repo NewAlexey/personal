@@ -1,4 +1,4 @@
-import { IAppTheme } from "src/context/ThemeContext/theme.interfaces";
+import { IAppTheme } from "src/context/ThemeContext/interfaces";
 
 export const APP_THEME: IAppTheme = {
     light: {

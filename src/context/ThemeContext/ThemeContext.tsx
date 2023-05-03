@@ -1,15 +1,15 @@
 import React, {
     useCallback, useEffect, useMemo, useState
 } from "react";
-
+import { useCookies } from "react-cookie";
 import { ThemeProvider } from "styled-components";
+
 import {
     CookieThemeType,
     IThemeColours,
     IThemeContext,
-} from "src/context/ThemeContext/theme.interfaces";
-import { APP_THEME } from "src/context/ThemeContext/app.theme";
-import { useCookies } from "react-cookie";
+} from "src/context/ThemeContext/interfaces";
+import { APP_THEME } from "src/context/ThemeContext/APP_THEME";
 
 const ThemeContext = React.createContext<IThemeContext | undefined>(undefined);
 

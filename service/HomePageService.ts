@@ -25,7 +25,7 @@ export class HomePageService implements IHomePageService {
 
     // eslint-disable-next-line class-methods-use-this
     public async updateHomePageInfoData(info: string) {
-        const FireBaseApiInstance = FireBaseApi.getInstance();
+        const FireBaseApiInstance = await FireBaseApi.getInstance();
 
         return FireBaseApiInstance.updateHomePageAboutData(info);
     }

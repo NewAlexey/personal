@@ -17,7 +17,7 @@ import {
     IFireBaseAuthModel,
 } from "models/FireBaseAuthModel";
 import { FireBaseAuthDrawer } from "src/modules/AdminModule/components";
-import { FireBaseApi } from "integrations/FireBaseApi";
+import { useFireBaseApi } from "src/shared/hooks/useFireBaseApi";
 
 interface IAdminConfigurationPanel {
     aboutInfo: string;
@@ -25,8 +25,8 @@ interface IAdminConfigurationPanel {
 
 const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
     const ColourServiceRef = useRef(new ColourService());
-    const FireBaseAuthServiceRef = useRef(FireBaseApi.getInstance());
-    const HomePageServiceRef = useRef(new HomePageService());
+
+    const { FireBaseApi } = useFireBaseApi();
 
     const [hexColour, setHexColour] = useState(ColourServiceRef.current.getHexColourFromStringBySymbol(aboutInfo));
     const [prevColour, setPrevColour] = useState(hexColour);
@@ -50,10 +50,12 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
     }, [hexColour]);
 
     const onUpdateHomepageInfo = async () => {
+        const HomePageServiceInstance = new HomePageService();
+
         try {
             const {
                 message,
-            } = await HomePageServiceRef.current.updateHomePageInfoData(infoData);
+            } = await HomePageServiceInstance.updateHomePageInfoData(infoData);
 
             createToast({
                 message,
@@ -65,6 +67,10 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
     };
 
     const submitFireBaseAuth = async (formData: IFireBaseAuthModel, closeDrawer: () => void) => {
+        if (!FireBaseApi) {
+            return;
+        }
+
         const fireBaseAuthModel = new FireBaseAuthModel({
             email: formData.email,
             password: formData.password,
@@ -73,7 +79,7 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
         try {
             const {
                 message,
-            } = await FireBaseAuthServiceRef.current.authInFireBase(fireBaseAuthModel);
+            } = await FireBaseApi.authInFireBase(fireBaseAuthModel);
 
             createToast({
                 message,

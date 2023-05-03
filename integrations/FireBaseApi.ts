@@ -8,21 +8,41 @@ import {
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { FireBaseAuthModel } from "models/FireBaseAuthModel";
+import { FetchApi } from "integrations/FetchApi";
+import { IAuthVariables } from "pages/api/auth-settings";
 
-const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
+interface IFirebaseConfig {
+    authDomain?: string;
+    projectId?: string;
+    storageBucket?: string;
+    messagingSenderId?: string;
+    appId?: string;
+    measurementId?: string;
+    apiKey?: string;
+    databaseURL?: string;
+}
+
+const firebaseConfig: IFirebaseConfig = {
+    // apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
+    // databaseURL: process.env.NEXT_PUBLIC_FB_DB_URL,
     authDomain: process.env.NEXT_PUBLIC_FB_DOMAIN,
     projectId: process.env.NEXT_PUBLIC_FB_PROJECT_ID,
     storageBucket: process.env.NEXT_PUBLIC_FB_STORAGE_BUCKET,
     messagingSenderId: process.env.NEXT_PUBLIC_FB_SENDER_ID,
     appId: process.env.NEXT_PUBLIC_FB_APP_ID,
     measurementId: process.env.NEXT_PUBLIC_FB_MEASURE_ID,
-    databaseURL: process.env.NEXT_PUBLIC_FB_DB_URL,
 };
 
 interface IFireBaseApi {
     updateHomePageAboutData: (info: string) => Promise<{ message: string }>;
     authInFireBase: (fireBaseAuthModel: FireBaseAuthModel) => Promise<{ message: string }>;
+}
+
+async function getVariables(): Promise<IAuthVariables> {
+    const url = `${process.env.NEXT_PUBLIC_HOST}api/auth-settings`;
+    const requestService = FetchApi.getInstance();
+
+    return requestService.get(url);
 }
 
 export class FireBaseApi implements IFireBaseApi {
@@ -36,13 +56,22 @@ export class FireBaseApi implements IFireBaseApi {
 
     private readonly AUTH_SUCCESSFUL_MESSAGE = "Authentication successful!";
 
-    private constructor() {
-        this.fbDbRef = ref(getDatabase(initializeApp(firebaseConfig)));
+    private constructor(config: IFirebaseConfig) {
+        this.fbDbRef = ref(getDatabase(initializeApp(config)));
     }
 
-    static getInstance() {
+    static async getInstance() {
         if (!this.instance) {
-            this.instance = new FireBaseApi();
+            const {
+                key,
+                url,
+            } = await getVariables();
+
+            this.instance = new FireBaseApi({
+                ...firebaseConfig,
+                apiKey: key,
+                databaseURL: url,
+            });
         }
 
         return this.instance;

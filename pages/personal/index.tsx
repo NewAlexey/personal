@@ -90,10 +90,6 @@ export async function getServerSideProps(
     const isAuthorized = CookieService.isAuthorizeByCookie(cookies);
     const isShowAuthButton = CookieService.isShowAuthButton(cookies);
 
-    console.log("cookies", cookies);
-    console.log("isAuthorized", isAuthorized);
-    console.log("isShowAuthButton", isShowAuthButton);
-
     if (!isAuthorized) {
         return {
             notFound: true,

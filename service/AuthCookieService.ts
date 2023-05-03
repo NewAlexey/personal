@@ -24,11 +24,19 @@ export class AuthCookieService {
     public isShowAuthButton(cookies: ReqCookieType | undefined): boolean {
         const receivedCookieValue = cookies?.[this.HIDDEN_BUTTON_COOKIE_TITLE];
 
+        if (!this.HIDDEN_BUTTON_COOKIE_TITLE) {
+            return false;
+        }
+
         return receivedCookieValue === this.HIDDEN_BUTTON_COOKIE_VALUE;
     }
 
     public isAuthorizeByCookie(cookies: ReqCookieType | undefined): boolean {
         const receivedCookieValue = cookies?.[this.AUTH_COOKIE_TITLE];
+
+        if (!this.AUTH_COOKIE_VALUE || !this.AUTH_COOKIE_TITLE) {
+            return false;
+        }
 
         return receivedCookieValue === this.AUTH_COOKIE_VALUE;
     }

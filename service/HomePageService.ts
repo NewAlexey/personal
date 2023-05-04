@@ -10,8 +10,6 @@ interface IHomePageService {
     updateHomePageInfoData: (info: string) => Promise<{ message: string; }>;
 }
 
-// TODO create static instance method (like fetchAPI);
-
 export class HomePageService implements IHomePageService {
     static instance: HomePageService;
 

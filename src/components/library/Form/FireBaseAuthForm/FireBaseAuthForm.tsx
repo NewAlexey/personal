@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import { Button, TextField } from "src/components/library";
 import { IFireBaseAuthModel } from "models/FireBaseAuthModel";
 import {
     useFireBaseAuthFormData,
 } from "src/components/library/Form/FireBaseAuthForm";
+import { Form } from "src/components/library/Form/Form";
+import { useFocus } from "src/shared/hooks/useFocus";
 import * as Style from "./style";
 
 interface IFireBaseAuthContainer {
@@ -22,9 +24,15 @@ export const FireBaseAuthForm = ({
         onSubmit,
     } = useFireBaseAuthFormData(submit);
 
+    const emailTextFieldRef = useRef<HTMLInputElement>(null);
+
+    useFocus(emailTextFieldRef);
+
     return (
-        <Style.AuthContainer>
+        <Form onSubmit={onSubmit}>
             <TextField
+                ref={emailTextFieldRef}
+                autoComplete="email"
                 textAreaTitle="email"
                 placeholder="email"
                 value={fireBaseAuthFormData.email}
@@ -32,8 +40,8 @@ export const FireBaseAuthForm = ({
                     setFireBaseAuthFormData(event.target.value, "email")
                 }
             />
-
             <TextField
+                autoComplete="current-password"
                 textAreaTitle="password"
                 placeholder="password"
                 value={fireBaseAuthFormData.password}
@@ -42,21 +50,20 @@ export const FireBaseAuthForm = ({
                     setFireBaseAuthFormData(event.target.value, "password")
                 }
             />
-
             <Style.ButtonContainer>
                 {onClose ? (
                     <Button
-                        onClick={onClose}
                         text="Close"
+                        type="button"
+                        onClick={onClose}
                     />
                 ) : null}
 
                 <Button
                     text="Try Auth"
-                    onClick={onSubmit}
+                    type="submit"
                 />
             </Style.ButtonContainer>
-
-        </Style.AuthContainer>
+        </Form>
     );
 };

@@ -25,6 +25,7 @@ export const HomePage = ({ about }: IHomeModule): JSX.Element => {
                     src="/avatar.jpg"
                     width="275"
                     height="257"
+                    priority
                 />
             </Styled.ImageContainer>
             <Styled.TextContainer>

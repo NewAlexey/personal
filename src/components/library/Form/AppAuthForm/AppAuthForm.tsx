@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import { Button, TextField } from "src/components/library";
 import { IAppAuthModel } from "models/AppAuthModel";
 import { useAppAuthFormData } from "src/components/library/Form/AppAuthForm";
 import { Form } from "src/components/library/Form/Form";
+import { useFocus } from "src/shared/hooks/useFocus";
 import * as Style from "./style";
 
 interface IAppLoginForm {
@@ -24,9 +25,14 @@ export const AppAuthForm = ({
         onSubmit,
     } = useAppAuthFormData({ submit });
 
+    const loginTextFieldRef = useRef<HTMLInputElement>(null);
+
+    useFocus(loginTextFieldRef);
+
     return (
         <Form onSubmit={onSubmit}>
             <TextField
+                ref={loginTextFieldRef}
                 autoComplete="username"
                 value={appAuthData.login}
                 textAreaTitle="Login"

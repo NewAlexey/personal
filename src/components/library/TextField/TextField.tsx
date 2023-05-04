@@ -1,10 +1,10 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import { Text } from "src/components/library/Text";
 import * as Style from "src/components/library/TextField/style";
 import { Label } from "src/components/library/Label";
 
-interface ITextField extends Omit<React.ComponentProps<"input">, "ref"> {
+interface ITextField extends React.ComponentProps<"input"> {
     labelBefore?: string;
     labelAfter?: string;
     textAreaTitle?: string;
@@ -13,9 +13,10 @@ interface ITextField extends Omit<React.ComponentProps<"input">, "ref"> {
     id?: string;
     checked?: boolean;
     name?: string;
+    ref?: React.RefObject<HTMLInputElement>;
 }
 
-export const TextField = ({
+export const TextField = forwardRef(({
     textAreaTitle,
     type,
     value,
@@ -25,7 +26,7 @@ export const TextField = ({
     labelBefore,
     labelAfter,
     ...props
-}: ITextField): JSX.Element => (
+}: ITextField, ref: React.Ref<HTMLInputElement>): JSX.Element => (
     <>
         {textAreaTitle ? <Text value={textAreaTitle} /> : null}
 
@@ -37,6 +38,7 @@ export const TextField = ({
         ) : null}
 
         <Style.Input
+            ref={ref}
             type={type}
             value={value}
             checked={checked}
@@ -52,4 +54,4 @@ export const TextField = ({
             />
         ) : null}
     </>
-);
+));

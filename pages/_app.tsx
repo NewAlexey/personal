@@ -13,6 +13,9 @@ import { ToastContextProvider } from "lib/ToastContext";
 import { ThemeContextProvider } from "src/context/ThemeContext";
 import { AppProps } from "next/dist/pages/_app";
 import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
+import {
+    LoadingContextProvider,
+} from "src/context/LoadingContext/LoadingContext";
 
 type AppPropsType = AppProps<INextPageDefaultProps>
 
@@ -32,26 +35,28 @@ const App = ({
                 ? pageProps.theme
                 : "light"}
         >
-            <ToastContextProvider>
-                <AuthContextProvider
-                    isAuthorized={pageProps.isAuthorized ?? false}
-                    isShowAuthButton={pageProps.isShowAuthButton ?? false}
-                >
-                    <ExperimentalContextProvider>
-                        {showLoader
-                            ? <InitialLoader setShowLoader={setShowLoader} />
-                            : null}
+            <LoadingContextProvider>
+                <ToastContextProvider>
+                    <AuthContextProvider
+                        isAuthorized={pageProps.isAuthorized ?? false}
+                        isShowAuthButton={pageProps.isShowAuthButton ?? false}
+                    >
+                        <ExperimentalContextProvider>
+                            {showLoader ?
+                                <InitialLoader setShowLoader={setShowLoader} />
+                                : null}
 
-                        {pageProps.layoutType === "default"
-                            ? (
-                                <MainLayout>
-                                    <Component {...pageProps} />
-                                </MainLayout>
-                            )
-                            : null}
-                    </ExperimentalContextProvider>
-                </AuthContextProvider>
-            </ToastContextProvider>
+                            {pageProps.layoutType === "default"
+                                ? (
+                                    <MainLayout>
+                                        <Component {...pageProps} />
+                                    </MainLayout>
+                                )
+                                : null}
+                        </ExperimentalContextProvider>
+                    </AuthContextProvider>
+                </ToastContextProvider>
+            </LoadingContextProvider>
         </ThemeContextProvider>
     );
 };

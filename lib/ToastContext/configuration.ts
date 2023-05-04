@@ -10,5 +10,5 @@ export const defaultToastConfiguration: IToastConfiguration = {
 export const defaultToastContainerConfiguration: IToastContainerConfiguration = {
     right: "30px",
     bottom: "30px",
-    zIndex: 99999,
+    zIndex: 999999,
 };

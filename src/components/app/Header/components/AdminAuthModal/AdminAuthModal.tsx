@@ -5,6 +5,7 @@ import { useAuthContext } from "src/context";
 import { AppAuthModel, IAppAuthModel } from "models/AppAuthModel";
 import { useToastContext } from "lib/ToastContext";
 import { AppAuthForm } from "src/components/library/Form/AppAuthForm";
+import { useLoadingContext } from "src/context/LoadingContext/LoadingContext";
 
 interface IAdminLoginModal {
     closeModal: () => void;
@@ -24,10 +25,17 @@ export const AdminAuthModal = ({
         createErrorToast,
     } = useToastContext();
 
+    const {
+        showLoader,
+        hideLoader,
+    } = useLoadingContext();
+
     const onSubmit = async ({
         login,
         password,
     }: IAppAuthModel): Promise<void> => {
+        showLoader();
+
         const AuthModel = new AppAuthModel({
             login,
             password,
@@ -43,6 +51,8 @@ export const AdminAuthModal = ({
             await router.push("personal");
         } catch (error) {
             createErrorToast(error);
+        } finally {
+            hideLoader();
         }
     };
 

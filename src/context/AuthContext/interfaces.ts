@@ -1,12 +1,13 @@
 import React from "react";
 
 import { AppAuthModel } from "models/AppAuthModel";
-import { IVerifyAdminDataResponse } from "pages/api/super-login";
+import { ILoginAdminResponse } from "pages/api/super-login";
+import { ILogoutAdminResponse } from "pages/api/super-logout";
 
 export interface IAuthContext {
     isAuth: boolean;
-    adminLogIn: (model: AppAuthModel) => Promise<IVerifyAdminDataResponse>;
-    adminLogOut: () => void;
+    adminLogIn: (model: AppAuthModel) => Promise<ILoginAdminResponse>;
+    adminLogOut: () => Promise<ILogoutAdminResponse>;
     isShowHiddenAuthButton: boolean;
 }
 

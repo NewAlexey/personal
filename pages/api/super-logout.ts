@@ -3,13 +3,13 @@ import { AuthCookieService } from "service/AuthCookieService";
 
 const AUTH_SUCCESS_MESSAGE = "Logout success!";
 
-export interface IVerifyAdminDataResponse {
+export interface ILogoutAdminResponse {
     message: string;
 }
 
-export default function verifyAdminData(
+export default function logoutAdmin(
     req: NextApiRequest,
-    res: NextApiResponse<IVerifyAdminDataResponse>,
+    res: NextApiResponse<ILogoutAdminResponse>,
 ): void | Response {
     const { cookies } = req;
 

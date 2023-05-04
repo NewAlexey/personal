@@ -6,23 +6,23 @@ const AUTH_SUCCESS_MESSAGE = "Authentication success!";
 
 const AUTH_ERROR_MESSAGE = "Authentication failed...";
 
-export interface IVerifyAdminDataResponse {
+export interface ILoginAdminResponse {
     message: string;
 }
 
-interface IBody {
+interface IRequestBody {
     login?: string;
     password?: string;
 }
 
-export default function verifyAdminData(
+export default function loginAdmin(
     req: NextApiRequest,
-    res: NextApiResponse<IVerifyAdminDataResponse>,
+    res: NextApiResponse<ILoginAdminResponse>,
 ): void | Response {
     const {
         password,
         login,
-    } = req.body as IBody;
+    } = req.body as IRequestBody;
 
     if (!password || !login) {
         res.redirect("/404");

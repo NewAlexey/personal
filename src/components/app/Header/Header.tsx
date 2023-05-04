@@ -11,23 +11,42 @@ import {
 import { useAuthContext } from "src/context";
 import { ThemeSwitcher } from "src/components/library/ThemeSwitcher";
 import { useToastContext } from "lib/ToastContext";
+import { useLoadingContext } from "src/context/LoadingContext/LoadingContext";
 
 export const Header = (): JSX.Element => {
     const router = useRouter();
+
     const {
         isAuth,
         adminLogOut,
         isShowHiddenAuthButton,
     } = useAuthContext();
-    const { createToast } = useToastContext();
 
-    const onLogOut = () => {
-        createToast({
-            type: "success",
-            message: "Successful logout!",
-        });
-        adminLogOut();
-        router.push("/");
+    const {
+        createToast,
+        createErrorToast,
+    } = useToastContext();
+
+    const {
+        showLoader,
+        hideLoader,
+    } = useLoadingContext();
+
+    const onLogOut = async () => {
+        showLoader();
+
+        try {
+            const { message } = await adminLogOut();
+            createToast({
+                message,
+                type: "success",
+            });
+            await router.push("/");
+        } catch (error) {
+            createErrorToast(error);
+        } finally {
+            hideLoader();
+        }
     };
 
     return (

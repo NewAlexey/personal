@@ -49,6 +49,7 @@ export const AdminAuthModal = ({
                 type: "success",
             });
             await router.push("personal");
+            closeModal();
         } catch (error) {
             createErrorToast(error);
         } finally {

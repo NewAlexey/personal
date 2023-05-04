@@ -15,4 +15,5 @@ export const Z_INDEX_LEVELS = {
     third: 15,
     fourth: 20,
     modal: 50000,
+    globalLoader: 100000,
 };

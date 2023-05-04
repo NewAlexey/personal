@@ -7,12 +7,10 @@ const TRANSITION_SPEED = "0.2s";
 export const LoadingBackdrop = styled.div<{ isShow: boolean }>`
   position: absolute;
 
-  pointer-events: none;
-
   min-width: 100vw;
   min-height: 100vh;
   background-color: rgb(0 0 0 / 0);
-  z-index: ${Z_INDEX_LEVELS.fourth};
+  z-index: ${Z_INDEX_LEVELS.globalLoader};
 
   transition: background-color ${TRANSITION_SPEED} ease-in;
 

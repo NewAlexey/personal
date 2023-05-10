@@ -1,7 +1,7 @@
 import "../styles/font.css";
 import "../styles/globals.css";
 
-import React, { useState } from "react";
+import React from "react";
 
 import MainLayout from "src/components/app/layouts/MainLayout/MainLayout";
 import { AuthContextProvider } from "src/context";
@@ -27,8 +27,6 @@ const App = ({
         ? pageProps.layoutType
         : "default";
 
-    const [showLoader, setShowLoader] = useState(true);
-
     return (
         <ThemeContextProvider
             appTheme={pageProps.theme
@@ -42,9 +40,8 @@ const App = ({
                         isShowAuthButton={pageProps.isShowAuthButton ?? false}
                     >
                         <ExperimentalContextProvider>
-                            {showLoader ?
-                                <InitialLoader setShowLoader={setShowLoader} />
-                                : null}
+
+                            <InitialLoader />
 
                             {pageProps.layoutType === "default"
                                 ? (

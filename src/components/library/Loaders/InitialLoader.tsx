@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const InitialLoader = ({ setShowLoader }: { setShowLoader: React.Dispatch<React.SetStateAction<boolean>> }) => (
-    <div
-        className="initial-loader"
-        onAnimationEnd={() => setShowLoader(false)}
-    />
-);
+export const InitialLoader = () => {
+    const [showLoader, setShowLoader] = useState(true);
+
+    return showLoader ? (
+        <div
+            className="initial-loader"
+            onAnimationEnd={() => setShowLoader(false)}
+        />
+    ) : null;
+};

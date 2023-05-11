@@ -23,7 +23,7 @@ const App = ({
     Component,
     pageProps,
 }: AppPropsType): JSX.Element => {
-    pageProps.layoutType = pageProps.layoutType
+    pageProps.layoutType = pageProps?.layoutType
         ? pageProps.layoutType
         : "default";
 

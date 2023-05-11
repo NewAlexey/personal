@@ -10,6 +10,9 @@ import { HomePage } from "src/modules";
 import { MOCK_HOME_INFO_PAGE_DATA } from "utils/constants";
 import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
 import { AuthCookieService } from "service/AuthCookieService";
+import {
+    getThemeFromCookie,
+} from "src/context/ThemeContext/getThemeFromCookie";
 
 interface IHomePage extends INextPageDefaultProps {
     homePageData: {
@@ -38,6 +41,8 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<IHomePage>> {
     const { cookies } = context.req;
 
+    const theme = getThemeFromCookie(cookies);
+
     const CookieService = new AuthCookieService();
     const isAuthorized = CookieService.isAuthorizeByCookie(cookies);
     const isShowAuthButton = CookieService.isShowAuthButton(cookies);
@@ -48,18 +53,18 @@ export async function getServerSideProps(
 
         return {
             props: {
+                theme,
                 isAuthorized,
                 isShowAuthButton,
-                theme: cookies.theme ?? "light",
                 homePageData: { about },
             },
         };
     } catch (error) {
         return {
             props: {
+                theme,
                 isAuthorized,
                 isShowAuthButton,
-                theme: cookies.theme ?? "light",
                 homePageData: { about: MOCK_HOME_INFO_PAGE_DATA },
             },
         };

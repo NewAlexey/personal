@@ -1,8 +1,12 @@
-import { IAppTheme } from "src/context/ThemeContext/interfaces";
+import {
+    DARK_THEME,
+    IAppTheme,
+    LIGHT_THEME,
+} from "src/context/ThemeContext/interfaces";
 
 export const APP_THEME: IAppTheme = {
     light: {
-        whatThemeNow: "light",
+        whatThemeNow: LIGHT_THEME,
         backgroundPrimary: "white",
         backgroundSecondary: "white",
         textColor: "black",
@@ -11,7 +15,7 @@ export const APP_THEME: IAppTheme = {
         disableSecondary: "rgba(0, 0, 0, 0.3)",
     },
     dark: {
-        whatThemeNow: "dark",
+        whatThemeNow: DARK_THEME,
         backgroundPrimary: "#353535",
         backgroundSecondary: "#4d4d4d",
         textColor: "white",

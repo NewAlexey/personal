@@ -19,18 +19,22 @@ import {
 import { FireBaseAuthDrawer } from "src/modules/AdminModule/components";
 import { useFireBaseApi } from "src/shared/hooks/useFireBaseApi";
 
-interface IAdminConfigurationPanel {
+export interface IAdminConfigurationPanel {
     aboutInfo: string;
+    mainColour: string;
 }
 
-const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
+const AdminConfigurationPanel = ({
+    aboutInfo,
+    mainColour,
+}: IAdminConfigurationPanel) => {
+    const [hexColour, setHexColour] = useState(mainColour);
+    const [prevColour, setPrevColour] = useState(hexColour);
+    const [infoData, setInfoData] = useState(aboutInfo);
+
     const ColourServiceRef = useRef(new ColourService());
 
     const { FireBaseApi } = useFireBaseApi();
-
-    const [hexColour, setHexColour] = useState(ColourServiceRef.current.getHexColourFromStringBySymbol(aboutInfo));
-    const [prevColour, setPrevColour] = useState(hexColour);
-    const [infoData, setInfoData] = useState(aboutInfo);
 
     const {
         createToast,
@@ -119,6 +123,8 @@ const AdminConfigurationPanel = ({ aboutInfo }: IAdminConfigurationPanel) => {
                     onChange={(event) => setHexColour(event.target.value)}
                 />
             </Style.ConfigurationToolsContainer>
+
+            <SeparatorLine />
 
             <Style.ButtonContainer>
                 <Button

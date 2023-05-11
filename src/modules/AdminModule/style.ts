@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
 
-import { Text } from "src/components/library";
-
 export const AdminPanelContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -41,14 +39,5 @@ export const CustomTextArea = styled.textarea`
 `;
 
 export const ButtonContainer = styled.div`
-  padding-top: 25px;
-
   position: relative;
-`;
-
-export const ErrorMessage = styled(Text)`
-  position: absolute;
-
-  top: 50%;
-  right: -40%;
 `;

@@ -8,21 +8,26 @@ import { HomePageService } from "service/HomePageService";
 import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
 import { AuthCookieService } from "service/AuthCookieService";
 import { AppSettingsService } from "service/AppSettingsService";
+import { APP_THEME } from "src/context/ThemeContext/APP_THEME";
+import { ColourService } from "service/ColourService";
+import { IAdminConfigurationPanel } from "src/modules/AdminModule";
 
-const DynamicAdminPage = dynamic<{ aboutInfo: string }>(
+const DynamicAdminPage = dynamic<IAdminConfigurationPanel>(
     () => import("src/modules/AdminModule/AdminModule"),
 );
 
 interface IAdminPage extends INextPageDefaultProps {
+    isAuthorized: boolean;
+    mainColour: string;
     homePageData: {
         about: string | null;
     };
-    isAuthorized: boolean;
 }
 
 const AdminPage = ({
     homePageData,
     isAuthorized,
+    mainColour,
 }: IAdminPage) => {
     if (!isAuthorized) {
         return (
@@ -66,6 +71,9 @@ const AdminPage = ({
         );
     }
 
+    const ColourServiceInstance = new ColourService();
+    const updatedAboutHomePageData = ColourServiceInstance.injectNewColour(homePageData.about, mainColour);
+
     return (
         <>
             <Head>
@@ -75,7 +83,10 @@ const AdminPage = ({
                     content="Admin Page"
                 />
             </Head>
-            <DynamicAdminPage aboutInfo={homePageData.about} />
+            <DynamicAdminPage
+                aboutInfo={updatedAboutHomePageData}
+                mainColour={mainColour}
+            />
         </>
     );
 };
@@ -119,6 +130,7 @@ export async function getServerSideProps(
             props: {
                 isAuthorized,
                 isShowAuthButton,
+                mainColour: APP_THEME.mainColour,
                 homePageData: {
                     about: null,
                 },

@@ -5,7 +5,6 @@ import { useCookies } from "react-cookie";
 import { ThemeProvider } from "styled-components";
 
 import {
-    CookieThemeType,
     DARK_THEME,
     IThemeColours,
     IThemeContext,
@@ -17,11 +16,18 @@ import { APP_THEME } from "src/context/ThemeContext/APP_THEME";
 
 const ThemeContext = React.createContext<IThemeContext | undefined>(undefined);
 
+interface IThemeContextProvider {
+    children: JSX.Element;
+    appTheme: ThemeVariantsType;
+    mainColour: string;
+}
+
 export const ThemeContextProvider = ({
     children,
     appTheme,
-}: { children: JSX.Element, appTheme: string }) => {
-    const [, setCookies] = useCookies<CookieThemeType>([THEME]);
+    mainColour,
+}: IThemeContextProvider) => {
+    const [, setCookies] = useCookies<typeof THEME>([THEME]);
     const [theme, setTheme] = useState<IThemeColours>(
         appTheme === DARK_THEME
             ? APP_THEME.dark
@@ -54,7 +60,12 @@ export const ThemeContextProvider = ({
 
     return (
         <ThemeContext.Provider value={ThemeProviderValue}>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider
+                theme={{
+                    ...theme,
+                    mainColour,
+                }}
+            >
                 {children}
             </ThemeProvider>
         </ThemeContext.Provider>

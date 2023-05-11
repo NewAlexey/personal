@@ -1,5 +1,4 @@
-export type CookieThemeType = "theme";
-export const THEME: CookieThemeType = "theme";
+export const THEME = "theme";
 
 export type ThemeVariantsType = "light" | "dark";
 export const LIGHT_THEME: ThemeVariantsType = "light";
@@ -13,9 +12,11 @@ export interface IThemeColours {
     textColor: string;
     disablePrimary: string;
     disableSecondary: string;
+
 }
 
 export interface IAppTheme {
+    mainColour: string;
     dark: IThemeColours;
     light: IThemeColours;
 }

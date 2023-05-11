@@ -15,5 +15,6 @@ namespace NodeJS {
         NEXT_MEASURE_ID: string;
         NEXT_FB_DB_URL: string;
         NEXT_PUBLIC_HOST: string;
+        NEXT_PUBLIC_FB_URL: string;
     }
 }

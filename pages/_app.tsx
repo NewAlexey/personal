@@ -2,6 +2,7 @@ import "../styles/font.css";
 import "../styles/globals.css";
 
 import React from "react";
+import { AppProps } from "next/dist/pages/_app";
 
 import MainLayout from "src/components/app/layouts/MainLayout/MainLayout";
 import { AuthContextProvider } from "src/context";
@@ -11,11 +12,11 @@ import {
 import { InitialLoader } from "src/components/library";
 import { ToastContextProvider } from "lib/ToastContext";
 import { ThemeContextProvider } from "src/context/ThemeContext";
-import { AppProps } from "next/dist/pages/_app";
 import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
 import {
     LoadingContextProvider,
 } from "src/context/LoadingContext/LoadingContext";
+import { APP_THEME } from "src/context/ThemeContext/APP_THEME";
 
 type AppPropsType = AppProps<INextPageDefaultProps>
 
@@ -29,9 +30,10 @@ const App = ({
 
     return (
         <ThemeContextProvider
-            appTheme={pageProps.theme
+            appTheme={pageProps?.theme
                 ? pageProps.theme
                 : "light"}
+            mainColour={pageProps?.mainColour ?? APP_THEME.mainColour}
         >
             <LoadingContextProvider>
                 <ToastContextProvider>

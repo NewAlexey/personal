@@ -5,6 +5,7 @@ import {
 } from "src/context/ThemeContext/interfaces";
 
 export const APP_THEME: IAppTheme = {
+    mainColour: "#f26500",
     light: {
         whatThemeNow: LIGHT_THEME,
         backgroundPrimary: "white",

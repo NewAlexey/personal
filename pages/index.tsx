@@ -15,10 +15,10 @@ import {
 } from "src/context/ThemeContext/getThemeFromCookie";
 
 interface IHomePage extends INextPageDefaultProps {
+    isAuthorized: boolean;
     homePageData: {
         about: string;
     };
-    isAuthorized: boolean;
 }
 
 const Home: NextPage<IHomePage> = ({ homePageData }) => (

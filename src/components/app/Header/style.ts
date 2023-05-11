@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 import { Button, Text } from "src/components/library";
-import { COLOURS, Z_INDEX_LEVELS } from "utils/constants";
+import { Z_INDEX_LEVELS } from "utils/constants";
 
 const boxShadowHeader = "0px 5px 17px 0px rgba(0, 0, 0, 0.2)";
 
@@ -42,7 +42,9 @@ export const HeaderAuthContainer = styled.div`
 `;
 
 export const LinkText = styled(Text)`
-  &:hover {
-    color: ${COLOURS.active};
-  }
+  ${({ theme }) => css`
+    &:hover {
+      color: ${theme.mainColour};
+    }
+  `}
 `;

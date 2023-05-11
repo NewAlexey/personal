@@ -7,6 +7,7 @@ import { Text } from "src/components/library";
 import { HomePageService } from "service/HomePageService";
 import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
 import { AuthCookieService } from "service/AuthCookieService";
+import { AppSettingsService } from "service/AppSettingsService";
 
 const DynamicAdminPage = dynamic<{ aboutInfo: string }>(
     () => import("src/modules/AdminModule/AdminModule"),
@@ -100,8 +101,12 @@ export async function getServerSideProps(
         const HomePageServiceInstance = HomePageService.getInstance();
         const { about } = await HomePageServiceInstance.getHomePageData();
 
+        const AppSettingsServiceInstance = AppSettingsService.getInstance();
+        const { mainColour } = await AppSettingsServiceInstance.getAppSettings();
+
         return {
             props: {
+                mainColour,
                 isAuthorized,
                 isShowAuthButton,
                 homePageData: {

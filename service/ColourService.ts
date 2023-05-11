@@ -16,4 +16,10 @@ export class ColourService implements IColourService {
     public changeAllColoursInString(dataString: string, prevColour: string, newColour: string): string {
         return dataString.replaceAll(prevColour, newColour);
     }
+
+    public injectNewColour(dataString: string, newColour: string): string {
+        const prevColour = this.getHexColourFromStringBySymbol(dataString);
+
+        return this.changeAllColoursInString(dataString, prevColour, newColour);
+    }
 }

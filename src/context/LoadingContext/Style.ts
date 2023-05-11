@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 
-import { COLOURS, Z_INDEX_LEVELS } from "utils/constants";
+import { Z_INDEX_LEVELS } from "utils/constants";
 
 const TRANSITION_SPEED = "0.2s";
 
@@ -45,15 +45,20 @@ export const Loader = styled.div<{ isShow: boolean }>`
     height: 64px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid ${COLOURS.active};
-
+    ${({ theme }) => css`
+      border: 6px solid ${theme.mainColour};
+    `}
+    
     border-color: transparent;
     animation: ${Rotate} 1.2s linear infinite;
 
     transition: border ${TRANSITION_SPEED} ease-in;
 
-    ${({ isShow }) => isShow && css`
-      border-color: ${COLOURS.active} transparent ${COLOURS.active} transparent;
+    ${({
+        isShow,
+        theme,
+    }) => isShow && css`
+      border-color: ${theme.mainColour} transparent ${theme.mainColour} transparent;
     `}
   }
 `;

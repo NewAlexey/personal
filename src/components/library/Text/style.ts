@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 import { ISpan } from "src/components/library/Text/interfaces";
-import { COLOURS } from "utils/constants";
 
 export const SpanComponent = styled.span<ISpan>`
   font-size: ${({ size }) => size};
@@ -14,7 +13,7 @@ export const SpanComponent = styled.span<ISpan>`
         theme,
     }) => (isActive
         ? css`
-            color: ${COLOURS.active}`
+            color: ${theme.mainColour}`
         : css`
             color: ${theme.textColor}`)};
 

@@ -13,26 +13,38 @@ import { AuthCookieService } from "service/AuthCookieService";
 import {
     getThemeFromCookie,
 } from "src/context/ThemeContext/getThemeFromCookie";
+import { AppSettingsService } from "service/AppSettingsService";
+import { ColourService } from "service/ColourService";
+import { APP_THEME } from "src/context/ThemeContext/APP_THEME";
 
 interface IHomePage extends INextPageDefaultProps {
     isAuthorized: boolean;
+    mainColour: string;
     homePageData: {
         about: string;
     };
 }
 
-const Home: NextPage<IHomePage> = ({ homePageData }) => (
-    <>
-        <Head>
-            <title>Alexey Krupenia Frontend Developer</title>
-            <meta
-                name="description"
-                content="Alexey Krupenia Frontend Developer"
-            />
-        </Head>
-        <HomePage about={homePageData.about} />
-    </>
-);
+const Home: NextPage<IHomePage> = ({
+    homePageData,
+    mainColour,
+}) => {
+    const ColourServiceInstance = new ColourService();
+    const updatedAboutHomePageData = ColourServiceInstance.injectNewColour(homePageData.about, mainColour);
+
+    return (
+        <>
+            <Head>
+                <title>Alexey Krupenia Frontend Developer</title>
+                <meta
+                    name="description"
+                    content="Alexey Krupenia Frontend Developer"
+                />
+            </Head>
+            <HomePage about={updatedAboutHomePageData} />
+        </>
+    );
+};
 
 export default Home;
 
@@ -51,9 +63,13 @@ export async function getServerSideProps(
         const HomePageServiceInstance = HomePageService.getInstance();
         const { about } = await HomePageServiceInstance.getHomePageData();
 
+        const AppSettingsServiceInstance = AppSettingsService.getInstance();
+        const { mainColour } = await AppSettingsServiceInstance.getAppSettings();
+
         return {
             props: {
                 theme,
+                mainColour,
                 isAuthorized,
                 isShowAuthButton,
                 homePageData: { about },
@@ -65,6 +81,7 @@ export async function getServerSideProps(
                 theme,
                 isAuthorized,
                 isShowAuthButton,
+                mainColour: APP_THEME.mainColour,
                 homePageData: { about: MOCK_HOME_INFO_PAGE_DATA },
             },
         };

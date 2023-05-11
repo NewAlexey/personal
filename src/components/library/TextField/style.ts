@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { COLOURS } from "utils/constants";
 
 interface IInput {
     type?: string;
@@ -13,12 +12,12 @@ export const Input = styled.input<IInput>`
     color: ${theme.textColor};
     background-color: ${theme.backgroundSecondary};
     border: 1px solid ${theme.textColor};
-  `};
 
-  &:focus-visible {
-    border: 1px solid ${COLOURS.active};
-    outline: 1px solid ${COLOURS.active};
-  }
+    &:focus-visible {
+      border: 1px solid ${theme.mainColour};
+      outline: 1px solid ${theme.mainColour};
+    }
+  `};
 
   ${({ type }) =>
         type && type === "radio" && css`

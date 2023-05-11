@@ -15,7 +15,9 @@ export class HomePageService implements IHomePageService {
 
     private requestService = FetchApi.getInstance();
 
-    private HOME_DATA_URL_PATH = "https://portfolio-58d57-default-rtdb.europe-west1.firebasedatabase.app/home.json";
+    private FB_DATABASE_URL = process.env.FB_DB_URL;
+
+    private URL_PATH_HOME_DATA = "home.json";
 
     static getInstance(): HomePageService {
         if (!this.instance) {
@@ -26,9 +28,13 @@ export class HomePageService implements IHomePageService {
     }
 
     public async getHomePageData(): Promise<IGetHomePageData> {
-        const response = await this.requestService.get(this.HOME_DATA_URL_PATH);
+        if (!this.FB_DATABASE_URL) {
+            throw Error("You can't get access to FireBase URL from front.");
+        }
 
-        return { about: response.info };
+        const response = await this.requestService.get(`${this.FB_DATABASE_URL}/${this.URL_PATH_HOME_DATA}`);
+
+        return { about: response?.info };
     }
 
     // eslint-disable-next-line class-methods-use-this

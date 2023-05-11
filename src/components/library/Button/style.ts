@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { COLOURS } from "utils/constants";
 
 export const Button = styled.button<{ disabled?: boolean }>`
   cursor: pointer;
@@ -8,17 +7,19 @@ export const Button = styled.button<{ disabled?: boolean }>`
   height: fit-content;
   padding: 0 15px;
 
-  border: 2px solid ${COLOURS.active};
   border-radius: 5px;
 
-  background-color: ${({ theme }) => theme.backgroundSecondary};
+  ${({ theme }) => css`
+    border: 2px solid ${theme.mainColour};
+    background-color: ${theme.backgroundSecondary};
+  `};
 
   &:hover {
     -webkit-box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
     -moz-box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
     box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
 
-    background: #f2650024;
+    background: ${({ theme }) => `${theme.mainColour}33`};
   }
 
   &:active {
@@ -26,7 +27,7 @@ export const Button = styled.button<{ disabled?: boolean }>`
     -moz-box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
     box-shadow: 0 0 10px 3px rgba(34, 60, 80, 0.3);
 
-    background: ${COLOURS.active};
+    background: ${({ theme }) => theme.mainColour};
   }
 
 
@@ -38,5 +39,5 @@ export const Button = styled.button<{ disabled?: boolean }>`
           css`
             pointer-events: none;
             border-color: ${theme.disablePrimary};
-          `}
+          `};
 `;

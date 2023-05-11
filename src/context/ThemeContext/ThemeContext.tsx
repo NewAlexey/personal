@@ -27,6 +27,7 @@ export const ThemeContextProvider = ({
     appTheme,
     mainColour,
 }: IThemeContextProvider) => {
+    const [appMainColour] = useState(() => mainColour);
     const [, setCookies] = useCookies<typeof THEME>([THEME]);
     const [theme, setTheme] = useState<IThemeColours>(
         appTheme === DARK_THEME
@@ -63,7 +64,7 @@ export const ThemeContextProvider = ({
             <ThemeProvider
                 theme={{
                     ...theme,
-                    mainColour,
+                    mainColour: appMainColour,
                 }}
             >
                 {children}

@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 import { Text } from "src/components/library";
-import { COLOURS } from "utils/constants";
 
 export const AdminPanelContainer = styled.div`
   display: flex;
@@ -31,14 +30,12 @@ export const CustomTextArea = styled.textarea`
     color: ${theme.textColor};
     background-color: ${theme.backgroundSecondary};
     border: 1px solid ${theme.textColor};
+
+    &:focus-visible {
+      border: 1px solid ${theme.mainColour};
+      outline: 1px solid ${theme.mainColour};
+    }
   `};
-
-  &:focus-visible {
-    border: 1px solid ${COLOURS.active};
-    outline: 1px solid ${COLOURS.active};
-  }
-
-  background-color: ${({ theme }) => theme.backgroundSecondary};
 
   padding: 15px;
 `;

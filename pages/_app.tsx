@@ -24,28 +24,28 @@ const App = ({
     Component,
     pageProps,
 }: AppPropsType): JSX.Element => {
-    pageProps.layoutType = pageProps?.layoutType
-        ? pageProps.layoutType
-        : "default";
+    const appTheme = pageProps?.theme ?? "light";
+    const layout = pageProps?.layoutType ?? "default";
+    const isAuthorized = pageProps.isAuthorized ?? false;
+    const isShowAuthButton = pageProps.isShowAuthButton ?? false;
+    const mainColour = pageProps?.mainColour ?? APP_THEME.mainColour;
 
     return (
         <ThemeContextProvider
-            appTheme={pageProps?.theme
-                ? pageProps.theme
-                : "light"}
-            mainColour={pageProps?.mainColour ?? APP_THEME.mainColour}
+            appTheme={appTheme}
+            mainColour={mainColour}
         >
             <LoadingContextProvider>
                 <ToastContextProvider>
                     <AuthContextProvider
-                        isAuthorized={pageProps.isAuthorized ?? false}
-                        isShowAuthButton={pageProps.isShowAuthButton ?? false}
+                        isAuthorized={isAuthorized}
+                        isShowAuthButton={isShowAuthButton}
                     >
                         <ExperimentalContextProvider>
 
                             <InitialLoader />
 
-                            {pageProps.layoutType === "default"
+                            {layout === "default"
                                 ? (
                                     <MainLayout>
                                         <Component {...pageProps} />

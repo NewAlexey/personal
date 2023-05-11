@@ -7,6 +7,7 @@ import { INextPageDefaultProps } from "utils/pages/INextPageDefaultProps";
 import {
     getThemeFromCookie,
 } from "src/context/ThemeContext/getThemeFromCookie";
+import { AppSettingsService } from "service/AppSettingsService";
 
 const ReactContext = (): JSX.Element => (
     <>
@@ -30,9 +31,21 @@ export async function getServerSideProps(
 
     const theme = getThemeFromCookie(cookies);
 
-    return {
-        props: {
-            theme,
-        },
-    };
+    try {
+        const AppSettingsServiceInstance = AppSettingsService.getInstance();
+        const { mainColour } = await AppSettingsServiceInstance.getAppSettings();
+
+        return {
+            props: {
+                theme,
+                mainColour,
+            },
+        };
+    } catch (error) {
+        return {
+            props: {
+                theme,
+            },
+        };
+    }
 }

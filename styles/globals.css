@@ -31,7 +31,7 @@ a {
     }
 }
 
-@keyframes backdropHide {
+@keyframes hideBackdrop {
     from {
         opacity: 1;
     }
@@ -54,6 +54,13 @@ a {
 
     background: whitesmoke;
 
-    animation: backdropHide 0.8s ease-in;
+    animation: hideBackdrop 0.8s ease-in;
 }
 
+.initial-loader__colour_light {
+    background: whitesmoke;
+}
+
+.initial-loader__colour_dark {
+    background: #353535;
+}

@@ -43,7 +43,7 @@ const App = ({
                     >
                         <ExperimentalContextProvider>
 
-                            <InitialLoader />
+                            <InitialLoader appTheme={appTheme} />
 
                             {layout === "default"
                                 ? (
